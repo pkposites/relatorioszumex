@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zumex · Relatório de Gestão · Mar–Ago 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+:root{
+  --bg:#05070d;
+  --bg-2:#080b14;
+  --surface:rgba(255,255,255,.04);
+  --surface-2:rgba(255,255,255,.065);
+  --border:rgba(255,255,255,.09);
+  --border-strong:rgba(255,255,255,.16);
+  --text:#eef0f8;
+  --text-dim:#9aa2ba;
+  --text-faint:#5c6480;
+  --google:#4f8cff;
+  --google-soft:rgba(79,140,255,.14);
+  --meta:#ff5c9b;
+  --meta-soft:rgba(255,92,155,.14);
+  --violet:#8c6dff;
+  --pos:#3ddc97;
+  --pos-soft:rgba(61,220,151,.13);
+  --neg:#ff6b6b;
+  --neg-soft:rgba(255,107,107,.13);
+  --warn:#ffb84d;
+  --warn-soft:rgba(255,184,77,.13);
+  --radius:18px;
+  --radius-sm:12px;
+  --side-w:252px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+  line-height:1.55;
+  min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
+}
+::selection{background:var(--violet);color:#fff}
+h1,h2,h3,h4{font-family:'Manrope',sans-serif;letter-spacing:-.01em}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* ---------- backdrop ---------- */
+.backdrop{position:fixed;inset:0;z-index:-2;background:var(--bg);overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:.35}
+.glow.g1{width:640px;height:640px;background:var(--google);top:-220px;left:-160px}
+.glow.g2{width:560px;height:560px;background:var(--meta);bottom:-180px;right:-140px;opacity:.28}
+.glow.g3{width:420px;height:420px;background:var(--violet);top:38%;left:48%;opacity:.16}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- layout shell ---------- */
+.shell{display:flex;min-height:100vh}
+.side{
+  width:var(--side-w);flex:0 0 var(--side-w);
+  position:sticky;top:0;height:100vh;
+  padding:34px 22px;
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;gap:28px;
+  z-index:40;
+}
+.brand{display:flex;flex-direction:column;gap:3px}
+.brand .mark{
+  width:42px;height:42px;border-radius:12px;
+  background:linear-gradient(135deg,var(--google),var(--violet) 55%,var(--meta));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Manrope';font-weight:800;font-size:17px;color:#05070d;
+  margin-bottom:10px;
+}
+.brand .name{font-family:'Manrope';font-weight:800;font-size:20px}
+.brand .tag{color:var(--text-faint);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+
+nav.tabs{display:flex;flex-direction:column;gap:3px;flex:1}
+nav.tabs a{
+  display:flex;align-items:center;gap:11px;
+  padding:10px 12px;border-radius:10px;
+  color:var(--text-dim);text-decoration:none;font-size:13.5px;font-weight:500;
+  transition:background .18s,color .18s;
+  position:relative;
+}
+nav.tabs a .dot{width:6px;height:6px;border-radius:50%;background:var(--text-faint);transition:.18s;flex:0 0 6px}
+nav.tabs a:hover{background:var(--surface);color:var(--text)}
+nav.tabs a.active{background:var(--surface-2);color:var(--text)}
+nav.tabs a.active .dot{background:var(--violet);box-shadow:0 0 8px var(--violet)}
+.side-foot{font-size:11px;color:var(--text-faint);line-height:1.6;border-top:1px solid var(--border);padding-top:16px}
+
+.mobile-bar{display:none}
+
+.main{flex:1;min-width:0;padding:0 0 80px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 44px}
+section{scroll-margin-top:28px;padding-top:68px}
+section:first-of-type{padding-top:44px}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:14px;
+}
+.eyebrow::before{content:'';width:16px;height:1px;background:var(--violet)}
+h2.title{font-size:28px;font-weight:800;margin-bottom:8px}
+p.lede{color:var(--text-dim);font-size:14.5px;max-width:620px;margin-bottom:34px}
+
+/* ---------- cards / grids ---------- */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:22px;
+}
+.grid{display:grid;gap:14px}
+.grid.g6{grid-template-columns:repeat(6,1fr)}
+.grid.g3{grid-template-columns:repeat(3,1fr)}
+.grid.g2{grid-template-columns:repeat(2,1fr)}
+
+/* KPI cards */
+.kpi{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:18px 18px 16px;position:relative;overflow:hidden;
+}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--bar,var(--violet))}
+.kpi .lbl{font-size:11.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:10px}
+.kpi .val{font-family:'JetBrains Mono';font-weight:700;font-size:23px;letter-spacing:-.02em}
+.kpi .sub{font-size:11.5px;color:var(--text-faint);margin-top:6px}
+
+/* before/after strip */
+.compare{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-bottom:36px}
+.compare .box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px}
+.compare .box.before{opacity:.72}
+.compare .box.after{border-color:rgba(140,109,255,.35);background:linear-gradient(160deg,rgba(140,109,255,.09),rgba(255,92,155,.05))}
+.compare .box .k{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);font-weight:700;margin-bottom:6px}
+.compare .box .v{font-family:'JetBrains Mono';font-size:26px;font-weight:700}
+.compare .box .d{font-size:12px;color:var(--text-faint);margin-top:4px}
+.compare .mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.compare .mid .arrow{font-size:22px;color:var(--violet)}
+.compare .mid .save{font-family:'JetBrains Mono';font-weight:700;color:var(--pos);font-size:15px;white-space:nowrap}
+.compare .mid .savelbl{font-size:10.5px;color:var(--text-faint);text-align:center}
+
+/* hero chart */
+.hero-chart-card{margin-top:26px;padding:24px 26px 14px}
+.hero-chart-card .hc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;flex-wrap:wrap;gap:10px}
+.hero-chart-card h3{font-size:15px;font-weight:700}
+.legend-inline{display:flex;gap:16px;font-size:12px;color:var(--text-dim)}
+.legend-inline span{display:inline-flex;align-items:center;gap:6px}
+.legend-inline i{width:9px;height:9px;border-radius:3px;display:inline-block}
+.chart-box{height:220px;margin-top:8px}
+.chart-box.tall{height:280px}
+
+/* month switcher */
+.month-switch{display:flex;gap:8px;margin:38px 0 18px}
+.month-switch button{
+  background:var(--surface);border:1px solid var(--border);color:var(--text-dim);
+  padding:9px 18px;border-radius:999px;font-family:'Inter';font-size:13px;font-weight:600;
+  cursor:pointer;transition:.18s;
+}
+.month-switch button:hover{color:var(--text);border-color:var(--border-strong)}
+.month-switch button.active{background:var(--text);color:#05070d;border-color:var(--text)}
+
+/* filter bar */
+.filter-bar{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:14px 18px;
+}
+.filter-label{font-size:12px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+.filter-chips{display:flex;gap:7px;flex-wrap:wrap}
+.fchip{
+  background:rgba(0,0,0,.25);border:1px solid var(--border);color:var(--text-faint);
+  padding:7px 14px;border-radius:999px;font-family:'JetBrains Mono';font-size:12px;font-weight:600;
+  cursor:pointer;transition:.15s;
+}
+.fchip:hover{border-color:var(--border-strong);color:var(--text-dim)}
+.fchip.active{background:linear-gradient(135deg,var(--google),var(--violet));border-color:transparent;color:#fff}
+.filter-reset{
+  margin-left:auto;background:none;border:none;color:var(--text-faint);font-size:12px;font-weight:600;
+  text-decoration:underline;cursor:pointer;white-space:nowrap;
+}
+.filter-reset:hover{color:var(--text)}
+
+/* scope selector (retorno do cliente: mês + canal) */
+.scope-select{
+  background:rgba(0,0,0,.28);border:1px solid var(--border-strong);color:var(--text);
+  padding:8px 14px;border-radius:9px;font-family:'Inter';font-size:13px;font-weight:600;
+  cursor:pointer;
+}
+.canalchip{
+  background:rgba(0,0,0,.25);border:1px solid var(--border);color:var(--text-faint);
+  padding:8px 16px;border-radius:999px;font-family:'Inter';font-size:12.5px;font-weight:700;
+  cursor:pointer;transition:.15s;
+}
+.canalchip:hover{border-color:var(--border-strong);color:var(--text-dim)}
+.canalchip.active[data-canal="google"]{background:var(--google);border-color:transparent;color:#05070d}
+.canalchip.active[data-canal="meta"]{background:var(--meta);border-color:transparent;color:#05070d}
+.chart-empty{
+  height:180px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
+  color:var(--text-faint);font-size:12.5px;text-align:center;
+}
+.chart-empty .big{font-size:22px}
+
+/* editable table (retorno do cliente) */
+table.editable-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:760px}
+.editable-table thead th{
+  text-align:left;padding:10px 10px;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;
+  color:var(--text-faint);border-bottom:1px solid var(--border);font-weight:700;white-space:nowrap;
+}
+.editable-table tbody td{padding:7px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.editable-table tbody tr:last-child > td{border-bottom:none}
+.et-mes{font-weight:700;font-family:'Manrope';white-space:nowrap;color:var(--text)}
+.et-input{
+  width:100%;min-width:58px;background:rgba(0,0,0,.22);border:1px solid var(--border);border-radius:6px;
+  color:var(--text);padding:6px 8px;font-family:'JetBrains Mono';font-size:12px;box-sizing:border-box;
+}
+.et-input:focus{border-color:var(--violet);outline:none;background:rgba(140,109,255,.07)}
+.et-calc-cell{position:relative;padding-bottom:16px !important}
+.et-pct{
+  position:absolute;left:10px;bottom:1px;font-size:9.5px;color:var(--text-faint);
+  font-family:'JetBrains Mono';white-space:nowrap;line-height:1;pointer-events:none;
+}
+.et-actions{display:flex;gap:6px;align-items:center}
+.et-icon-btn{background:none;border:none;cursor:pointer;font-size:14px;opacity:.55;padding:2px;line-height:1}
+.et-icon-btn:hover{opacity:1}
+.et-notes-row td{padding:0 10px 10px;border-bottom:1px solid var(--border)}
+.et-notes-row.hidden{display:none}
+.et-notes-input{
+  width:100%;min-height:44px;background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);padding:8px 10px;font-family:'Inter';font-size:12.5px;resize:vertical;
+}
+.et-highlight{background:rgba(61,220,151,.05)}
+.et-highlight .et-input{border-color:rgba(61,220,151,.35)}
+.roas-chip{
+  font-size:11.5px;padding:6px 12px;border-radius:999px;cursor:pointer;user-select:none;
+  border:1px solid var(--border-strong);color:var(--text-dim);background:var(--surface);
+  transition:.15s;
+}
+.roas-chip:hover{border-color:var(--pos)}
+.roas-chip.active{background:var(--pos-soft);border-color:var(--pos);color:var(--pos)}
+.roas-chip.all{font-weight:700}
+
+.plat-grid{display:grid;grid-template-columns:1.15fr 1.15fr .9fr;gap:14px}
+.plat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px}
+.plat-card .ph{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.plat-card .ph .ic{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;font-family:'Manrope'}
+.plat-card.google .ph .ic{background:var(--google-soft);color:var(--google)}
+.plat-card.meta .ph .ic{background:var(--meta-soft);color:var(--meta)}
+.plat-card .ph b{font-size:14.5px;font-weight:700}
+.plat-card .ph small{display:block;color:var(--text-faint);font-size:11px}
+.stat-list{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.stat-list .st .k{font-size:11px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.03em}
+.stat-list .st .v{font-family:'JetBrains Mono';font-weight:600;font-size:15px;margin-top:2px}
+.stat-list .st .v.up{color:var(--pos)}
+.stat-list .st .v.down{color:var(--neg)}
+.plat-card.inactive{display:flex;align-items:center;justify-content:center;text-align:center;color:var(--text-faint);flex-direction:column;gap:8px}
+.plat-card.inactive .tagpill{background:var(--warn-soft);color:var(--warn);font-size:11px;padding:4px 10px;border-radius:999px;font-weight:700}
+.ctx-card .ctx-item{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:12.5px}
+.ctx-card .ctx-item:last-child{border-bottom:none}
+.ctx-card .ctx-item .k{color:var(--text-faint)}
+.ctx-card .ctx-item .v{color:var(--text);text-align:right;font-weight:500;max-width:56%}
+
+/* ---------- timeline ---------- */
+.tl-month{margin-bottom:6px}
+.tl-month-head{font-family:'Manrope';font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin:34px 0 14px;padding-left:64px}
+.tl{position:relative}
+.tl::before{content:'';position:absolute;left:31px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--border),var(--border-strong),var(--border))}
+.tl-item{position:relative;display:flex;gap:20px;padding:0 0 22px 0}
+.tl-item .date{
+  flex:0 0 62px;text-align:right;font-family:'JetBrains Mono';font-size:11px;color:var(--text-faint);
+  padding-top:3px;
+}
+.tl-item .node{position:relative;flex:0 0 2px}
+.tl-item .node::before{
+  content:'';position:absolute;left:-5px;top:6px;width:11px;height:11px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--dotc,var(--violet));z-index:2;
+}
+.tl-item .body{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px}
+.tl-item .tag-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;letter-spacing:.02em;padding:3px 9px;border-radius:999px}
+.tl-item h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.tl-item p{font-size:13px;color:var(--text-dim)}
+
+/* category colors */
+.b-milestone{background:rgba(140,109,255,.15);color:#b6a4ff}
+.b-google{background:var(--google-soft);color:var(--google)}
+.b-meta{background:var(--meta-soft);color:var(--meta)}
+.b-problema{background:var(--neg-soft);color:var(--neg)}
+.b-imprevisto{background:var(--warn-soft);color:var(--warn)}
+.b-tracking{background:rgba(61,220,151,.13);color:#4fe0ab}
+.b-otimizacao{background:rgba(61,220,151,.13);color:#4fe0ab}
+
+/* ---------- tables ---------- */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+thead th{
+  text-align:left;padding:13px 16px;font-size:11px;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--text-faint);border-bottom:1px solid var(--border);font-weight:700;white-space:nowrap;
+}
+tbody td{padding:12px 16px;border-bottom:1px solid var(--border);white-space:nowrap;font-family:'JetBrains Mono';font-size:13px}
+tbody td:first-child{font-family:'Inter';font-weight:600;color:var(--text)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
+.trend{display:inline-flex;align-items:center;gap:5px;font-weight:600}
+.trend.up{color:var(--pos)} .trend.down{color:var(--neg)} .trend.flat{color:var(--text-dim)}
+.status-pill{font-family:'Inter';font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
+.status-pill.on{background:var(--pos-soft);color:var(--pos)}
+.status-pill.off{background:rgba(255,255,255,.08);color:var(--text-faint)}
+.section-sub{font-size:15px;font-weight:700;margin:34px 0 12px}
+
+/* ---------- decisions ---------- */
+.decision{
+  display:grid;grid-template-columns:210px 1fr auto 1fr;gap:18px;align-items:center;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 22px;margin-bottom:12px;
+}
+.decision .tagcell{display:flex;flex-direction:column;gap:6px}
+.decision .tagcell .plat{font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em}
+.decision .cause h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.decision .cause p{font-size:12.5px;color:var(--text-dim)}
+.decision .arrow{color:var(--violet);font-size:18px}
+.decision .effect{
+  background:var(--pos-soft);border:1px solid rgba(61,220,151,.28);border-radius:12px;padding:10px 14px;
+  font-size:13px;color:#a6f2d3;font-weight:500;
+}
+
+/* ---------- attention ---------- */
+.attn{
+  display:flex;gap:16px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--sev,var(--warn));
+  border-radius:14px;padding:18px 20px;margin-bottom:12px;
+}
+.attn .ic{width:38px;height:38px;border-radius:11px;background:var(--sev-soft,var(--warn-soft));display:flex;align-items:center;justify-content:center;font-size:17px;flex:0 0 38px}
+.attn h4{font-size:14.5px;font-weight:700;margin-bottom:5px}
+.attn p{font-size:13px;color:var(--text-dim)}
+
+/* ---------- client form ---------- */
+.save-bar{display:flex;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 20px;margin-bottom:26px;flex-wrap:wrap;gap:10px}
+.save-bar .stat{font-size:12.5px;color:var(--text-dim)}
+.save-bar .stat b{color:var(--text)}
+.btn-row{display:flex;gap:10px}
+.btn{
+  font-family:'Inter';font-weight:600;font-size:13px;padding:9px 16px;border-radius:9px;border:1px solid var(--border-strong);
+  background:var(--surface-2);color:var(--text);cursor:pointer;transition:.18s;
+}
+.btn:hover{background:var(--border-strong)}
+.btn.primary{background:linear-gradient(135deg,var(--google),var(--violet));border-color:transparent;color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.form-card{margin-bottom:16px}
+.form-card h3{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:16px}
+.form-card h3 .n{width:24px;height:24px;border-radius:7px;background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-size:12px}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f-grid.f3{grid-template-columns:1fr 1fr 1fr}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11.5px;color:var(--text-dim);font-weight:600}
+.field input,.field textarea,.field select{
+  background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:9px;color:var(--text);
+  padding:10px 12px;font-family:'Inter';font-size:13.5px;outline:none;transition:.15s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--violet);background:rgba(140,109,255,.06)}
+.field textarea{resize:vertical;min-height:52px}
+.field.readout{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:9px;padding:10px 12px}
+.field.readout .rv{font-family:'JetBrains Mono';font-weight:700;font-size:16px}
+.radio-row{display:flex;gap:10px;flex-wrap:wrap}
+.radio-row label{
+  display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--text-dim);
+  background:rgba(0,0,0,.2);border:1px solid var(--border);padding:8px 13px;border-radius:9px;cursor:pointer;
+}
+.radio-row input{accent-color:var(--violet)}
+
+/* ---------- final report ---------- */
+.final-hero{
+  background:linear-gradient(155deg,rgba(79,140,255,.12),rgba(255,92,155,.08));
+  border:1px solid var(--border-strong);border-radius:22px;padding:34px 36px;margin-bottom:30px;
+}
+.final-hero .row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
+.final-hero .total .v{font-family:'JetBrains Mono';font-size:42px;font-weight:700}
+.final-hero .split{display:flex;gap:26px;margin-top:18px}
+.final-hero .split .s .k{font-size:11.5px;color:var(--text-dim);text-transform:uppercase}
+.final-hero .split .s .v{font-family:'JetBrains Mono';font-size:19px;font-weight:700;margin-top:3px}
+.callout{border-radius:14px;padding:18px 20px;margin:14px 0;font-size:13px;line-height:1.65}
+.callout.info{background:rgba(79,140,255,.08);border:1px solid rgba(79,140,255,.25);color:#c9dcff}
+.callout.pending{background:var(--surface);border:1px dashed var(--border-strong);color:var(--text-dim)}
+.pending-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.pending-grid .pf{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.pending-grid .pf .k{font-size:11px;color:var(--text-faint);margin-bottom:8px}
+.pending-grid .pf .line{border-bottom:1px dashed var(--border-strong);height:22px}
+.pending-grid .pf .v{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:19px;color:var(--text)}
+.pending-grid .pf .v.empty{font-family:inherit;font-weight:400;font-size:13px;color:var(--text-faint)}
+.callout.filled{background:var(--pos-soft);border:1px solid rgba(61,220,151,.3);color:var(--text-dim)}
+
+.foot{text-align:center;padding:60px 0 30px;color:var(--text-faint);font-size:12px}
+
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .grid.g6{grid-template-columns:repeat(3,1fr)}
+  .plat-grid{grid-template-columns:1fr}
+  .decision{grid-template-columns:1fr;gap:10px}
+  .decision .arrow{transform:rotate(90deg);justify-self:flex-start}
+  .final-hero .split{flex-wrap:wrap}
+  .pending-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .side{display:none}
+  .mobile-bar{
+    display:flex;position:sticky;top:0;z-index:50;background:rgba(5,7,13,.9);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);overflow-x:auto;padding:12px 16px;gap:8px;
+  }
+  .mobile-bar a{
+    flex:0 0 auto;font-size:12.5px;color:var(--text-dim);text-decoration:none;padding:7px 13px;
+    border-radius:999px;background:var(--surface);border:1px solid var(--border);white-space:nowrap;
+  }
+  .mobile-bar a.active{background:var(--text);color:#05070d}
+  .wrap{padding:0 18px}
+  .grid.g6{grid-template-columns:repeat(2,1fr)}
+  .grid.g3,.grid.g2,.f-grid,.f-grid.f3{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr;text-align:left}
+  .compare .mid{flex-direction:row;justify-content:flex-start;padding:4px 0}
+  h2.title{font-size:23px}
+  .pending-grid{grid-template-columns:1fr}
+  .tl-month-head{padding-left:0}
+  .tl::before{left:15px}
+  .tl-item .date{display:none}
+  .final-hero .total .v{font-size:32px}
+
+  /* tabela editável → cards empilhados no mobile, com rótulo sempre visível */
+  .tbl-wrap{overflow-x:visible}
+  table.editable-table{min-width:0}
+  .editable-table thead{display:none}
+  .editable-table, .editable-table tbody{display:block;width:100%}
+  .editable-table tbody tr[data-id]{
+    display:block;border:1px solid var(--border);border-radius:14px;padding:4px 14px;margin-bottom:14px;
+    background:rgba(255,255,255,.015);
+  }
+  .editable-table tbody tr[data-id] .et-mes{
+    display:block;font-size:15px;padding:10px 0 8px;border-bottom:1px solid var(--border);
+  }
+  .editable-table td{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:9px 0;border-bottom:1px dashed var(--border);
+  }
+  .editable-table tr[data-id] > td:last-child{border-bottom:none}
+  .editable-table td::before{
+    content:attr(data-label);font-size:11.5px;color:var(--text-faint);flex:0 0 auto;
+  }
+  .editable-table .et-input{width:120px;min-width:0;text-align:right}
+  .editable-table .et-calc-cell{padding-bottom:9px !important}
+  .editable-table .et-calc-cell .et-pct{position:static;display:block;text-align:right;margin-top:2px}
+  .editable-table .et-actions{padding-top:4px}
+  .editable-table .et-actions::before{content:''}
+  .editable-table .et-notes-row td{display:block;padding:0 0 12px}
+  .editable-table .et-notes-row td::before{content:''}
+  .et-highlight{background:rgba(61,220,151,.05);border-radius:8px;padding-left:8px;padding-right:8px;margin:0 -8px}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms !important;transition-duration:.001ms !important}}
+</style>
+</head>
+<body>
+
+<div class="backdrop"><div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div></div>
+<div class="grain"></div>
+
+<div class="mobile-bar" id="mobileBar">
+  <a href="#overview" class="active">Visão Geral</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#performance">Performance</a>
+  <a href="#decisions">Decisões</a>
+  <a href="#attention">Atenção</a>
+  <a href="#client">Cliente</a>
+  <a href="#final">Final</a>
+</div>
+
+<div class="shell">
+  <aside class="side">
+    <div class="brand">
+      <div class="mark">Z</div>
+      <div class="name">Zumex</div>
+      <div class="tag">Relatório de Gestão · 2026</div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <a href="#overview" class="active"><span class="dot"></span>Visão Geral</a>
+      <a href="#timeline"><span class="dot"></span>Linha do Tempo</a>
+      <a href="#performance"><span class="dot"></span>Performance</a>
+      <a href="#decisions"><span class="dot"></span>Decisões</a>
+      <a href="#attention"><span class="dot"></span>Pontos de Atenção</a>
+      <a href="#client"><span class="dot"></span>Retorno do Cliente</a>
+      <a href="#final"><span class="dot"></span>Relatório Final</a>
+    </nav>
+    <div class="side-foot">Março – Agosto 2026<br>Gestão de Tráfego · Google Ads + Meta Ads</div>
+  </aside>
+
+  <main class="main">
+    <div class="wrap">
+
+      <!-- ================= OVERVIEW ================= -->
+      <section id="overview">
+        <div class="eyebrow">Visão geral do período</div>
+        <h2 class="title">Duas frentes, um objetivo</h2>
+        <p class="lede">Seis meses de gestão ativa na campanha Máquina de Suco Profissional — Google Ads estruturado desde o início, Meta Ads somado a partir de abril, e em agosto um novo eixo entrou no ar nas duas plataformas: <b style="color:var(--text)">Seminovos 2026</b>.</p>
+
+        <div class="compare">
+          <div class="box before">
+            <div class="k">Antes da RDA · Jan–Fev 2026</div>
+            <div class="v mono">R$ 7.824 <span style="font-size:13px;color:var(--text-faint);font-weight:500">/mês</span></div>
+            <div class="d">Média mensal · Apenas Google Ads · Agência anterior</div>
+          </div>
+          <div class="mid">
+            <div class="arrow">→</div>
+            <div class="save mono" id="cmpSaveVal">– 47,6%</div>
+            <div class="savelbl" id="cmpSaveLbl">no gasto médio mensal,<br>com um segundo canal ativo</div>
+          </div>
+          <div class="box after">
+            <div class="k">Gestão RDA · <span id="cmpPeriodLabel">Mar–Ago 2026</span></div>
+            <div class="v mono" id="cmpAfterValue">R$ 4.096 <span style="font-size:13px;color:var(--text-faint);font-weight:500">/mês</span></div>
+            <div class="d" id="cmpAfterDesc">Média mensal (6 meses, ago parcial) · Google + Meta Ads</div>
+          </div>
+        </div>
+        <p style="font-size:11.5px;color:var(--text-faint);margin:-24px 0 26px" id="cmpCaption">Comparativo por média mensal, já que os períodos têm durações diferentes (2 meses antes × 6 meses de gestão RDA, agosto ainda parcial). Total investido Mar–Ago: R$ 24.577,76 · 267 conversões Google + 1.498 leads Meta.</p>
+
+        <div class="filter-bar" id="monthFilter">
+          <span class="filter-label">Filtrar meses analisados:</span>
+          <div class="filter-chips">
+            <button class="fchip active" data-fm="mar">Mar</button>
+            <button class="fchip active" data-fm="abr">Abr</button>
+            <button class="fchip active" data-fm="mai">Mai</button>
+            <button class="fchip active" data-fm="jun">Jun</button>
+            <button class="fchip active" data-fm="jul">Jul</button>
+            <button class="fchip active" data-fm="ago">Ago*</button>
+          </div>
+          <button class="filter-reset" id="filterReset">Ver período completo</button>
+        </div>
+        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 30px">O filtro recalcula os KPIs acima, o gráfico e as tabelas da aba Performance. Linha do tempo, decisões, atenção e o Relatório Final continuam mostrando o histórico completo.</p>
+
+        <div class="grid g6" id="kpiGrid">
+          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Invest. Google</div><div class="val" id="kpiInvestGoogle" data-count="16327.43" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestGoogleSub">Mar a Ago (parcial)</div></div>
+          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Invest. Meta</div><div class="val" id="kpiInvestMeta" data-count="8250.33" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestMetaSub">Abr a Ago (parcial)</div></div>
+          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Leads Meta</div><div class="val" id="kpiLeadsMeta" data-count="1498" data-int="1">0</div><div class="sub" id="kpiLeadsMetaSub">421+313+303+338+123</div></div>
+          <div class="kpi" style="--bar:var(--pos)"><div class="lbl">Melhor CPL Meta</div><div class="val" id="kpiBestCpl" data-count="1.63" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiBestCplSub">Abril 2026</div></div>
+          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Conversões Google</div><div class="val" id="kpiConvGoogle" data-count="267" data-int="1">0</div><div class="sub" id="kpiConvGoogleSub">23+66+46+51+35+46</div></div>
+          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Invest. Total Geral</div><div class="val" id="kpiInvestTotal" data-count="24577.76" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestTotalSub">Google + Meta</div></div>
+        </div>
+
+        <div class="grid g2">
+          <div class="card hero-chart-card">
+            <div class="hc-head"><h3 style="color:var(--google)">Google · Conversões por mês</h3></div>
+            <div class="chart-box"><canvas id="heroChartGoogle"></canvas></div>
+          </div>
+          <div class="card hero-chart-card">
+            <div class="hc-head"><h3 style="color:var(--meta)">Meta · Leads por mês</h3></div>
+            <div class="chart-box"><canvas id="heroChartMeta"></canvas></div>
+          </div>
+        </div>
+
+        <div class="month-switch" id="monthSwitch">
+          <button data-m="mar" class="active">Março</button>
+          <button data-m="abr">Abril</button>
+          <button data-m="mai">Maio</button>
+          <button data-m="jun">Junho</button>
+          <button data-m="jul">Julho</button>
+          <button data-m="ago">Agosto <span style="opacity:.55;font-size:10.5px">parcial</span></button>
+        </div>
+
+        <div class="plat-grid" id="monthPanel"><!-- injected by JS --></div>
+      </section>
+
+      <!-- ================= TIMELINE ================= -->
+      <section id="timeline">
+        <div class="eyebrow">Cronologia</div>
+        <h2 class="title">Linha do Tempo Completa</h2>
+        <p class="lede">Todos os eventos, ajustes e marcos do período, com contexto de causa e efeito.</p>
+        <div id="timelineWrap"></div>
+      </section>
+
+      <!-- ================= PERFORMANCE ================= -->
+      <section id="performance">
+        <div class="eyebrow">Relatórios de desempenho</div>
+        <h2 class="title">Métricas por Plataforma</h2>
+        <p class="lede">Comparativo mensal de KPIs essenciais — Google Ads e Meta Ads lado a lado.</p>
+
+        <div class="grid g2">
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--google)">Google Ads · Conversões &amp; CTR</h3><div class="chart-box"><canvas id="googleChart"></canvas></div></div>
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--meta)">Meta Ads · Leads &amp; CPL</h3><div class="chart-box"><canvas id="metaChart"></canvas></div></div>
+        </div>
+
+        <div class="section-sub">Google Ads · Evolução Mensal</div>
+        <div class="tbl-wrap"><table id="tblGoogle"></table></div>
+        <p id="footnoteGoogle" style="font-size:11px;color:var(--text-faint);margin:8px 0 0">* Agosto: dados parciais até 16/08 — coluna combina Rede de Pesquisa + a nova campanha Display "Seminovos 2026" (impressões/CTR/CPC não comparáveis ao histórico só-busca).</p>
+
+        <div class="section-sub">Meta Ads · Evolução Mensal</div>
+        <div class="tbl-wrap"><table id="tblMeta"></table></div>
+        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">CPL considera apenas o gasto de campanhas de captação de leads (formulário) — exclui gasto de branding (Visita ao Perfil) e da Seminovos 2026 (Mensagens), aplicado da mesma forma em todos os meses.</p>
+        <p id="footnoteMeta" style="font-size:11px;color:var(--text-faint);margin:4px 0 0">* Agosto: dados parciais até 17/08. Visitas ao perfil não foram recoletadas para jun/jul/ago nesta atualização. A partir de agosto, "campanhas ativas" inclui a Seminovos 2026 (objetivo Mensagens) — seus resultados (207 conversas, R$3,78/conversa) não entram nas linhas de Leads/CPL acima; ver detalhe por campanha mais abaixo.</p>
+
+        <div class="section-sub">Meta Ads · Detalhe por Campanha — Maio 2026</div>
+        <p style="font-size:11px;color:var(--text-faint);margin:-4px 0 12px">Alcance é deduplicado pelo Meta no total da conta — a soma do Alcance de cada campanha abaixo é maior que o total, porque uma mesma pessoa pode ter sido alcançada por mais de uma campanha e é contada uma vez só no geral.</p>
+        <div class="tbl-wrap"><table id="tblCampaigns"></table></div>
+
+        <div class="section-sub">Meta Ads · Detalhe por Campanha — Junho 2026</div>
+        <div class="tbl-wrap"><table id="tblCampaignsJun"></table></div>
+
+        <div class="section-sub">Meta Ads · Detalhe por Campanha — Julho 2026</div>
+        <p style="font-size:11px;color:var(--text-faint);margin:-4px 0 12px">*CPL médio da linha "TOTAL" considera só o gasto das campanhas de lead (exclui os R$370,27 da Visita ao Perfil) — o Gasto mostrado na mesma linha é o total do mês, incluindo branding.</p>
+        <div class="tbl-wrap"><table id="tblCampaignsJul"></table></div>
+
+        <div class="section-sub">Meta Ads · Detalhe por Campanha — Agosto 2026 <span style="font-size:11px;color:var(--text-faint);font-weight:500">· parcial, até 17/08</span></div>
+        <div class="tbl-wrap"><table id="tblCampaignsAgo"></table></div>
+        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">Três objetivos diferentes rodando em paralelo — não somamos leads + conversas + visitas numa linha de total, pois são resultados de naturezas distintas. Gasto do mês: R$600,30 (leads formulário) + R$612,76 (branding) + R$782,92 (mensagens) ≈ R$1.995,98 (dados até 17/08, ainda em consolidação pelo Meta).</p>
+
+        <div class="section-sub">Google Ads · Detalhe por Campanha — Agosto 2026 <span style="font-size:11px;color:var(--text-faint);font-weight:500">· parcial, até 16/08</span></div>
+        <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 12px">Novo formato de campanha (Display/Geração de Demanda) entrou na conta — CPC e CTR não são comparáveis com a Rede de Pesquisa.</p>
+        <div class="tbl-wrap"><table id="tblGoogleAgo"></table></div>
+
+        <div class="section-sub">Comparativo Consolidado</div>
+        <div class="tbl-wrap"><table id="tblConsolidated"></table></div>
+      </section>
+
+      <!-- ================= DECISIONS ================= -->
+      <section id="decisions">
+        <div class="eyebrow">Causa &amp; efeito</div>
+        <h2 class="title">Principais Decisões</h2>
+        <p class="lede">Cada ajuste realizado, com o raciocínio por trás e o resultado observado.</p>
+        <div id="decisionsWrap"></div>
+      </section>
+
+      <!-- ================= ATTENTION ================= -->
+      <section id="attention">
+        <div class="eyebrow">Diagnóstico</div>
+        <h2 class="title">Pontos de Atenção</h2>
+        <p class="lede">Problemas identificados, limitações e alertas do período atual.</p>
+        <div id="attentionWrap"></div>
+      </section>
+
+      <!-- ================= CLIENT ================= -->
+      <section id="client">
+        <div class="eyebrow">Retorno do cliente</div>
+        <h2 class="title">Dados da Zumex</h2>
+        <p class="lede">Preencha diretamente nas células abaixo — uma tabela por canal, uma linha por mês. Tudo fica visível de uma vez, sem trocar de aba. Clique em <b style="color:var(--text)">"💾 Salvar tudo"</b> (topo ou final desta seção) para gravar no banco (Supabase).</p>
+
+        <div class="save-bar">
+          <div class="stat">Status: <b id="saveStatus">Carregando…</b> · Última atualização: <b id="saveTime">—</b></div>
+          <div class="btn-row">
+            <button class="btn primary" id="btnSave">💾 Salvar tudo</button>
+          </div>
+        </div>
+
+        <div class="section-sub">Google Ads · por mês</div>
+        <div class="tbl-wrap"><table class="editable-table" id="tblEditGoogle"></table></div>
+
+        <div class="section-sub">Meta Ads · por mês</div>
+        <div class="tbl-wrap"><table class="editable-table" id="tblEditMeta"></table></div>
+        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">% de qualificação/quentes calculada sobre "Leads". Custo por venda usa o gasto real daquele canal naquele mês. Clique no 📝 de uma linha para abrir um campo de observações. O 🗑 apaga o registro salvo daquela linha (não afeta as outras).</p>
+
+        <form id="clientForm">
+          <div class="card form-card" style="margin-top:26px">
+            <h3><span class="n">📈</span>Perspectiva de Longo Prazo <span style="font-size:11px;font-weight:600;color:var(--text-faint);text-transform:none;letter-spacing:0">· geral, não é por mês/canal</span></h3>
+            <div class="f-grid">
+              <div class="field full"><label>Oportunidades em negociação (próximos 30–60 dias)</label><textarea id="f_oportunidades"></textarea></div>
+              <div class="field full">
+                <label>Volume e qualidade vs. expectativa inicial</label>
+                <div class="radio-row">
+                  <label><input type="radio" name="expect" value="Acima do esperado"> Acima do esperado</label>
+                  <label><input type="radio" name="expect" value="Na média"> Na média</label>
+                  <label><input type="radio" name="expect" value="Abaixo do esperado"> Abaixo do esperado</label>
+                </div>
+              </div>
+              <div class="field"><label>Segmento com maior engajamento</label><input type="text" id="f_segmento"></div>
+              <div class="field"><label>Investimento Meta Ads (total período)</label><input type="text" id="f_investMeta" value="R$ 8.250,33" readonly></div>
+            </div>
+          </div>
+        </form>
+
+        <div class="save-bar" style="margin-top:22px">
+          <div class="stat">Terminou de preencher? · <b id="saveTimeBottom">—</b></div>
+          <div class="btn-row">
+            <button class="btn primary" id="btnSaveBottom">💾 Salvar tudo</button>
+          </div>
+        </div>
+
+        <div class="section-sub" style="margin-top:44px">Painel de Resultados do Cliente</div>
+        <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 20px">Os dois primeiros gráficos usam os números que as plataformas reportam (referência). Os três seguintes são alimentados pelas tabelas acima.</p>
+
+        <div class="grid g2">
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--google)">Conversões Google (por mês)</h3><div class="chart-box"><canvas id="chartRefGoogle"></canvas></div></div>
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--meta)">Leads Meta (por mês)</h3><div class="chart-box"><canvas id="chartRefMeta"></canvas></div></div>
+        </div>
+
+        <div class="grid g2" style="margin-top:14px">
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--warn)">🔥 Leads Quentes (dados do cliente)</h3><div class="chart-box" id="chartHotLeadsWrap"><canvas id="chartHotLeads"></canvas></div></div>
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">Vendas por Canal (dados do cliente)</h3><div class="chart-box" id="chartSalesChannelWrap"><canvas id="chartSalesChannel"></canvas></div></div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">💰 Retorno em Reais · ROAS (dados do cliente)</h3>
+          <p style="font-size:11.5px;color:var(--text-faint);margin:-4px 0 10px">Investimento (Google/Meta, só nos meses com receita informada) × Receita reportada pela Zumex. ROAS = receita ÷ investimento.</p>
+          <div id="roasMonthFilter" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px"></div>
+          <div class="chart-box" id="chartRoasWrap"><canvas id="chartRoas"></canvas></div>
+          <div id="roasStats" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"></div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3 style="font-size:14px;margin-bottom:10px">Volume de Leads Recebidos × Custo por Lead</h3>
+          <p style="font-size:11.5px;color:var(--text-faint);margin:-4px 0 10px">Barras: leads recebidos (Google + Meta, confirmados pelo cliente) por mês. Linha: gasto das plataformas nesse mês ÷ leads recebidos — só nos meses com dado preenchido.</p>
+          <div class="chart-box" id="chartVolumeCostWrap"><canvas id="chartVolumeCost"></canvas></div>
+        </div>
+      </section>
+
+      <!-- ================= FINAL ================= -->
+      <section id="final">
+        <div class="eyebrow">Março – Agosto 2026</div>
+        <h2 class="title">Relatório Final Consolidado</h2>
+        <p class="lede">Resultado completo do período de gestão — Google Ads + Meta Ads. Agosto ainda parcial (dados até 16–17/08).</p>
+
+        <div class="final-hero">
+          <div class="row">
+            <div class="total">
+              <div class="k" style="font-size:11.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Investimento total do período</div>
+              <div class="v">R$ 24.577,76</div>
+            </div>
+          </div>
+          <div class="split">
+            <div class="s"><div class="k">Google Ads</div><div class="v" style="color:var(--google)">R$ 16.327,43</div></div>
+            <div class="s"><div class="k">Meta Ads</div><div class="v" style="color:var(--meta)">R$ 8.250,33</div></div>
+            <div class="s"><div class="k">Resultados</div><div class="v">267 conv. + 1.498 leads</div></div>
+          </div>
+        </div>
+
+        <div class="grid g2">
+          <div class="card">
+            <h3 style="font-size:14.5px;color:var(--meta);margin-bottom:14px">Meta Ads · Leads</h3>
+            <div class="stat-list">
+              <div class="st"><div class="k">Abril — Leads / CPL</div><div class="v">421 · R$1,63</div></div>
+              <div class="st"><div class="k">Abril — Gasto</div><div class="v">R$ 786,02</div></div>
+              <div class="st"><div class="k">Maio — Leads / CPL</div><div class="v">313 · R$4,58</div></div>
+              <div class="st"><div class="k">Maio — Gasto</div><div class="v">R$ 1.601,82</div></div>
+              <div class="st"><div class="k">Junho — Leads / CPL</div><div class="v">303 · R$6,90</div></div>
+              <div class="st"><div class="k">Junho — Gasto</div><div class="v">R$ 2.089,21</div></div>
+              <div class="st"><div class="k">Julho — Leads / CPL</div><div class="v">338 · R$4,16</div></div>
+              <div class="st"><div class="k">Julho — Gasto</div><div class="v">R$ 1.777,98</div></div>
+              <div class="st"><div class="k">Agosto* — Leads / CPL</div><div class="v">123 · R$4,88</div></div>
+              <div class="st"><div class="k">Agosto* — Gasto</div><div class="v">R$ 1.995,30</div></div>
+            </div>
+            <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+              <div><div style="font-size:11px;color:var(--text-faint)">TOTAL META</div><div class="mono" style="font-weight:700;font-size:17px">1.498 leads</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">CPL médio (leads)</div><div class="mono" style="font-weight:700;font-size:17px">R$ 4,16</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">Alcance total</div><div class="mono" style="font-weight:700;font-size:17px">219.535</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:14.5px;color:var(--google);margin-bottom:14px">Google Ads · Conversões</h3>
+            <div class="stat-list">
+              <div class="st"><div class="k">Março — Conv. / Custo</div><div class="v">23 · R$67,42</div></div>
+              <div class="st"><div class="k">Abril — Conv. / Custo</div><div class="v">66 · R$55,28</div></div>
+              <div class="st"><div class="k">Maio — Conv. / Custo</div><div class="v">46 · R$75,28</div></div>
+              <div class="st"><div class="k">Junho — Conv. / Custo</div><div class="v">51 · R$59,40</div></div>
+              <div class="st"><div class="k">Julho — Conv. / Custo</div><div class="v">35 · R$85,88</div></div>
+              <div class="st"><div class="k">Agosto* — Conv. / Custo</div><div class="v">46 · R$35,45</div></div>
+              <div class="st"><div class="k">CTR médio (Mar–Jul)</div><div class="v">6,74%</div></div>
+            </div>
+            <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+              <div><div style="font-size:11px;color:var(--text-faint)">TOTAL GOOGLE</div><div class="mono" style="font-weight:700;font-size:17px">267 conv.</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">Custo/conv. médio</div><div class="mono" style="font-weight:700;font-size:17px">R$ 61,15</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">Impressões totais</div><div class="mono" style="font-weight:700;font-size:17px">230.023</div></div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:var(--text-faint);margin:10px 0 0">* Agosto: dados parciais (Google até 16/08, Meta até 17/08). Impressões totais do Google já incluem a campanha Display "Seminovos 2026".</p>
+
+        <div class="section-sub">Resumo Executivo — Período Completo</div>
+        <div class="tbl-wrap"><table id="tblResumo"></table></div>
+
+        <div class="callout info">
+          <b>Nota sobre atribuição.</b> Os dados de conversão do Google Ads e leads do Meta Ads são contabilizados de forma independente por cada plataforma. O conflito de atribuição identificado no RD Station em abril pode gerar sobreposição de contabilização entre plataformas — o número real de leads únicos pode ser ligeiramente menor que a soma. Recomenda-se revisão da integração CRM para garantir atribuição precisa nos próximos períodos.
+        </div>
+
+        <div class="callout pending" id="execSummaryCallout">
+          <b id="execSummaryTitle">Aguardando retorno do cliente</b> <span id="execSummarySub">— campos a preencher com a Zumex para completar o relatório.</span>
+          <div class="pending-grid">
+            <div class="pf"><div class="k">Leads <span style="opacity:.6">· soma de todos os meses/canais</span></div><div class="v empty" id="sumLeads">—</div></div>
+            <div class="pf"><div class="k">Leads qualificados</div><div class="v empty" id="sumQualificados">—</div></div>
+            <div class="pf"><div class="k">Leads quentes 🔥</div><div class="v empty" id="sumQuentes">—</div></div>
+            <div class="pf"><div class="k">Propostas enviadas</div><div class="v empty" id="sumPropostas">—</div></div>
+            <div class="pf"><div class="k">Vendas <span style="opacity:.6">· quantidade</span></div><div class="v empty" id="sumVendas">—</div></div>
+            <div class="pf"><div class="k">Faturamento <span style="opacity:.6">· em reais</span></div><div class="v empty" id="sumFaturamento">—</div></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="foot">Zumex · Relatório de Gestão de Tráfego · Março – Agosto 2026</div>
+      <div style="text-align:center;padding-bottom:30px;color:var(--text-faint);font-size:10px;opacity:.5">build 2026-08-19-v5 · filtro de mês no ROAS</div>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const MONTHS = {
+  mar:{
+    label:'Março 2026',
+    google:{periodo:'10–31 mar',impressoes:'4.774',cliques:'411',gasto:'R$ 1.550,75',cpc:'R$ 3,77',ctr:'8,61%',conv:'23',custoConv:'R$ 67,42',is:'61,87%'},
+    meta:null,
+    metaInactive:{status:'Não ativado',motivo:'Foco em estruturar Google primeiro',previsao:'Início em abril'},
+    ctx:[['Marco inicial','Campanha anterior de outra agência ainda ativa'],['Site','Fora do ar em 05/03'],['GTM','Enviado em 12/03'],['Foco keywords','Máquina de Suco Profissional'],['Estratégia de lances','Maximizar Cliques']]
+  },
+  abr:{
+    label:'Abril 2026',
+    google:{impressoes:'15.202',cliques:'996',gasto:'R$ 3.648,25',cpc:'R$ 3,66',ctr:'6,55%',conv:'66',custoConv:'R$ 55,28',custoConvTrend:'down',is:'56,89%'},
+    meta:{gasto:'R$ 786,02',leads:'421',cpl:'R$ 1,63',impressoes:'51.228',alcance:'32.611',visitas:'245 · R$0,40/visita',campanha:'01 - Captação Leads Qualificados',alerta:'Conflito RD Station'},
+    ctx:[['Mês mais forte','Melhor desempenho do período'],['Mudança de lance','→ Maximizar Conversões'],['CPA alvo','R$ 66,00'],['KW removida','[máquina suco supermercado]'],['Resultado de custo','Melhor do período']]
+  },
+  mai:{
+    label:'Maio 2026',
+    google:{impressoes:'13.030',cliques:'867',gasto:'R$ 3.462,68',cpc:'R$ 3,99',ctr:'6,65%',conv:'46',custoConv:'R$ 75,28',custoConvTrend:'up',is:'54,24%'},
+    meta:{gasto:'R$ 1.601,82',leads:'313',cpl:'R$ 4,58',impressoes:'62.867',alcance:'40.017',visitas:'265 · R$0,62/visita',campanha:'Copa + Captação principal',alerta:'CPL Copa R$ 15,38 (26 leads)'},
+    ctx:[['Ajuste de lance','→ Maximizar Cliques'],['Orçamento','R$120 → R$100/dia'],['Geo','+60 cidades nacionais'],['KWs pausadas','5 termos de baixo retorno'],['Impacto','Custo/conv. subiu']]
+  },
+  jun:{
+    label:'Junho 2026',
+    google:{impressoes:'10.730',cliques:'779',gasto:'R$ 3.029,26',cpc:'R$ 3,89',ctr:'7,26%',conv:'51',custoConv:'R$ 59,40',custoConvTrend:'down',is:'59,13%'},
+    meta:{gasto:'R$ 2.089,21',leads:'303',cpl:'R$ 6,90',impressoes:'45.789',alcance:'23.828',visitas:'não coletado nesta consulta',campanha:'01 - Captação + [Copa]',alerta:'CPL subiu vs abr/mai'},
+    ctx:[['Google','Custo/conv. caiu para R$59,40 — melhor mês desde abril'],['Meta','CPL médio salta para R$6,90 — Copa custando R$26,44/lead'],['Campanhas Meta ativas','01-Captação (268 leads) + [Copa] (35 leads)'],['Seminovos (Google)','Ainda em aprendizado, R$0 investido'],['Impacto','Google eficiente, Meta perde eficiência']]
+  },
+  jul:{
+    label:'Julho 2026',
+    google:{impressoes:'14.108',cliques:'845',gasto:'R$ 3.005,90',cpc:'R$ 3,56',ctr:'5,99%',conv:'35',custoConv:'R$ 85,88',custoConvTrend:'up',is:'57,37%'},
+    meta:{gasto:'R$ 1.777,98',leads:'338',cpl:'R$ 4,16',impressoes:'85.356',alcance:'57.822',visitas:'não coletado nesta consulta',campanha:'01 - Captação + [Copa] + 00 - Visita ao Perfil (reativada)',alerta:'CPL de leads recupera forte (exclui gasto de branding)'},
+    ctx:[['Google','Custo/conv. sobe para R$85,88 — pior mês do período'],['Meta','CPL de leads recupera para R$4,16 (exclui R$370,27 de branding do cálculo)'],['Visita ao Perfil','Reativada — R$370,27, reforço de marca'],['[Copa]','Encolhendo — R$206,50 · 9 leads, sinal de encerramento'],['Seminovos (Google)','Ainda R$0 investido']]
+  },
+  ago:{
+    label:'Agosto 2026 (parcial)',
+    google:{impressoes:'6.686',cliques:'390',gasto:'R$ 1.217,69',cpc:'R$ 3,12',ctr:'5,83%',conv:'34',custoConv:'R$ 35,81',custoConvTrend:'down',is:'53,64%',periodo:'Rede de Pesquisa · até 16/08'},
+    googleExtra:{nome:'Campanha Seminovos 2026 (Display)',impressoes:'165.493',cliques:'3.692',gasto:'R$ 412,90',cpc:'R$ 0,11',ctr:'2,23%',conv:'12',custoConv:'R$ 34,41'},
+    meta:{gasto:'R$ 1.995,30',leads:'123',cpl:'R$ 4,88',impressoes:'108.186',alcance:'65.257',visitas:'não coletado nesta consulta',campanha:'01 - Captação + 00 - Visita ao Perfil + 02 - Seminovos 2026 (mensagens)',alerta:'Captação: CPL de leads em R$4,88. Seminovos: 207 conversas a R$3,78'},
+    metaExtra:{nome:'Campanha Seminovos 2026 (objetivo Mensagens)',gasto:'R$ 782,92',conversas:'207',custoConversa:'R$ 3,78',impressoes:'54.090',alcance:'17.239'},
+    ctx:[['Novo eixo','Seminovos 2026 lançado no Google (Display) e no Meta (Mensagens)'],['Google Seminovos','R$412,90 · 165k impr. · CPC R$0,11 — alcance alto, custo baixo'],['Meta Seminovos','Objetivo Mensagens (não formulário): 207 conversas iniciadas a R$3,78/conversa'],['Meta Captação','CPL de leads em R$4,88 — abaixo do pico de junho (R$6,90)'],['Corte','Dados até 16/08 (Google) e 17/08 (Meta) — mês em andamento']]
+  }
+};
+
+const TIMELINE = [
+ {m:'Fevereiro 2026', items:[
+   {d:'22 fev', cat:'milestone', tag:'Milestone · Início', t:'Configurações e acessos', p:'Primeiro acesso às contas. Diagnóstico inicial — campanha de outra agência ainda ativa, sem estrutura de tracking correta.'}
+ ]},
+ {m:'Março 2026', items:[
+   {d:'03 mar', cat:'milestone', tag:'Milestone · Reunião presencial', t:'Alinhamento estratégico', p:'Definição de objetivos, foco no produto (Máquina de Suco Profissional) e formato de trabalho. Combinado criação de materiais criativos pela equipe Zumex para uso nas campanhas.'},
+   {d:'05 mar', cat:'imprevisto', tag:'Imprevisto · Site', t:'Site da Zumex fora do ar', p:'Campanha com destino comprometido. Operação aguardou retorno do site para evitar desperdício de budget.'},
+   {d:'09 mar', cat:'google', tag:'Google Ads · Estrutura', t:'Nova campanha RDA criada + Entrada de Laura', p:'Campanha "Rede de Pesquisa (RDA)" configurada do zero. Campanha da agência anterior ainda ativa simultaneamente. Laura entra como assistente de tráfego contratada pela Zumex.'},
+   {d:'12 mar', cat:'tracking', tag:'Tracking', t:'Tag Manager enviado para o site', p:'GTM encaminhado para aplicação no site da Zumex — base para rastreamento correto de conversões em ambas as plataformas.'},
+   {d:'19 mar', cat:'google', tag:'Google Ads · Estrutura completa', t:'3 grupos de anúncios + todos os recursos', p:'Criação: 00 - Máquina de Suco Profissional / 01 - Segmento + Aplicação / 02 - Marcas e Concorrência. Sitelinks, imagens, ligação, frases de destaque, logo. Budget R$100/dia. Segmentação Brasil.'},
+   {d:'19 mar', cat:'google', tag:'Google Ads · Qualidade', t:'Bloco de exclusões negativas densas', p:'Termos bloqueados: doméstico, residencial, casa, mini, barato, caseiro. Marcas: Mondial, Vitalex. Segmentos de público: empregos, home & garden. Objetivo: só perfil B2B.'},
+   {d:'20 mar', cat:'google', tag:'Google Ads · Budget', t:'Budget elevado para R$120/dia', p:'Ampliação para capturar volume durante fase de aprendizado da campanha.'},
+   {d:'22 mar', cat:'google', tag:'Google Ads · Keywords + Extensões', t:'Expansão de keywords e configuração de metas', p:'Novas KWs: [extrator de suco industrial], [espremedor de laranja automático profissional], [extratora de laranja industrial]. Meta de leads via messages adicionada.'},
+   {d:'23 mar', cat:'milestone', tag:'Milestone · Report + Reunião', t:'Primeiro report de performance + alinhamento online', p:'Últimos 7 dias: 108 cliques · CPC R$4,73 · Gasto R$510,40 · 5 conversões. Reunião de alinhamento realizada no mesmo dia para ajustar expectativas.'},
+   {d:'26 mar', cat:'google', tag:'Google Ads · Marca', t:'Keywords de marca e concorrência inseridas', p:'Adicionadas: [zumex soul], [máquina de suco de laranja zumex], [zumex suco de laranja]. Reforço do grupo 02 para capturar demanda já existente pela marca.'},
+   {d:'30 mar', cat:'google', tag:'Google Ads · Teste', t:'Teste de agendamento (revertido no mesmo dia)', p:'Bloco de 00h–09h testado em todos os dias da semana. Revertido após análise — sem impacto positivo comprovado nesse horário para o segmento.'}
+ ]},
+ {m:'Abril 2026', items:[
+   {d:'início abr', cat:'meta', tag:'Meta Ads · Lançamento', t:'Meta Ads ativado — segunda frente de geração de leads', p:'Início das campanhas no Meta com objetivo de geração de leads. Estrutura: Interesses (intenção) + Lookalike 1% (semelhança com compradores).'},
+   {d:'06 abr', cat:'meta', tag:'Meta Ads · Report', t:'+60 leads em poucos dias de operação', p:'Resultado expressivo no início: mais de 60 leads somente via Meta. Volume muito acima do esperado para fase inicial.'},
+   {d:'abr', cat:'problema', tag:'Problema · CRM', t:'Conflito de leads no RD Station', p:'Dificuldade em separar origem dos leads (Google vs Meta) e recebimento correto no CRM interno. Ponto crítico que impacta análise de qualidade real dos contatos.'},
+   {d:'07 abr', cat:'milestone', tag:'Milestone · Comunicação', t:'Estrutura completa comunicada ao cliente', p:'Alinhamento formal: Google = captura de intenção ativa (quem já procura). Meta = criação e aquecimento de demanda (quem ainda não sabe que precisa).'},
+   {d:'16 abr', cat:'google', tag:'Google Ads · Lance', t:'Maximizar Cliques → Maximizar Conversões', p:'Com volume de dados suficiente (66 conversões no mês), ativação de lance inteligente orientado a resultado. CPA alvo: R$66. Resultado: custo/conv caiu de R$67 → R$55.'}
+ ]},
+ {m:'Maio 2026', items:[
+   {d:'12 mai', cat:'otimizacao', tag:'Google Ads · Keywords', t:'5 keywords pausadas por baixo retorno', p:'Pausadas: espremedor automático para supermercado, espremedor de suco comercial (2 grupos), espremedor de laranja automático profissional, espremedor laranja profissional inox.'},
+   {d:'12 mai', cat:'google', tag:'Google Ads · Lance + Budget', t:'Retorno para Maximizar Cliques · Budget R$120→R$100', p:'Mudança para escalar volume antes de retornar à otimização por conversão. Ajuste de budget para melhorar eficiência de custo por resultado.'},
+   {d:'19 mai', cat:'google', tag:'Google Ads · Geolocalização', t:'Expansão geográfica nacional — 60+ cidades', p:'Cobertura granular: Maceió, Salvador, Fortaleza, Brasília, BH, Curitiba, Porto Alegre, Florianópolis, Belém e mais 50+ cidades de potencial B2B. Substituição do Brasil inteiro por cidades específicas para controle fino.'},
+   {d:'mai', cat:'meta', tag:'Meta Ads · Estrutura', t:'4 conjuntos ativos + alerta de audiência estreita', p:'Lookalike 1% e 3% com audiência estimada em ~1.000 usuários (classificado como "narrow"). CTR em queda em todos os ad sets — sinal de necessidade de renovação criativa.'}
+ ]},
+ {m:'Junho 2026', items:[
+   {d:'jun', cat:'google', tag:'Google Ads · Resultado', t:'Melhor custo/conv. desde abril', p:'Rede de Pesquisa fecha o mês com 51 conversões a R$59,40 — recuperação frente à alta de maio (R$75,28), mesmo com budget e estrutura estáveis.'},
+   {d:'jun', cat:'problema', tag:'Meta Ads · Alerta', t:'CPL médio salta para R$6,90', p:'Alta expressiva frente a abril (R$1,63) e maio (R$4,58). Puxado principalmente pela campanha [Copa], que fecha o mês a R$26,44 por lead — 35 leads no mês.'}
+ ]},
+ {m:'Julho 2026', items:[
+   {d:'jul', cat:'imprevisto', tag:'Google Ads · Custo', t:'Custo/conv. sobe para R$85,88 — pior mês do período', p:'Maior custo por conversão desde o início da gestão, apesar de CTR (5,99%) e impressões (14.108) em linha com meses anteriores. Merece investigação de qualidade de tráfego/lance.'},
+   {d:'jul', cat:'meta', tag:'Meta Ads · Estrutura', t:'Campanha "Visita ao Perfil" reativada', p:'Campanha de reforço de marca (desativada em maio) volta ao ar com R$370,27 investidos — sem geração de leads via formulário, é um investimento de branding/awareness.'},
+   {d:'jul', cat:'otimizacao', tag:'Meta Ads · Redução', t:'Campanha [Copa] encolhendo', p:'Investimento cai para R$206,50 (vs R$925,34 em junho) e apenas 9 leads a R$22,94 — sinal de que a campanha está sendo descontinuada.'}
+ ]},
+ {m:'Agosto 2026', items:[
+   {d:'ago', cat:'milestone', tag:'Milestone · Novo eixo', t:'Lançamento de "Seminovos 2026" nas duas plataformas', p:'Nova campanha ativada simultaneamente no Google Ads (Display/Geração de Demanda, R$40/dia) e no Meta Ads — primeira expansão de linha de produto/oferta desde o início da gestão. No Meta, o objetivo escolhido foi Mensagens (conversas via WhatsApp/Direct), não formulário de lead.'},
+   {d:'ago', cat:'google', tag:'Google Ads · Display', t:'Seminovos 2026 entrega alto alcance a custo baixo', p:'165.493 impressões e 3.692 cliques em pouco mais de duas semanas, a CPC médio de R$0,11. Formato de campanha diferente da Rede de Pesquisa — CTR (2,23%) não é comparável ao histórico de busca.'},
+   {d:'ago', cat:'meta', tag:'Meta Ads · Mensagens', t:'Seminovos 2026 gera 207 conversas a R$3,78 cada', p:'Campanha nova de objetivo Mensagens performando bem desde o início: R$782,92 investidos, 207 conversas iniciadas no WhatsApp/Direct — custo por resultado mais baixo do mês entre todas as campanhas ativas. Como mede conversas e não leads de formulário, esse resultado não aparece nas métricas de CPL da 01-Captação.'},
+   {d:'ago', cat:'otimizacao', tag:'Meta Ads · Leads', t:'CPL da 01-Captação em R$4,88 — abaixo do pico de junho', p:'Custo por lead da campanha de formulário se mantém na faixa de R$4–5 desde julho, depois do pico de R$6,90 em junho. Cálculo isolado do gasto de branding e da nova campanha de mensagens, para não misturar objetivos diferentes na mesma métrica.'}
+ ]}
+];
+
+const DECISIONS = [
+ {plat:'Google Ads · Março', cause:'Estrutura em 3 grupos distintos', desc:'Separação por nível de intenção: produto genérico / segmento + aplicação / marca e concorrência. Cada grupo com keywords, bid e anúncios específicos.', effect:'Controle granular de onde o budget rende mais'},
+ {plat:'Qualidade · Março', cause:'Exclusões negativas densas desde o início', desc:'Bloqueio proativo de termos domésticos, marcas baratas e segmentos sem perfil de compra B2B. Ação preventiva antes de gastar budget.', effect:'CTR alto (8,6% em março) vs média B2B de 2–3%'},
+ {plat:'Meta Ads · Abril', cause:'Ativação do Meta após estabilizar Google', desc:'Estratégia em fases: primeiro dominar a captura de intenção ativa (Search), depois abrir geração de demanda (Meta). Não investir nas duas sem tracking funcionando.', effect:'+421 leads (formulário) no mês de estreia · CPL R$1,63 — melhor resultado do período'},
+ {plat:'Google Ads · Abril', cause:'Maximizar Conversões + CPA R$66', desc:'Com dados suficientes acumulados, transição para lance inteligente. O algoritmo passou a otimizar para quem converte, não apenas para quem clica.', effect:'Custo/conv. caiu R$67 → R$55 (–18%)'},
+ {plat:'Otimização · Maio', cause:'Poda de 5 keywords sem retorno', desc:'Termos com alta impressão mas conversão zero ou baixa foram pausados. Concentração de budget nos termos com histórico comprovado de resultado.', effect:'Maior eficiência do budget disponível'},
+ {plat:'Google Ads · Maio', cause:'Expansão geográfica para 60+ cidades', desc:'Substituição de "Brasil todo" por seleção granular de cidades com potencial B2B mapeado. Controle de presença em mercados-alvo específicos.', effect:'Cobertura nacional com controle de qualidade por praça'},
+ {plat:'Meta Ads · Julho', cause:'Reativação da campanha Visita ao Perfil', desc:'Com a [Copa] perdendo força, retomada do investimento em reforço de marca/branding para manter presença de perfil ativa entre as campanhas de captação.', effect:'R$370,27 investidos em awareness, sem concorrer com o CPL de captação'},
+ {plat:'Ambas plataformas · Agosto', cause:'Lançamento simultâneo de Seminovos 2026', desc:'Nova linha de campanha ativada ao mesmo tempo no Google (Display) e no Meta (objetivo Mensagens, não formulário) — primeira expansão de oferta/produto desde o início da gestão, testando um público e formato de anúncio diferentes do fluxo principal.', effect:'Alcance alto e barato no Google (R$0,11/clique); no Meta, 207 conversas iniciadas a R$3,78 — bom resultado, só não aparece nos números de "leads" porque é outro objetivo'}
+];
+
+const ATTENTION = [
+ {ic:'📉', sev:'neg', t:'Meta Ads — CTR em queda em todos os 4 ad sets', p:'Variação de –19% a –92% de CTR nos conjuntos ativos. Sinal claro de saturação de criativos ou fadiga de audiência. Necessidade urgente de novos materiais visuais para rotação.'},
+ {ic:'🎯', sev:'warn', t:'Meta Ads — Audiência estreita nos Lookalike 1% e 3%', p:'Ambos os conjuntos Lookalike com audiência estimada em ~1.000 usuários — classificado como "narrow" pelo Meta. Limita escala e tende a elevar CPL. Recomendação: expandir público-base ou testar Advantage+ Audience.'},
+ {ic:'💸', sev:'warn', t:'Google Ads — Custo/conv. subiu em Maio (R$55 → R$75)', p:'Impacto provável da mudança para Maximizar Cliques em 12/05, que prioriza volume em vez de qualidade de conversão. Custo ficou 14% acima do CPA alvo de R$66. Avaliar retorno para Maximizar Conversões com dados acumulados de maio.'},
+ {ic:'🎨', sev:'warn', t:'Pouco material criativo fornecido — ponto combinado não cumprido integralmente', p:'Na reunião de alinhamento (03/03) ficou definido que a equipe Zumex forneceria criativos (fotos, vídeos, materiais) para uso nas campanhas Meta. O volume entregue ficou abaixo do acordado, limitando a rotação de peças e testes A/B — criativos frescos são o principal alavancador de CTR no Meta Ads.'},
+ {ic:'🔗', sev:'neg', t:'RD Station — Conflito de atribuição de leads', p:'Identificado em abril: dificuldade em separar leads por origem (Google vs Meta) e recebimento correto no CRM interno. Sem atribuição correta, não é possível saber qual plataforma gera leads de maior qualidade ou taxa de fechamento. Investigação da integração necessária.'},
+ {ic:'📊', sev:'warn', t:'Google Ads — Impression Share de 1ª posição, com recuperação parcial', p:'IS 1ª posição: 61,87% (mar) → 56,89% (abr) → 54,24% (mai) → 59,13% (jun) → 57,37% (jul) → 53,64%* (ago, parcial). Depois da queda inicial, houve recuperação em junho — mas voltou a cair em julho/agosto. Ainda abaixo do patamar de março, monitorar se impacta taxa de conversão.'},
+ {ic:'📈', sev:'warn', t:'Meta Ads — CPL de leads teve pico em junho, recuperando desde julho', p:'Trajetória do CPL da campanha de captação (formulário, excluindo gasto de branding e mensagens): R$1,63 (abr) → R$4,58 (mai) → R$6,90 (jun, pico) → R$4,16 (jul) → R$4,88 (ago, parcial). Depois do pico em junho — puxado principalmente pela campanha [Copa], a R$26,44/lead — o custo por lead voltou para a faixa de R$4–5. Vale entender o que causou o pico de junho antes de descartar como ruído.'},
+ {ic:'🆕', sev:'warn', t:'Google Ads — Custo/conv. de julho foi o pior do período (R$85,88)', p:'Sem mudança estrutural registrada que explique o pico — CTR e impressões seguiram dentro do padrão. Vale revisar termos de pesquisa e qualidade de landing page nesse mês específico.'},
+ {ic:'💬', sev:'pos', t:'Meta Ads — Seminovos 2026 (Mensagens) já é o melhor custo por resultado do mês', p:'Campanha nova, objetivo Mensagens/Conversas (WhatsApp ou Direct, não formulário): 207 conversas iniciadas a R$3,78 cada, com R$782,92 investidos até 17/08. Não aparece nas métricas de "leads" porque mede um resultado diferente — vale considerar esse número junto do CPL na leitura geral de agosto, e decidir se esse objetivo deve crescer de orçamento.'}
+];
+
+/* ============================================================
+   RENDER: month panel
+   ============================================================ */
+function renderMonth(key){
+  const m = MONTHS[key];
+  const wrap = document.getElementById('monthPanel');
+  let googleHtml = `
+    <div class="plat-card google">
+      <div class="ph"><div class="ic">G</div><div><b>Google Ads</b><small>${m.label}${m.google.periodo?' · '+m.google.periodo:''}</small></div></div>
+      <div class="stat-list">
+        <div class="st"><div class="k">Impressões</div><div class="v">${m.google.impressoes}</div></div>
+        <div class="st"><div class="k">Cliques</div><div class="v">${m.google.cliques}</div></div>
+        <div class="st"><div class="k">Gasto</div><div class="v">${m.google.gasto}</div></div>
+        <div class="st"><div class="k">CPC médio</div><div class="v">${m.google.cpc}</div></div>
+        <div class="st"><div class="k">CTR</div><div class="v">${m.google.ctr}</div></div>
+        <div class="st"><div class="k">Conversões</div><div class="v">${m.google.conv}</div></div>
+        <div class="st"><div class="k">Custo / conv.</div><div class="v ${m.google.custoConvTrend==='down'?'up':m.google.custoConvTrend==='up'?'down':''}">${m.google.custoConv}</div></div>
+        <div class="st"><div class="k">IS 1ª posição</div><div class="v">${m.google.is}</div></div>
+      </div>
+      ${m.googleExtra ? `
+      <div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--border)">
+        <div style="font-size:11.5px;font-weight:700;color:var(--text-dim);margin-bottom:10px">+ ${m.googleExtra.nome}</div>
+        <div class="stat-list">
+          <div class="st"><div class="k">Impressões</div><div class="v">${m.googleExtra.impressoes}</div></div>
+          <div class="st"><div class="k">Cliques</div><div class="v">${m.googleExtra.cliques}</div></div>
+          <div class="st"><div class="k">Gasto</div><div class="v">${m.googleExtra.gasto}</div></div>
+          <div class="st"><div class="k">CPC médio</div><div class="v">${m.googleExtra.cpc}</div></div>
+          <div class="st"><div class="k">CTR</div><div class="v">${m.googleExtra.ctr}</div></div>
+          <div class="st"><div class="k">Conversões</div><div class="v">${m.googleExtra.conv}</div></div>
+        </div>
+      </div>` : ''}
+    </div>`;
+  let metaHtml;
+  if(m.meta){
+    metaHtml = `
+    <div class="plat-card meta">
+      <div class="ph"><div class="ic">M</div><div><b>Meta Ads</b><small>${m.label}</small></div></div>
+      <div class="stat-list">
+        <div class="st"><div class="k">Gasto total</div><div class="v">${m.meta.gasto}</div></div>
+        <div class="st"><div class="k">Leads (formulário)</div><div class="v">${m.meta.leads}</div></div>
+        <div class="st"><div class="k">CPL</div><div class="v">${m.meta.cpl}</div></div>
+        <div class="st"><div class="k">Impressões</div><div class="v">${m.meta.impressoes}</div></div>
+        <div class="st"><div class="k">Alcance</div><div class="v">${m.meta.alcance}</div></div>
+        <div class="st"><div class="k">Visitas ao perfil</div><div class="v">${m.meta.visitas}</div></div>
+      </div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);font-size:12px;color:var(--text-dim)">
+        <b style="color:var(--text)">Campanha:</b> ${m.meta.campanha}<br>
+        <span style="color:var(--warn)">⚠ ${m.meta.alerta}</span>
+      </div>
+      ${m.metaExtra ? `
+      <div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--border)">
+        <div style="font-size:11.5px;font-weight:700;color:var(--text-dim);margin-bottom:10px">+ ${m.metaExtra.nome}</div>
+        <div class="stat-list">
+          <div class="st"><div class="k">Gasto</div><div class="v">${m.metaExtra.gasto}</div></div>
+          <div class="st"><div class="k">Conversas iniciadas</div><div class="v">${m.metaExtra.conversas}</div></div>
+          <div class="st"><div class="k">Custo/conversa</div><div class="v">${m.metaExtra.custoConversa}</div></div>
+          <div class="st"><div class="k">Impressões</div><div class="v">${m.metaExtra.impressoes}</div></div>
+          <div class="st"><div class="k">Alcance</div><div class="v">${m.metaExtra.alcance}</div></div>
+        </div>
+      </div>` : ''}
+    </div>`;
+  } else {
+    metaHtml = `
+    <div class="plat-card meta inactive">
+      <div class="tagpill">${m.metaInactive.status}</div>
+      <b>Meta Ads</b>
+      <div style="font-size:12.5px">${m.metaInactive.motivo}<br>${m.metaInactive.previsao}</div>
+    </div>`;
+  }
+  let ctxHtml = `<div class="plat-card ctx-card"><div class="ph"><div class="ic" style="background:rgba(255,255,255,.07);color:var(--text)">✦</div><b>Contexto</b></div>` +
+    m.ctx.map(c=>`<div class="ctx-item"><div class="k">${c[0]}</div><div class="v">${c[1]}</div></div>`).join('') + `</div>`;
+
+  wrap.innerHTML = googleHtml + metaHtml + ctxHtml;
+}
+renderMonth('mar');
+document.getElementById('monthSwitch').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if(!b) return;
+  document.querySelectorAll('#monthSwitch button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  renderMonth(b.dataset.m);
+});
+
+/* ============================================================
+   RENDER: timeline
+   ============================================================ */
+const catDot = {milestone:'#8c6dff', google:'#4f8cff', meta:'#ff5c9b', problema:'#ff6b6b', imprevisto:'#ffb84d', tracking:'#3ddc97', otimizacao:'#3ddc97'};
+const catBadge = {milestone:'b-milestone', google:'b-google', meta:'b-meta', problema:'b-problema', imprevisto:'b-imprevisto', tracking:'b-tracking', otimizacao:'b-otimizacao'};
+let tlHtml = '';
+TIMELINE.forEach(group=>{
+  tlHtml += `<div class="tl-month-head">${group.m}</div><div class="tl">`;
+  group.items.forEach(it=>{
+    tlHtml += `
+    <div class="tl-item">
+      <div class="date">${it.d}</div>
+      <div class="node" style="--dotc:${catDot[it.cat]}"></div>
+      <div class="body">
+        <div class="tag-row"><span class="badge ${catBadge[it.cat]}">${it.tag}</span></div>
+        <h4>${it.t}</h4>
+        <p>${it.p}</p>
+      </div>
+    </div>`;
+  });
+  tlHtml += `</div>`;
+});
+document.getElementById('timelineWrap').innerHTML = tlHtml;
+
+/* ============================================================
+   RENDER: decisions
+   ============================================================ */
+document.getElementById('decisionsWrap').innerHTML = DECISIONS.map(d=>`
+  <div class="decision">
+    <div class="tagcell"><div class="plat">${d.plat}</div></div>
+    <div class="cause"><h4>${d.cause}</h4><p>${d.desc}</p></div>
+    <div class="arrow">➜</div>
+    <div class="effect">${d.effect}</div>
+  </div>
+`).join('');
+
+/* ============================================================
+   RENDER: attention
+   ============================================================ */
+const sevMap = {neg:{c:'var(--neg)',s:'var(--neg-soft)'}, warn:{c:'var(--warn)',s:'var(--warn-soft)'}, pos:{c:'var(--pos)',s:'var(--pos-soft)'}};
+document.getElementById('attentionWrap').innerHTML = ATTENTION.map(a=>`
+  <div class="attn" style="--sev:${sevMap[a.sev].c};--sev-soft:${sevMap[a.sev].s}">
+    <div class="ic">${a.ic}</div>
+    <div><h4>${a.t}</h4><p>${a.p}</p></div>
+  </div>
+`).join('');
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+function buildTable(el, headers, rows){
+  let thead = '<thead><tr>' + headers.map(h=>`<th>${h}</th>`).join('') + '</tr></thead>';
+  let tbody = '<tbody>' + rows.map(r=>{
+    const cls = r.total ? ' class="total"' : '';
+    return `<tr${cls}>` + r.cells.map(c=>`<td>${c}</td>`).join('') + '</tr>';
+  }).join('') + '</tbody>';
+  el.innerHTML = thead + tbody;
+}
+function trend(dir, txt){
+  const arrow = dir==='up' ? '↑' : dir==='down' ? '↓' : '→';
+  return `<span class="trend ${dir}">${arrow} ${txt}</span>`;
+}
+
+/* ============================================================
+   MONTH FILTER — dados numéricos por mês (fonte única)
+   ============================================================ */
+const MONTH_ORDER = ['mar','abr','mai','jun','jul','ago'];
+const MONTH_LABEL = {mar:'Março',abr:'Abril',mai:'Maio',jun:'Junho',jul:'Julho',ago:'Agosto*'};
+const MONTH_LABEL_SHORT = {mar:'Mar',abr:'Abr',mai:'Mai',jun:'Jun',jul:'Jul',ago:'Ago*'};
+
+const MONTHLY_NUM = {
+  mar:{google:{impr:4774,clicks:411,gasto:1550.75,cpc:3.77,ctr:8.61,conv:23,custoConv:67.42,is:61.87,parcImpr:75.43}, meta:null},
+  abr:{google:{impr:15202,clicks:996,gasto:3648.25,cpc:3.66,ctr:6.55,conv:66,custoConv:55.28,is:56.89,parcImpr:68.06}, meta:{impr:51228,alcance:32611,gasto:786.02,leads:421,cpl:1.63,campanhas:1}},
+  mai:{google:{impr:13030,clicks:867,gasto:3462.68,cpc:3.99,ctr:6.65,conv:46,custoConv:75.28,is:54.24,parcImpr:67.58}, meta:{impr:62867,alcance:40017,gasto:1601.82,leads:313,cpl:4.58,campanhas:2}},
+  jun:{google:{impr:10730,clicks:779,gasto:3029.26,cpc:3.89,ctr:7.26,conv:51,custoConv:59.40,is:59.13,parcImpr:74.45}, meta:{impr:45789,alcance:23828,gasto:2089.21,leads:303,cpl:6.90,campanhas:2}},
+  jul:{google:{impr:14108,clicks:845,gasto:3005.90,cpc:3.56,ctr:5.99,conv:35,custoConv:85.88,is:57.37,parcImpr:79.80}, meta:{impr:85356,alcance:57822,gasto:1777.98,leads:338,cpl:4.16,campanhas:3}},
+  ago:{google:{impr:172179,clicks:4082,gasto:1630.59,cpc:0.40,ctr:2.37,conv:46,custoConv:35.45,is:53.64,parcImpr:80.01}, meta:{impr:108186,alcance:65257,gasto:1995.30,leads:123,cpl:4.88,campanhas:3}}
+};
+
+function fmtInt(v){ return Math.round(v).toLocaleString('pt-BR'); }
+function fmtMoney0(v){ return 'R$'+Math.round(v).toLocaleString('pt-BR'); }
+function fmtMoney2(v){ return 'R$'+v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtPct2(v){ return v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%'; }
+
+const GOOGLE_METRICS = [
+ {key:'impr', label:'Impressões', fmt:fmtInt, type:'pct'},
+ {key:'clicks', label:'Cliques', fmt:fmtInt, type:'pct'},
+ {key:'ctr', label:'CTR', fmt:fmtPct2, type:'pp'},
+ {key:'gasto', label:'Gasto', fmt:fmtMoney0, type:'pct'},
+ {key:'cpc', label:'CPC Médio', fmt:fmtMoney2, type:'pct'},
+ {key:'conv', label:'Conversões', fmt:fmtInt, type:'pct'},
+ {key:'custoConv', label:'Custo / Conv.', fmt:fmtMoney2, type:'pct'},
+ {key:'is', label:'IS 1ª Posição', fmt:fmtPct2, type:'pp'},
+ {key:'parcImpr', label:'Parc. Impr. Rede Pesq.', fmt:fmtPct2, type:'pp'}
+];
+const META_METRICS = [
+ {key:'impr', label:'Impressões', fmt:fmtInt, type:'pct'},
+ {key:'alcance', label:'Alcance', fmt:fmtInt, type:'pct'},
+ {key:'gasto', label:'Gasto total', fmt:fmtMoney2, type:'pct'},
+ {key:'leads', label:'Leads (formulário)', fmt:fmtInt, type:'pct'},
+ {key:'cpl', label:'CPL médio', fmt:fmtMoney2, type:'pct'},
+ {key:'campanhas', label:'Campanhas ativas', fmt:fmtInt, type:'pct'}
+];
+
+function computeTrendGeneric(first, last, type){
+  if(first===undefined||last===undefined) return trend('flat','—');
+  if(type==='pp'){
+    const diff = last-first;
+    const dir = diff>0.05?'up':diff<-0.05?'down':'flat';
+    return trend(dir, (diff>=0?'+':'')+diff.toFixed(1).replace('.',',')+'pp');
+  }
+  if(first===0) return trend('flat','—');
+  const pct = (last-first)/first*100;
+  const dir = pct>1?'up':pct<-1?'down':'flat';
+  return trend(dir, (pct>=0?'+':'')+pct.toFixed(0)+'%');
+}
+function monthsRangeLabel(months){
+  if(!months.length) return '—';
+  if(months.length===1) return MONTH_LABEL[months[0]];
+  const idxs = months.map(m=>MONTH_ORDER.indexOf(m));
+  const isContiguous = idxs.every((v,i)=> i===0 || v === idxs[i-1]+1);
+  if(isContiguous) return MONTH_LABEL_SHORT[months[0]]+'–'+MONTH_LABEL_SHORT[months[months.length-1]]+' 2026';
+  return months.map(m=>MONTH_LABEL_SHORT[m]).join(', ')+' 2026';
+}
+function setKpiValue(id, value, isInt, prefix){
+  document.getElementById(id).textContent = prefix + (isInt ? Math.round(value).toLocaleString('pt-BR') : value.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}));
+}
+
+function renderGoogleTable(selected){
+  const months = MONTH_ORDER.filter(m=>selected.has(m));
+  document.getElementById('footnoteGoogle').style.display = months.includes('ago') ? 'block' : 'none';
+  if(!months.length){ document.getElementById('tblGoogle').innerHTML = '<tbody><tr><td style="padding:16px">Nenhum mês selecionado.</td></tr></tbody>'; return; }
+  const headers = ['Métrica', ...months.map(m=>MONTH_LABEL[m]), months.length>1?`Tendência (${MONTH_LABEL_SHORT[months[0]]}→${MONTH_LABEL_SHORT[months[months.length-1]]})`:'—'];
+  const rows = GOOGLE_METRICS.map(metric=>{
+    const cells = [metric.label];
+    months.forEach(m=>cells.push(metric.fmt(MONTHLY_NUM[m].google[metric.key]) + (m==='ago'?'*':'')));
+    cells.push(months.length>1 ? computeTrendGeneric(MONTHLY_NUM[months[0]].google[metric.key], MONTHLY_NUM[months[months.length-1]].google[metric.key], metric.type) : trend('flat','—'));
+    return {cells};
+  });
+  buildTable(document.getElementById('tblGoogle'), headers, rows);
+}
+function renderMetaTable(selected){
+  const months = MONTH_ORDER.filter(m=>selected.has(m) && MONTHLY_NUM[m].meta);
+  document.getElementById('footnoteMeta').style.display = months.includes('ago') ? 'block' : 'none';
+  if(!months.length){ document.getElementById('tblMeta').innerHTML = '<tbody><tr><td style="padding:16px">Nenhum mês com dados Meta selecionado (Meta só começa em abril).</td></tr></tbody>'; return; }
+  const headers = ['Métrica', ...months.map(m=>MONTH_LABEL[m]), months.length>1?`Tendência (${MONTH_LABEL_SHORT[months[0]]}→${MONTH_LABEL_SHORT[months[months.length-1]]})`:'—'];
+  const rows = META_METRICS.map(metric=>{
+    const cells = [metric.label];
+    months.forEach(m=>cells.push(metric.fmt(MONTHLY_NUM[m].meta[metric.key]) + (m==='ago'?'*':'')));
+    cells.push(months.length>1 ? computeTrendGeneric(MONTHLY_NUM[months[0]].meta[metric.key], MONTHLY_NUM[months[months.length-1]].meta[metric.key], metric.type) : trend('flat','—'));
+    return {cells};
+  });
+  buildTable(document.getElementById('tblMeta'), headers, rows);
+}
+function renderConsolidated(selected){
+  const gMonths = MONTH_ORDER.filter(m=>selected.has(m));
+  const mMonths = gMonths.filter(m=>MONTHLY_NUM[m].meta);
+  const gGasto = gMonths.reduce((s,m)=>s+MONTHLY_NUM[m].google.gasto,0);
+  const gConv = gMonths.reduce((s,m)=>s+MONTHLY_NUM[m].google.conv,0);
+  const mGasto = mMonths.reduce((s,m)=>s+MONTHLY_NUM[m].meta.gasto,0);
+  const mLeads = mMonths.reduce((s,m)=>s+MONTHLY_NUM[m].meta.leads,0);
+  buildTable(document.getElementById('tblConsolidated'),
+   ['Plataforma','Gasto Total','Resultados','Melhor período','Destaque'],
+   [
+    {cells:['Google Ads', fmtMoney2(gGasto), gConv+' conversões', 'Abril · R$55/conv', 'Agosto (parcial) já é o menor custo/conv. na Rede de Pesquisa']},
+    {cells:['Meta Ads', fmtMoney2(mGasto), mLeads+' leads', 'Abril · CPL R$1,63', 'CPL de leads pico em junho (R$6,90), recuperado para R$4–5 desde julho']},
+    {cells:['TOTAL GERAL', fmtMoney2(gGasto+mGasto), (gConv+mLeads)+' resultados', '—', 'Ambas as plataformas ativas, novo eixo Seminovos em teste'], total:true}
+   ]);
+}
+function renderKPIs(selected){
+  const months = MONTH_ORDER.filter(m=>selected.has(m));
+  const mMonths = months.filter(m=>MONTHLY_NUM[m].meta);
+  const gGasto = months.reduce((s,m)=>s+MONTHLY_NUM[m].google.gasto,0);
+  const gConv = months.reduce((s,m)=>s+MONTHLY_NUM[m].google.conv,0);
+  const mGasto = mMonths.reduce((s,m)=>s+MONTHLY_NUM[m].meta.gasto,0);
+  const mLeads = mMonths.reduce((s,m)=>s+MONTHLY_NUM[m].meta.leads,0);
+  const totalGasto = gGasto+mGasto;
+
+  setKpiValue('kpiInvestGoogle', gGasto, false, 'R$ ');
+  document.getElementById('kpiInvestGoogleSub').textContent = monthsRangeLabel(months);
+  setKpiValue('kpiInvestMeta', mGasto, false, 'R$ ');
+  document.getElementById('kpiInvestMetaSub').textContent = mMonths.length ? monthsRangeLabel(mMonths) : 'sem meses Meta';
+  setKpiValue('kpiLeadsMeta', mLeads, true, '');
+  document.getElementById('kpiLeadsMetaSub').textContent = mMonths.map(m=>MONTHLY_NUM[m].meta.leads).join('+') || '—';
+
+  let bestCplMonth=null, bestCpl=Infinity;
+  mMonths.forEach(m=>{ if(MONTHLY_NUM[m].meta.cpl<bestCpl){ bestCpl=MONTHLY_NUM[m].meta.cpl; bestCplMonth=m; } });
+  if(bestCplMonth){ setKpiValue('kpiBestCpl', bestCpl, false, 'R$ '); document.getElementById('kpiBestCplSub').textContent = MONTH_LABEL[bestCplMonth]+' 2026'; }
+  else { document.getElementById('kpiBestCpl').textContent='—'; document.getElementById('kpiBestCplSub').textContent='—'; }
+
+  setKpiValue('kpiConvGoogle', gConv, true, '');
+  document.getElementById('kpiConvGoogleSub').textContent = months.map(m=>MONTHLY_NUM[m].google.conv).join('+') || '—';
+  setKpiValue('kpiInvestTotal', totalGasto, false, 'R$ ');
+
+  const count = months.length || 1;
+  const avgAfter = totalGasto/count;
+  const before = 15648.41/2;
+  const diffPct = before>0 ? (before-avgAfter)/before*100 : 0;
+  document.getElementById('cmpAfterValue').innerHTML = fmtMoney0(avgAfter) + ' <span style="font-size:13px;color:var(--text-faint);font-weight:500">/mês</span>';
+  document.getElementById('cmpSaveVal').textContent = (diffPct>=0?'– ':'+ ')+Math.abs(diffPct).toFixed(1).replace('.',',')+'%';
+  document.getElementById('cmpPeriodLabel').textContent = monthsRangeLabel(months);
+  document.getElementById('cmpAfterDesc').textContent = `Média mensal (${count} ${count===1?'mês':'meses'}${months.includes('ago')?', ago parcial':''}) · Google + Meta Ads`;
+  document.getElementById('cmpCaption').textContent = `Comparativo por média mensal. Total investido no período selecionado: ${fmtMoney2(totalGasto)} · ${gConv} conversões Google + ${mLeads} leads Meta.`;
+}
+
+/* ============================================================
+   TABELAS de campanha por mês (detalhe — não afetadas pelo filtro)
+   ============================================================ */
+buildTable(document.getElementById('tblCampaigns'),
+ ['Campanha','Status','Leads','CPL','Gasto','Impressões','Alcance'],
+ [
+  {cells:['01 - Captação Leads Qualificados','<span class="status-pill on">Ativa</span>','250','R$3,31','R$826,33','32.668','21.789']},
+  {cells:['02 - [Copa] Captação Leads Qualificados','<span class="status-pill on">Ativa</span>','26','R$15,38','R$399,94','8.044','5.339']},
+  {cells:['Vid 2 Captação Leads (antiga 04)','<span class="status-pill off">Desativada</span>','37','R$5,73','R$211,97','6.782','4.677']},
+  {cells:['Visita ao Perfil [Reforço de marca]','<span class="status-pill off">Desativada</span>','265 visitas','R$0,62/visita','R$163,58','15.373','12.940']},
+  {cells:['TOTAL MAIO','—','313 leads','R$4,58 médio','R$1.601,82','62.867','40.017'], total:true}
+ ]);
+
+buildTable(document.getElementById('tblCampaignsJun'),
+ ['Campanha','Status','Leads','CPL','Gasto','Impressões','Alcance'],
+ [
+  {cells:['01 - Captação Leads Qualificados','<span class="status-pill on">Ativa</span>','268','R$4,34','R$1.163,87','35.995','20.535']},
+  {cells:['[Copa] Captação Leads Qualificados','<span class="status-pill off">Pausada em jul</span>','35','R$26,44','R$925,34','9.794','5.898']},
+  {cells:['TOTAL JUNHO','—','303 leads','R$6,90 médio','R$2.089,21','45.789','23.828'], total:true}
+ ]);
+
+buildTable(document.getElementById('tblCampaignsJul'),
+ ['Campanha','Status','Leads','CPL','Gasto','Impressões','Alcance'],
+ [
+  {cells:['01 - Captação Leads Qualificados','<span class="status-pill on">Ativa</span>','329','R$3,65','R$1.201,21','44.955','28.841']},
+  {cells:['[Copa] Captação Leads Qualificados','<span class="status-pill off">Encerrando</span>','9','R$22,94','R$206,50','2.359','1.691']},
+  {cells:['00 - Visita ao Perfil [Reforço de marca]','<span class="status-pill on">Reativada</span>','— (branding)','—','R$370,27','38.042','29.483']},
+  {cells:['TOTAL JULHO (leads)','—','338 leads','R$4,16 médio*','R$1.777,98','85.356','57.822'], total:true}
+ ]);
+
+buildTable(document.getElementById('tblCampaignsAgo'),
+ ['Campanha','Status','Objetivo','Resultado','Custo/resultado','Gasto','Impressões','Alcance'],
+ [
+  {cells:['01 - Captação Leads Qualificados','<span class="status-pill on">Ativa</span>','Leads (formulário)','123 leads','R$4,88','R$600,30','21.215','14.593']},
+  {cells:['00 - Visita ao Perfil [Reforço de marca]','<span class="status-pill on">Ativa</span>','Visitas ao perfil','— (branding)','—','R$612,76','32.922','23.035']},
+  {cells:['02 - Campanha Seminovos 2026','<span class="status-pill on">Nova</span>','Mensagens','207 conversas','R$3,78','R$782,92','54.090','17.239']}
+ ]);
+
+buildTable(document.getElementById('tblGoogleAgo'),
+ ['Campanha','Tipo','Impressões','Cliques','CTR','CPC','Gasto','Conversões','Custo/conv.'],
+ [
+  {cells:['Rede de Pesquisa (RDA)','Busca','6.686','390','5,83%','R$3,12','R$1.217,69','34','R$35,81']},
+  {cells:['Campanha Seminovos 2026','Display','165.493','3.692','2,23%','R$0,11','R$412,90','12','R$34,41']},
+  {cells:['TOTAL AGOSTO (parcial)','—','172.179','4.082','2,37%','R$0,40','R$1.630,59','46','R$35,45'], total:true}
+ ]);
+
+buildTable(document.getElementById('tblResumo'),
+ ['Métrica','Google Ads','Meta Ads','Total / Média','Obs.'],
+ [
+  {cells:['Investimento','R$16.327,43','R$8.250,33','R$24.577,76','66% Google · 34% Meta']},
+  {cells:['Resultados','267 conversões','1.498 leads','1.765 total','Objetivos distintos por plataforma']},
+  {cells:['Custo/resultado','R$61,15/conv.','R$4,16/lead','—','Meta: pico em junho, estável em R$4–5 desde julho']},
+  {cells:['Impressões','230.023','353.426','583.449','Ago inclui Display (Seminovos)']},
+  {cells:['Melhor mês','Abr · R$55/conv','Abr · R$1,63/lead','Abril 2026','Pico de eficiência em ambas']},
+  {cells:['Pior mês (completo)','Jul · R$85,88/conv','Jun · R$6,90/lead','—','Ago (parcial) recuperou p/ R$4,88 — abaixo do pico de junho']},
+  {cells:['Alcance Meta','—','219.535 (abr–ago)','219.535','Pessoas únicas impactadas']},
+  {cells:['Visitas perfil','—','510 visitas (abr–mai)','R$0,51 médio','Não recoletado jun–ago nesta atualização']}
+ ]);
+
+/* ============================================================
+   CHARTS (com suporte a filtro por mês)
+   ============================================================ */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+Chart.defaults.font.family = "'Inter',sans-serif";
+Chart.defaults.color = '#9aa2ba';
+Chart.defaults.animation = reduceMotion ? false : { duration: 700, easing:'easeOutQuart' };
+
+let heroChartGoogleInst, heroChartMetaInst, googleChartInst, metaChartInst;
+
+function renderHeroChart(selected){
+  const months = MONTH_ORDER.filter(m=>selected.has(m));
+  const labels = months.map(m=>MONTH_LABEL[m]);
+  const gData = months.map(m=>MONTHLY_NUM[m].google.conv);
+  const metaMonths = months.filter(m=>MONTHLY_NUM[m].meta);
+  const mLabels = metaMonths.map(m=>MONTH_LABEL[m]);
+  const mData = metaMonths.map(m=>MONTHLY_NUM[m].meta.leads);
+
+  if(!heroChartGoogleInst){
+    heroChartGoogleInst = new Chart(document.getElementById('heroChartGoogle'), {
+      type:'line',
+      data:{ labels, datasets:[
+        {label:'Conversões', data:gData, borderColor:'#4f8cff', backgroundColor:'rgba(79,140,255,.14)', tension:.4, fill:true, pointRadius:4, pointBackgroundColor:'#4f8cff', borderWidth:2.5}
+      ]},
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#0b0f1c', borderColor:'rgba(255,255,255,.12)', borderWidth:1, padding:10, titleFont:{weight:700}}},
+        scales:{
+          x:{grid:{color:'rgba(255,255,255,.05)'}, border:{display:false}},
+          y:{grid:{color:'rgba(255,255,255,.05)'}, border:{display:false}, beginAtZero:true}
+        }
+      }
+    });
+  } else {
+    heroChartGoogleInst.data.labels = labels;
+    heroChartGoogleInst.data.datasets[0].data = gData;
+    heroChartGoogleInst.update();
+  }
+
+  if(!heroChartMetaInst){
+    heroChartMetaInst = new Chart(document.getElementById('heroChartMeta'), {
+      type:'line',
+      data:{ labels: mLabels, datasets:[
+        {label:'Leads', data:mData, borderColor:'#ff5c9b', backgroundColor:'rgba(255,92,155,.14)', tension:.4, fill:true, pointRadius:4, pointBackgroundColor:'#ff5c9b', borderWidth:2.5}
+      ]},
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#0b0f1c', borderColor:'rgba(255,255,255,.12)', borderWidth:1, padding:10, titleFont:{weight:700}}},
+        scales:{
+          x:{grid:{color:'rgba(255,255,255,.05)'}, border:{display:false}},
+          y:{grid:{color:'rgba(255,255,255,.05)'}, border:{display:false}, beginAtZero:true}
+        }
+      }
+    });
+  } else {
+    heroChartMetaInst.data.labels = mLabels;
+    heroChartMetaInst.data.datasets[0].data = mData;
+    heroChartMetaInst.update();
+  }
+}
+function renderGoogleChart(selected){
+  const months = MONTH_ORDER.filter(m=>selected.has(m));
+  const labels = months.map(m=>MONTH_LABEL[m]);
+  const conv = months.map(m=>MONTHLY_NUM[m].google.conv);
+  const ctr = months.map(m=>MONTHLY_NUM[m].google.ctr);
+  if(!googleChartInst){
+    googleChartInst = new Chart(document.getElementById('googleChart'), {
+      data:{ labels, datasets:[
+        {type:'bar', label:'Conversões', data:conv, backgroundColor:'rgba(79,140,255,.55)', borderRadius:6, yAxisID:'y', order:2},
+        {type:'line', label:'CTR', data:ctr, borderColor:'#ffb84d', backgroundColor:'#ffb84d', tension:.4, yAxisID:'y1', pointRadius:4, borderWidth:2, order:1}
+      ]},
+      options:{responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}},
+        scales:{
+          x:{grid:{display:false},border:{display:false}},
+          y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false},title:{display:true,text:'Conversões',font:{size:10}}},
+          y1:{position:'right',grid:{display:false},border:{display:false},title:{display:true,text:'CTR %',font:{size:10}}}
+        }}
+    });
+  } else {
+    googleChartInst.data.labels = labels;
+    googleChartInst.data.datasets[0].data = conv;
+    googleChartInst.data.datasets[1].data = ctr;
+    googleChartInst.update();
+  }
+}
+function renderMetaChart(selected){
+  const months = MONTH_ORDER.filter(m=>selected.has(m) && MONTHLY_NUM[m].meta);
+  const labels = months.map(m=>MONTH_LABEL[m]);
+  const leads = months.map(m=>MONTHLY_NUM[m].meta.leads);
+  const cpl = months.map(m=>MONTHLY_NUM[m].meta.cpl);
+  if(!metaChartInst){
+    metaChartInst = new Chart(document.getElementById('metaChart'), {
+      data:{ labels, datasets:[
+        {type:'bar', label:'Leads', data:leads, backgroundColor:'rgba(255,92,155,.55)', borderRadius:6, yAxisID:'y', order:2},
+        {type:'line', label:'CPL (R$)', data:cpl, borderColor:'#ffb84d', backgroundColor:'#ffb84d', tension:.4, yAxisID:'y1', pointRadius:4, borderWidth:2, order:1}
+      ]},
+      options:{responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}},
+        scales:{
+          x:{grid:{display:false},border:{display:false}},
+          y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false},title:{display:true,text:'Leads',font:{size:10}}},
+          y1:{position:'right',grid:{display:false},border:{display:false},title:{display:true,text:'CPL R$',font:{size:10}}}
+        }}
+    });
+  } else {
+    metaChartInst.data.labels = labels;
+    metaChartInst.data.datasets[0].data = leads;
+    metaChartInst.data.datasets[1].data = cpl;
+    metaChartInst.update();
+  }
+}
+
+/* ============================================================
+   FILTRO — chips de mês
+   ============================================================ */
+let selectedMonths = new Set(MONTH_ORDER);
+function renderFiltered(){
+  renderKPIs(selectedMonths);
+  renderGoogleTable(selectedMonths);
+  renderMetaTable(selectedMonths);
+  renderConsolidated(selectedMonths);
+  renderHeroChart(selectedMonths);
+  renderGoogleChart(selectedMonths);
+  renderMetaChart(selectedMonths);
+}
+document.querySelectorAll('.fchip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    const m = chip.dataset.fm;
+    if(selectedMonths.has(m)){
+      if(selectedMonths.size===1) return; // mantém ao menos 1 mês selecionado
+      selectedMonths.delete(m);
+    } else selectedMonths.add(m);
+    chip.classList.toggle('active', selectedMonths.has(m));
+    renderFiltered();
+  });
+});
+document.getElementById('filterReset').addEventListener('click', ()=>{
+  selectedMonths = new Set(MONTH_ORDER);
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.add('active'));
+  renderFiltered();
+});
+// primeira renderização (todos os meses) — tabelas e gráficos nascem do mesmo dado usado no filtro
+renderGoogleTable(selectedMonths);
+renderMetaTable(selectedMonths);
+renderConsolidated(selectedMonths);
+renderHeroChart(selectedMonths);
+renderGoogleChart(selectedMonths);
+renderMetaChart(selectedMonths);
+
+/* ============================================================
+   KPI count-up (mantém animação de entrada com os totais completos)
+   ============================================================ */
+function formatVal(el, val){
+  const isInt = el.dataset.int;
+  const prefix = el.dataset.prefix || '';
+  if(isInt) return prefix + Math.round(val).toLocaleString('pt-BR');
+  return prefix + val.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function countUp(el){
+  const target = parseFloat(el.dataset.count);
+  if(reduceMotion){ el.textContent = formatVal(el, target); return; }
+  const dur = 1100; const start = performance.now();
+  function step(now){
+    const p = Math.min(1,(now-start)/dur);
+    const eased = 1 - Math.pow(1-p,3);
+    el.textContent = formatVal(el, target*eased);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const kpiObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ countUp(e.target); kpiObserver.unobserve(e.target); }
+  });
+},{threshold:.4});
+document.querySelectorAll('.kpi .val').forEach(el=>kpiObserver.observe(el));
+
+/* ============================================================
+   NAV active state (scrollspy)
+   ============================================================ */
+const sections = document.querySelectorAll('main section');
+const navLinks = document.querySelectorAll('#tabs a, #mobileBar a');
+const navObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id = entry.target.id;
+      navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+id));
+    }
+  });
+},{rootMargin:'-15% 0px -70% 0px'});
+sections.forEach(s=>navObserver.observe(s));
+
+/* ============================================================
+   CLIENT FORM — Supabase (projeto CRM Vendas)
+   Tabela geral (Perspectiva): zumex_client_feedback (linha única id='zumex')
+   Tabela por mês+canal: zumex_client_monthly (id = '<mes>__<canal>')
+   UI: tabelas editáveis inline — uma linha por mês, sem seletor/aba.
+   ============================================================ */
+const SUPABASE_URL = 'https://aaehjgdgqzsrgdpmlmsf.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFhZWhqZ2RncXpzcmdkcG1sbXNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNDc0MDYsImV4cCI6MjA5NTgyMzQwNn0.UZyEC3OZdsEbfjZz4T4px4HnfsZhO3rTQ4LJqWpun5o';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const FEEDBACK_ROW_ID = 'zumex';
+const MONTHLY_TABLE = 'zumex_client_monthly';
+const CHANNEL_LABEL = {google:'Google Ads', meta:'Meta Ads'};
+const EDIT_FIELDS = ['leads_recebidos','qualificados','lead_quente','proposta','vendas','receita'];
+const FIELD_MAP_GENERAL = { f_oportunidades:'oportunidades', f_segmento:'segmento' };
+
+function scopedId(mes,canal){ return mes+'__'+canal; }
+function getChannelSpend(mes,canal){
+  const m = MONTHLY_NUM[mes];
+  if(!m) return 0;
+  if(canal==='google') return m.google.gasto;
+  if(canal==='meta') return m.meta ? m.meta.gasto : 0;
+  return 0;
+}
+function money(v){ return 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+/* ---------- tabelas editáveis ---------- */
+function buildEditableTable(canal){
+  const rows = MONTH_ORDER.map(mes=>{
+    const id = scopedId(mes,canal);
+    return `
+    <tr data-id="${id}" data-mes="${mes}" data-canal="${canal}">
+      <td class="et-mes">${MONTH_LABEL[mes]}</td>
+      <td data-label="Leads">
+        <input type="number" class="et-input" data-f="leads_recebidos" placeholder="0">
+      </td>
+      <td class="et-calc-cell" data-label="Leads qualificados">
+        <input type="number" class="et-input" data-f="qualificados" placeholder="0">
+        <span class="et-pct" data-out="pctQualif">—</span>
+      </td>
+      <td class="et-calc-cell" data-label="Leads quentes 🔥">
+        <input type="number" class="et-input" data-f="lead_quente" placeholder="0">
+        <span class="et-pct" data-out="pctQuente">—</span>
+      </td>
+      <td data-label="Propostas enviadas">
+        <input type="number" class="et-input" data-f="proposta" placeholder="0">
+      </td>
+      <td class="et-highlight" data-label="Vendas (qtd.)">
+        <input type="number" class="et-input" data-f="vendas" placeholder="0">
+      </td>
+      <td class="et-calc-cell et-highlight" data-label="Faturamento (R$)">
+        <input type="number" class="et-input" data-f="receita" placeholder="0">
+        <span class="et-pct" data-out="custoVenda">—</span>
+      </td>
+      <td class="et-actions">
+        <button type="button" class="et-icon-btn et-notes-toggle" title="Notas">📝</button>
+        <button type="button" class="et-icon-btn et-row-clear" title="Apagar esta linha salva">🗑</button>
+      </td>
+    </tr>
+    <tr class="et-notes-row hidden" data-notes-for="${id}">
+      <td colspan="7"><textarea class="et-notes-input" data-f="leads_obs" placeholder="Notas sobre ${MONTH_LABEL[mes]} · ${CHANNEL_LABEL[canal]}..."></textarea></td>
+    </tr>`;
+  }).join('');
+  return `<thead><tr>
+    <th>Mês</th><th>Leads</th><th>Qualificados</th><th>Quentes 🔥</th><th>Propostas</th><th style="color:var(--pos)">Vendas (qtd.)</th><th style="color:var(--pos)">Faturamento (R$)</th><th></th>
+  </tr></thead><tbody>${rows}</tbody>`;
+}
+
+function recalcRow(tr){
+  const mes = tr.dataset.mes, canal = tr.dataset.canal;
+  const get = f => parseFloat(tr.querySelector(`[data-f="${f}"]`).value) || 0;
+  const leads = get('leads_recebidos'), qualif = get('qualificados'), quente = get('lead_quente'), vendas = get('vendas');
+  tr.querySelector('[data-out="pctQualif"]').textContent = leads>0 ? ((qualif/leads)*100).toFixed(0)+'%' : '—';
+  tr.querySelector('[data-out="pctQuente"]').textContent = leads>0 ? ((quente/leads)*100).toFixed(0)+'%' : '—';
+  const spend = getChannelSpend(mes, canal);
+  tr.querySelector('[data-out="custoVenda"]').textContent = (vendas>0 && spend>0) ? money(spend/vendas)+'/venda' : '—';
+}
+
+async function clearRow(id, mes, canal){
+  if(!confirm(`Apagar o registro salvo de ${MONTH_LABEL[mes]} · ${CHANNEL_LABEL[canal]}? Só essa linha é afetada — as outras continuam intactas.`)) return;
+  const { error } = await sb.from(MONTHLY_TABLE).delete().eq('id', id);
+  if(error){ console.error(error); alert('Erro ao apagar — veja o console.'); return; }
+  const tr = document.querySelector(`tr[data-id="${id}"]`);
+  EDIT_FIELDS.forEach(f=>{ tr.querySelector(`[data-f="${f}"]`).value=''; });
+  document.querySelector(`.et-notes-row[data-notes-for="${id}"] .et-notes-input`).value='';
+  recalcRow(tr);
+  const freshRows = await loadAllScoped();
+  renderClientCharts(freshRows);
+  renderExecutiveSummary(freshRows);
+}
+
+function wireTableEvents(){
+  document.querySelectorAll('.editable-table').forEach(tbl=>{
+    tbl.addEventListener('input', (e)=>{
+      if(e.target.classList.contains('et-input')) recalcRow(e.target.closest('tr'));
+    });
+    tbl.addEventListener('click', (e)=>{
+      if(e.target.classList.contains('et-notes-toggle')){
+        const tr = e.target.closest('tr');
+        document.querySelector(`.et-notes-row[data-notes-for="${tr.dataset.id}"]`).classList.toggle('hidden');
+      }
+      if(e.target.classList.contains('et-row-clear')){
+        const tr = e.target.closest('tr');
+        clearRow(tr.dataset.id, tr.dataset.mes, tr.dataset.canal);
+      }
+    });
+  });
+}
+
+function collectAllRows(){
+  const rows = [];
+  document.querySelectorAll('.editable-table tbody tr[data-id]').forEach(tr=>{
+    const id = tr.dataset.id, mes = tr.dataset.mes, canal = tr.dataset.canal;
+    const row = { id, mes, canal, updated_at: new Date().toISOString() };
+    EDIT_FIELDS.forEach(f=>{
+      const v = tr.querySelector(`[data-f="${f}"]`).value;
+      row[f] = v === '' ? null : v;
+    });
+    row.leads_obs = document.querySelector(`.et-notes-row[data-notes-for="${id}"] .et-notes-input`).value || null;
+    rows.push(row);
+  });
+  return rows;
+}
+function populateTables(rows){
+  rows.forEach(row=>{
+    const tr = document.querySelector(`tr[data-id="${row.id}"]`);
+    if(!tr) return;
+    EDIT_FIELDS.forEach(f=>{
+      const input = tr.querySelector(`[data-f="${f}"]`);
+      if(input && row[f]!==undefined && row[f]!==null) input.value = row[f];
+    });
+    if(row.leads_obs){
+      const ta = document.querySelector(`.et-notes-row[data-notes-for="${row.id}"] .et-notes-input`);
+      if(ta) ta.value = row.leads_obs;
+    }
+    recalcRow(tr);
+  });
+}
+async function loadAllScoped(){
+  const { data, error } = await sb.from(MONTHLY_TABLE).select('*');
+  if(error){ console.error(error); return []; }
+  return data || [];
+}
+
+/* ---------- Perspectiva de Longo Prazo (registro geral, único) ---------- */
+function collectGeneralRow(){
+  const row = { id: FEEDBACK_ROW_ID };
+  Object.entries(FIELD_MAP_GENERAL).forEach(([fid,col])=>{
+    const el = document.getElementById(fid);
+    row[col] = el.value === '' ? null : el.value;
+  });
+  const expect = document.querySelector('input[name="expect"]:checked');
+  row.expectativa = expect ? expect.value : null;
+  row.updated_at = new Date().toISOString();
+  return row;
+}
+function applyGeneralRow(row){
+  if(!row) return;
+  Object.entries(FIELD_MAP_GENERAL).forEach(([fid,col])=>{
+    if(row[col]!==undefined && row[col]!==null) document.getElementById(fid).value = row[col];
+  });
+  if(row.expectativa){
+    const r = document.querySelector(`input[name="expect"][value="${row.expectativa}"]`);
+    if(r) r.checked = true;
+  }
+}
+async function loadGeneral(){
+  const { data, error } = await sb.from('zumex_client_feedback').select('*').eq('id', FEEDBACK_ROW_ID).maybeSingle();
+  if(error){ console.error(error); return; }
+  applyGeneralRow(data);
+}
+
+/* ---------- salvar / status ---------- */
+function updateSaveBar(info, statusOverride){
+  const statusEl = document.getElementById('saveStatus');
+  const timeEl = document.getElementById('saveTime');
+  const timeBottomEl = document.getElementById('saveTimeBottom');
+  if(statusOverride){ statusEl.textContent = statusOverride; timeBottomEl.textContent = statusOverride; return; }
+  if(info && info.updated_at){
+    const stamp = new Date(info.updated_at).toLocaleString('pt-BR');
+    statusEl.textContent = 'Dados salvos';
+    timeEl.textContent = stamp;
+    timeBottomEl.textContent = 'Salvo em ' + stamp;
+  } else {
+    statusEl.textContent = 'Ainda sem dados salvos';
+    timeEl.textContent = '—';
+    timeBottomEl.textContent = '—';
+  }
+}
+
+async function doSave(btn){
+  const old = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Salvando…';
+  const rows = collectAllRows();
+  const generalRow = collectGeneralRow();
+  const [monthlyRes, generalRes] = await Promise.all([
+    sb.from(MONTHLY_TABLE).upsert(rows).select(),
+    sb.from('zumex_client_feedback').upsert(generalRow).select().maybeSingle()
+  ]);
+  btn.disabled = false;
+  if(monthlyRes.error || generalRes.error){
+    console.error(monthlyRes.error || generalRes.error);
+    btn.textContent = '✗ Erro ao salvar';
+    updateSaveBar(null, 'Erro ao salvar (ver console)');
+    setTimeout(()=>btn.textContent = old, 2200);
+    return;
+  }
+  updateSaveBar({ updated_at: new Date().toISOString() });
+  btn.textContent = '✓ Tudo salvo com sucesso';
+  setTimeout(()=>btn.textContent = old, 1800);
+  const freshRows = await loadAllScoped();
+  renderClientCharts(freshRows);
+  renderExecutiveSummary(freshRows);
+}
+document.getElementById('btnSave').addEventListener('click', ()=>doSave(document.getElementById('btnSave')));
+document.getElementById('btnSaveBottom').addEventListener('click', ()=>doSave(document.getElementById('btnSaveBottom')));
+
+/* ---------- Painel de Resultados: gráficos ---------- */
+function ensureCanvas(wrapId, canvasId){
+  if(!document.getElementById(canvasId)){
+    document.getElementById(wrapId).innerHTML = `<canvas id="${canvasId}"></canvas>`;
+  }
+}
+function showEmpty(wrapId, msg){
+  document.getElementById(wrapId).innerHTML = `<div class="chart-empty"><div class="big">📭</div><div>${msg}</div></div>`;
+}
+function renderRefCharts(){
+  const labels = MONTH_ORDER.map(m=>MONTH_LABEL[m]);
+  const convData = MONTH_ORDER.map(m=>MONTHLY_NUM[m].google.conv);
+  new Chart(document.getElementById('chartRefGoogle'), {
+    type:'bar',
+    data:{labels, datasets:[{label:'Conversões', data:convData, backgroundColor:'rgba(79,140,255,.55)', borderRadius:6}]},
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},border:{display:false}}, y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false}}}}
+  });
+  const metaMonths = MONTH_ORDER.filter(m=>MONTHLY_NUM[m].meta);
+  new Chart(document.getElementById('chartRefMeta'), {
+    type:'bar',
+    data:{labels:metaMonths.map(m=>MONTH_LABEL[m]), datasets:[{label:'Leads', data:metaMonths.map(m=>MONTHLY_NUM[m].meta.leads), backgroundColor:'rgba(255,92,155,.55)', borderRadius:6}]},
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},border:{display:false}}, y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false}}}}
+  });
+}
+
+let chartHotLeadsInst=null, chartSalesChannelInst=null, chartVolumeCostInst=null, chartRoasInst=null;
+let roasAllRows = [];
+let roasSelectedMonths = new Set(MONTH_ORDER);
+
+function renderRoasMonthFilter(){
+  const box = document.getElementById('roasMonthFilter');
+  const allSelected = MONTH_ORDER.every(m=>roasSelectedMonths.has(m));
+  let html = `<span class="roas-chip all${allSelected ? ' active':''}" data-all="1">Período total</span>`;
+  MONTH_ORDER.forEach(m=>{
+    const on = roasSelectedMonths.has(m);
+    html += `<span class="roas-chip${on?' active':''}" data-mes="${m}">${MONTH_LABEL[m]}</span>`;
+  });
+  box.innerHTML = html;
+  box.querySelectorAll('.roas-chip[data-mes]').forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const m = chip.dataset.mes;
+      if(roasSelectedMonths.has(m)) roasSelectedMonths.delete(m);
+      else roasSelectedMonths.add(m);
+      if(roasSelectedMonths.size===0) roasSelectedMonths.add(m);
+      renderRoasChart(roasAllRows);
+    });
+  });
+  box.querySelector('.roas-chip[data-all]').addEventListener('click', ()=>{
+    roasSelectedMonths = new Set(MONTH_ORDER);
+    renderRoasChart(roasAllRows);
+  });
+}
+
+function renderRoasChart(rows){
+  roasAllRows = rows;
+  renderRoasMonthFilter();
+
+  const filtered = rows.filter(r=>roasSelectedMonths.has(r.mes));
+  const byChannel = { google:{invest:0, receita:0}, meta:{invest:0, receita:0} };
+  filtered.forEach(r=>{
+    const receita = parseFloat(r.receita)||0;
+    if(receita<=0) return; // só considera meses/canais onde a Zumex já informou receita
+    const canal = r.canal;
+    if(!byChannel[canal]) return;
+    byChannel[canal].receita += receita;
+    byChannel[canal].invest += getChannelSpend(r.mes, canal);
+  });
+  const totalInvest = byChannel.google.invest + byChannel.meta.invest;
+  const totalReceita = byChannel.google.receita + byChannel.meta.receita;
+  const statsBox = document.getElementById('roasStats');
+  const allSelected = MONTH_ORDER.every(m=>roasSelectedMonths.has(m));
+  const periodoLabel = allSelected
+    ? 'período completo'
+    : MONTH_ORDER.filter(m=>roasSelectedMonths.has(m)).map(m=>MONTH_LABEL[m]).join(', ');
+
+  if(totalReceita<=0){
+    showEmpty('chartRoasWrap', 'Sem receita preenchida ainda para o período selecionado. Preencha "Receita" nas tabelas acima e salve, ou mude o filtro de mês.');
+    chartRoasInst = null;
+    statsBox.innerHTML = '';
+    return;
+  }
+
+  ensureCanvas('chartRoasWrap','chartRoas');
+  const cfg = { labels:['Google Ads','Meta Ads'], datasets:[
+    {label:'Investimento', data:[byChannel.google.invest, byChannel.meta.invest], backgroundColor:'rgba(255,255,255,.18)', borderRadius:6},
+    {label:'Receita', data:[byChannel.google.receita, byChannel.meta.receita], backgroundColor:'rgba(61,220,151,.65)', borderRadius:6}
+  ]};
+  if(chartRoasInst){ chartRoasInst.data = cfg; chartRoasInst.update(); }
+  else chartRoasInst = new Chart(document.getElementById('chartRoas'), {
+    type:'bar', data:cfg,
+    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}},
+      scales:{x:{grid:{display:false},border:{display:false}}, y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false},ticks:{callback:v=>'R$'+v}}}}
+  });
+
+  const roas = v => v.invest>0 ? (v.receita/v.invest).toFixed(2)+'x' : '—';
+  const stat = (k,v) => `<div><div style="font-size:11px;color:var(--text-faint)">${k}</div><div class="mono" style="font-weight:700;font-size:17px">${v}</div></div>`;
+  statsBox.innerHTML =
+    `<div style="width:100%;font-size:11px;color:var(--text-faint);margin-bottom:2px">Período: ${periodoLabel}</div>` +
+    stat('Investimento considerado', money(totalInvest)) +
+    stat('Receita reportada', money(totalReceita)) +
+    stat('ROAS geral', totalInvest>0 ? (totalReceita/totalInvest).toFixed(2)+'x' : '—') +
+    stat('ROAS Google', roas(byChannel.google)) +
+    stat('ROAS Meta', roas(byChannel.meta));
+}
+
+function renderClientCharts(rows){
+  const hasHot = rows.some(r=>(r.lead_quente||0)>0);
+  if(!hasHot){
+    showEmpty('chartHotLeadsWrap', 'Sem leads quentes preenchidos ainda. Preencha a coluna "Quente 🔥" acima e salve.');
+    chartHotLeadsInst = null;
+  } else {
+    ensureCanvas('chartHotLeadsWrap','chartHotLeads');
+    const gData = MONTH_ORDER.map(m=>{ const r = rows.find(x=>x.mes===m && x.canal==='google'); return r ? (r.lead_quente||0) : 0; });
+    const mData = MONTH_ORDER.map(m=>{ const r = rows.find(x=>x.mes===m && x.canal==='meta'); return r ? (r.lead_quente||0) : 0; });
+    const cfg = { labels: MONTH_ORDER.map(m=>MONTH_LABEL[m]), datasets:[
+      {label:'Google', data:gData, backgroundColor:'rgba(79,140,255,.65)', borderRadius:4, stack:'s'},
+      {label:'Meta', data:mData, backgroundColor:'rgba(255,92,155,.65)', borderRadius:4, stack:'s'}
+    ]};
+    if(chartHotLeadsInst){ chartHotLeadsInst.data = cfg; chartHotLeadsInst.update(); }
+    else chartHotLeadsInst = new Chart(document.getElementById('chartHotLeads'), {
+      type:'bar', data:cfg,
+      options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}},
+        scales:{x:{stacked:true,grid:{display:false},border:{display:false}}, y:{stacked:true,grid:{color:'rgba(255,255,255,.05)'},border:{display:false},ticks:{precision:0}}}}
+    });
+  }
+
+  const salesGoogle = rows.filter(r=>r.canal==='google').reduce((s,r)=>s+(r.vendas||0),0);
+  const salesMeta = rows.filter(r=>r.canal==='meta').reduce((s,r)=>s+(r.vendas||0),0);
+  if(salesGoogle===0 && salesMeta===0){
+    showEmpty('chartSalesChannelWrap', 'Sem vendas preenchidas ainda. Preencha "Vendas" nas tabelas acima e salve.');
+    chartSalesChannelInst = null;
+  } else {
+    ensureCanvas('chartSalesChannelWrap','chartSalesChannel');
+    const cfg = { labels:['Google Ads','Meta Ads'], datasets:[{label:'Vendas', data:[salesGoogle, salesMeta], backgroundColor:['rgba(79,140,255,.65)','rgba(255,92,155,.65)'], borderRadius:6}] };
+    if(chartSalesChannelInst){ chartSalesChannelInst.data = cfg; chartSalesChannelInst.update(); }
+    else chartSalesChannelInst = new Chart(document.getElementById('chartSalesChannel'), {
+      type:'bar', data:cfg,
+      options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+        scales:{x:{grid:{display:false},border:{display:false}}, y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false},ticks:{precision:0}}}}
+    });
+  }
+
+  renderRoasChart(rows);
+
+  const anyVolume = rows.some(r=>(r.leads_recebidos||0)>0);
+  if(!anyVolume){
+    showEmpty('chartVolumeCostWrap', 'Sem "Leads" preenchidos ainda nas tabelas acima.');
+    chartVolumeCostInst = null;
+  } else {
+    ensureCanvas('chartVolumeCostWrap','chartVolumeCost');
+    const volume = MONTH_ORDER.map(m=>{
+      const g = rows.find(x=>x.mes===m && x.canal==='google');
+      const mt = rows.find(x=>x.mes===m && x.canal==='meta');
+      return (g?g.leads_recebidos||0:0) + (mt?mt.leads_recebidos||0:0);
+    });
+    const custo = MONTH_ORDER.map((m,i)=>{
+      const vol = volume[i];
+      if(!vol) return null;
+      const spend = MONTHLY_NUM[m].google.gasto + (MONTHLY_NUM[m].meta ? MONTHLY_NUM[m].meta.gasto : 0);
+      return +(spend/vol).toFixed(2);
+    });
+    const cfg = { labels: MONTH_ORDER.map(m=>MONTH_LABEL[m]), datasets:[
+      {type:'bar', label:'Leads recebidos', data:volume, backgroundColor:'rgba(140,109,255,.55)', borderRadius:6, yAxisID:'y', order:2},
+      {type:'line', label:'Custo por lead (R$)', data:custo, borderColor:'#ffb84d', backgroundColor:'#ffb84d', tension:.4, yAxisID:'y1', pointRadius:4, borderWidth:2, order:1, spanGaps:false}
+    ]};
+    if(chartVolumeCostInst){ chartVolumeCostInst.data = cfg; chartVolumeCostInst.update(); }
+    else chartVolumeCostInst = new Chart(document.getElementById('chartVolumeCost'), {
+      data: cfg,
+      options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{boxWidth:10,font:{size:11}}}},
+        scales:{
+          x:{grid:{display:false},border:{display:false}},
+          y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false},title:{display:true,text:'Leads',font:{size:10}}},
+          y1:{position:'right',grid:{display:false},border:{display:false},title:{display:true,text:'R$/lead',font:{size:10}}}
+        }}
+    });
+  }
+}
+
+/* ---------- Resumo Executivo: totais reais a partir dos dados do cliente ---------- */
+function renderExecutiveSummary(rows){
+  const sum = f => rows.reduce((s,r)=>s+(parseFloat(r[f])||0), 0);
+  const totalLeads = sum('leads_recebidos');
+  const totalQualif = sum('qualificados');
+  const totalQuentes = sum('lead_quente');
+  const totalPropostas = sum('proposta');
+  const totalVendas = sum('vendas');
+  const totalReceita = sum('receita');
+  const hasAnyData = totalLeads>0 || totalQualif>0 || totalQuentes>0 || totalPropostas>0 || totalVendas>0 || totalReceita>0;
+
+  const setVal = (id, text) => {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.classList.toggle('empty', text==='—');
+  };
+
+  setVal('sumLeads', totalLeads>0 ? totalLeads.toLocaleString('pt-BR') : '—');
+  setVal('sumQualificados', totalQualif>0 ? totalQualif.toLocaleString('pt-BR') : '—');
+  setVal('sumQuentes', totalQuentes>0 ? totalQuentes.toLocaleString('pt-BR') : '—');
+  setVal('sumPropostas', totalPropostas>0 ? totalPropostas.toLocaleString('pt-BR') : '—');
+  setVal('sumVendas', totalVendas>0 ? totalVendas.toLocaleString('pt-BR') : '—');
+  setVal('sumFaturamento', totalReceita>0 ? money(totalReceita) : '—');
+
+  const callout = document.getElementById('execSummaryCallout');
+  const title = document.getElementById('execSummaryTitle');
+  const sub = document.getElementById('execSummarySub');
+  if(hasAnyData){
+    callout.classList.remove('pending');
+    callout.classList.add('filled');
+    title.textContent = 'Retorno do cliente registrado';
+    sub.textContent = '— valores somam os meses/canais já preenchidos e salvos pela Zumex abaixo. Campos ainda vazios não entram na soma.';
+  } else {
+    callout.classList.remove('filled');
+    callout.classList.add('pending');
+    title.textContent = 'Aguardando retorno do cliente';
+    sub.textContent = '— campos a preencher com a Zumex para completar o relatório.';
+  }
+}
+
+(async function initClientSection(){
+  document.getElementById('tblEditGoogle').innerHTML = buildEditableTable('google');
+  document.getElementById('tblEditMeta').innerHTML = buildEditableTable('meta');
+  wireTableEvents();
+  updateSaveBar(null, 'Carregando…');
+  const [rows] = await Promise.all([ loadAllScoped(), loadGeneral() ]);
+  populateTables(rows);
+  if(rows.length){
+    const latest = rows.map(r=>r.updated_at).filter(Boolean).sort().reverse()[0];
+    updateSaveBar(latest ? {updated_at:latest} : null);
+  } else {
+    updateSaveBar(null);
+  }
+  renderRefCharts();
+  renderClientCharts(rows);
+  renderExecutiveSummary(rows);
+})();
+</script>
+</body>
+</html>
