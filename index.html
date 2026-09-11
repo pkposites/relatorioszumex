@@ -1522,7 +1522,7 @@ const kpiObserver = new IntersectionObserver((entries)=>{
     if(e.isIntersecting){ countUp(e.target); kpiObserver.unobserve(e.target); }
   });
 },{threshold:.4});
-document.querySelectorAll('.kpi .val').forEach(el=>kpiObserver.observe(el));
+document.querySelectorAll('.kpi .val[data-count]').forEach(el=>kpiObserver.observe(el));
 
 /* ============================================================
    NAV active state (scrollspy)
