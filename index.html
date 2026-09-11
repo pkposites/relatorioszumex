@@ -475,6 +475,7 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
   <a href="#decisions">Decisões</a>
   <a href="#attention">Atenção</a>
   <a href="#client">Cliente</a>
+  <a href="#saldo">Saldo</a>
   <a href="#final">Final</a>
 </div>
 
@@ -492,6 +493,7 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
       <a href="#decisions"><span class="dot"></span>Decisões</a>
       <a href="#attention"><span class="dot"></span>Pontos de Atenção</a>
       <a href="#client"><span class="dot"></span>Retorno do Cliente</a>
+      <a href="#saldo"><span class="dot"></span>Campanha Saldo</a>
       <a href="#final"><span class="dot"></span>Relatório Final</a>
     </nav>
     <div class="side-foot">Março – Agosto 2026<br>Gestão de Tráfego · Google Ads + Meta Ads</div>
@@ -504,7 +506,7 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
       <section id="overview">
         <div class="eyebrow">Visão geral do período</div>
         <h2 class="title">Duas frentes, um objetivo</h2>
-        <p class="lede">Seis meses de gestão ativa na campanha Máquina de Suco Profissional — Google Ads estruturado desde o início, Meta Ads somado a partir de abril, e em agosto um novo eixo entrou no ar nas duas plataformas: <b style="color:var(--text)">Seminovos 2026</b>.</p>
+        <p class="lede">Sete meses de gestão ativa na campanha Máquina de Suco Profissional (Mar–Set, com setembro parcial até 10/09) — Google Ads estruturado desde o início, Meta Ads somado a partir de abril, e em agosto um novo eixo entrou no ar nas duas plataformas: <b style="color:var(--text)">Seminovos 2026</b>.</p>
 
         <div class="compare">
           <div class="box before">
@@ -520,7 +522,7 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
           <div class="box after">
             <div class="k">Gestão RDA · <span id="cmpPeriodLabel">Mar–Ago 2026</span></div>
             <div class="v mono" id="cmpAfterValue">R$ 4.096 <span style="font-size:13px;color:var(--text-faint);font-weight:500">/mês</span></div>
-            <div class="d" id="cmpAfterDesc">Média mensal (6 meses, ago parcial) · Google + Meta Ads</div>
+            <div class="d" id="cmpAfterDesc">Média mensal (7 meses, set parcial) · Google + Meta Ads</div>
           </div>
         </div>
         <p style="font-size:11.5px;color:var(--text-faint);margin:-24px 0 26px" id="cmpCaption">Comparativo por média mensal, já que os períodos têm durações diferentes (2 meses antes × 6 meses de gestão RDA, agosto ainda parcial). Total investido Mar–Ago: R$ 24.577,76 · 267 conversões Google + 1.498 leads Meta.</p>
@@ -533,19 +535,20 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
             <button class="fchip active" data-fm="mai">Mai</button>
             <button class="fchip active" data-fm="jun">Jun</button>
             <button class="fchip active" data-fm="jul">Jul</button>
-            <button class="fchip active" data-fm="ago">Ago*</button>
+            <button class="fchip active" data-fm="ago">Ago</button>
+            <button class="fchip active" data-fm="set">Set*</button>
           </div>
           <button class="filter-reset" id="filterReset">Ver período completo</button>
         </div>
         <p style="font-size:11px;color:var(--text-faint);margin:8px 0 30px">O filtro recalcula os KPIs acima, o gráfico e as tabelas da aba Performance. Linha do tempo, decisões, atenção e o Relatório Final continuam mostrando o histórico completo.</p>
 
         <div class="grid g6" id="kpiGrid">
-          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Invest. Google</div><div class="val" id="kpiInvestGoogle" data-count="16327.43" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestGoogleSub">Mar a Ago (parcial)</div></div>
-          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Invest. Meta</div><div class="val" id="kpiInvestMeta" data-count="8250.33" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestMetaSub">Abr a Ago (parcial)</div></div>
-          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Leads Meta</div><div class="val" id="kpiLeadsMeta" data-count="1498" data-int="1">0</div><div class="sub" id="kpiLeadsMetaSub">421+313+303+338+123</div></div>
+          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Invest. Google</div><div class="val" id="kpiInvestGoogle" data-count="18799.01" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestGoogleSub">Mar a Set (parcial)</div></div>
+          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Invest. Meta</div><div class="val" id="kpiInvestMeta" data-count="11894.26" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestMetaSub">Abr a Set (parcial)</div></div>
+          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Leads Meta</div><div class="val" id="kpiLeadsMeta" data-count="1585" data-int="1">0</div><div class="sub" id="kpiLeadsMetaSub">421+313+303+338+175+35</div></div>
           <div class="kpi" style="--bar:var(--pos)"><div class="lbl">Melhor CPL Meta</div><div class="val" id="kpiBestCpl" data-count="1.63" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiBestCplSub">Abril 2026</div></div>
-          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Conversões Google</div><div class="val" id="kpiConvGoogle" data-count="267" data-int="1">0</div><div class="sub" id="kpiConvGoogleSub">23+66+46+51+35+46</div></div>
-          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Invest. Total Geral</div><div class="val" id="kpiInvestTotal" data-count="24577.76" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestTotalSub">Google + Meta</div></div>
+          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Conversões Google</div><div class="val" id="kpiConvGoogle" data-count="305" data-int="1">0</div><div class="sub" id="kpiConvGoogleSub">23+66+46+51+35+72+12</div></div>
+          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Invest. Total Geral</div><div class="val" id="kpiInvestTotal" data-count="30693.27" data-prefix="R$ ">R$ 0</div><div class="sub" id="kpiInvestTotalSub">Google + Meta</div></div>
         </div>
 
         <div class="grid g2">
@@ -565,7 +568,8 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
           <button data-m="mai">Maio</button>
           <button data-m="jun">Junho</button>
           <button data-m="jul">Julho</button>
-          <button data-m="ago">Agosto <span style="opacity:.55;font-size:10.5px">parcial</span></button>
+          <button data-m="ago">Agosto</button>
+          <button data-m="set">Setembro <span style="opacity:.55;font-size:10.5px">parcial</span></button>
         </div>
 
         <div class="plat-grid" id="monthPanel"><!-- injected by JS --></div>
@@ -592,12 +596,12 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
 
         <div class="section-sub">Google Ads · Evolução Mensal</div>
         <div class="tbl-wrap"><table id="tblGoogle"></table></div>
-        <p id="footnoteGoogle" style="font-size:11px;color:var(--text-faint);margin:8px 0 0">* Agosto: dados parciais até 16/08 — coluna combina Rede de Pesquisa + a nova campanha Display "Seminovos 2026" (impressões/CTR/CPC não comparáveis ao histórico só-busca).</p>
+        <p id="footnoteGoogle" style="font-size:11px;color:var(--text-faint);margin:8px 0 0">* Setembro: dados parciais até 10/09 — coluna combina Rede de Pesquisa + a campanha Display "Seminovos 2026" (impressões/CTR/CPC não comparáveis ao histórico só-busca; Seminovos ficou pausada em setembro).</p>
 
         <div class="section-sub">Meta Ads · Evolução Mensal</div>
         <div class="tbl-wrap"><table id="tblMeta"></table></div>
         <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">CPL considera apenas o gasto de campanhas de captação de leads (formulário) — exclui gasto de branding (Visita ao Perfil) e da Seminovos 2026 (Mensagens), aplicado da mesma forma em todos os meses.</p>
-        <p id="footnoteMeta" style="font-size:11px;color:var(--text-faint);margin:4px 0 0">* Agosto: dados parciais até 17/08. Visitas ao perfil não foram recoletadas para jun/jul/ago nesta atualização. A partir de agosto, "campanhas ativas" inclui a Seminovos 2026 (objetivo Mensagens) — seus resultados (207 conversas, R$3,78/conversa) não entram nas linhas de Leads/CPL acima; ver detalhe por campanha mais abaixo.</p>
+        <p id="footnoteMeta" style="font-size:11px;color:var(--text-faint);margin:4px 0 0">* Setembro: dados parciais até 10/09. A partir de agosto, "campanhas ativas" inclui a Seminovos 2026 (objetivo Mensagens) — seus resultados não entram nas linhas de Leads/CPL acima; ver detalhe por campanha mais abaixo.</p>
 
         <div class="section-sub">Meta Ads · Detalhe por Campanha — Maio 2026</div>
         <p style="font-size:11px;color:var(--text-faint);margin:-4px 0 12px">Alcance é deduplicado pelo Meta no total da conta — a soma do Alcance de cada campanha abaixo é maior que o total, porque uma mesma pessoa pode ter sido alcançada por mais de uma campanha e é contada uma vez só no geral.</p>
@@ -610,13 +614,21 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
         <p style="font-size:11px;color:var(--text-faint);margin:-4px 0 12px">*CPL médio da linha "TOTAL" considera só o gasto das campanhas de lead (exclui os R$370,27 da Visita ao Perfil) — o Gasto mostrado na mesma linha é o total do mês, incluindo branding.</p>
         <div class="tbl-wrap"><table id="tblCampaignsJul"></table></div>
 
-        <div class="section-sub">Meta Ads · Detalhe por Campanha — Agosto 2026 <span style="font-size:11px;color:var(--text-faint);font-weight:500">· parcial, até 17/08</span></div>
+        <div class="section-sub">Meta Ads · Detalhe por Campanha — Agosto 2026</div>
         <div class="tbl-wrap"><table id="tblCampaignsAgo"></table></div>
-        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">Três objetivos diferentes rodando em paralelo — não somamos leads + conversas + visitas numa linha de total, pois são resultados de naturezas distintas. Gasto do mês: R$600,30 (leads formulário) + R$612,76 (branding) + R$782,92 (mensagens) ≈ R$1.995,98 (dados até 17/08, ainda em consolidação pelo Meta).</p>
+        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">Três objetivos diferentes rodando em paralelo — não somamos leads + conversas + visitas numa linha de total, pois são resultados de naturezas distintas. Gasto do mês: R$1.100,55 (leads formulário) + R$1.098,21 (branding) + R$1.950,54 (mensagens) = R$4.149,30 (mês completo).</p>
 
-        <div class="section-sub">Google Ads · Detalhe por Campanha — Agosto 2026 <span style="font-size:11px;color:var(--text-faint);font-weight:500">· parcial, até 16/08</span></div>
+        <div class="section-sub">Google Ads · Detalhe por Campanha — Agosto 2026</div>
         <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 12px">Novo formato de campanha (Display/Geração de Demanda) entrou na conta — CPC e CTR não são comparáveis com a Rede de Pesquisa.</p>
         <div class="tbl-wrap"><table id="tblGoogleAgo"></table></div>
+
+        <div class="section-sub">Meta Ads · Detalhe por Campanha — Setembro 2026 <span style="font-size:11px;color:var(--text-faint);font-weight:500">· parcial, até 10/09</span></div>
+        <div class="tbl-wrap"><table id="tblCampaignsSet"></table></div>
+        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">Gasto do mês (até 10/09): R$380,65 (leads formulário) + R$325,88 (branding) + R$783,40 (mensagens) = R$1.489,93.</p>
+
+        <div class="section-sub">Google Ads · Detalhe por Campanha — Setembro 2026 <span style="font-size:11px;color:var(--text-faint);font-weight:500">· parcial, até 10/09</span></div>
+        <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 12px">Campanha Display "Seminovos 2026" ficou pausada em setembro — sem investimento neste corte.</p>
+        <div class="tbl-wrap"><table id="tblGoogleSet"></table></div>
 
         <div class="section-sub">Comparativo Consolidado</div>
         <div class="tbl-wrap"><table id="tblConsolidated"></table></div>
@@ -712,23 +724,67 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
         </div>
       </section>
 
+      <!-- ================= SALDO ================= -->
+      <section id="saldo">
+        <div class="eyebrow">07/08 – 10/09/2026 · corte especial</div>
+        <h2 class="title">Campanha Saldo · Seminovos 2026</h2>
+        <p class="lede">Recorte isolado da campanha promocional "Seminovos 2026" (Google Display + Meta Mensagens) no período de 07/08 a 10/09/2026 — investimento em mídia vindo direto das plataformas, e um painel para o time comercial registrar o funil de vendas gerado por essa ação.</p>
+
+        <div class="grid g3">
+          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Invest. mídia (Google+Meta)</div><div class="val">R$ 3.596,83</div><div class="sub">Google R$862,89 + Meta R$2.733,94</div></div>
+          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Cliques / Conversões Google</div><div class="val">4.432 / 25</div><div class="sub">Display · 180.799 impr.</div></div>
+          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Conversas Meta</div><div class="val">427</div><div class="sub">R$6,40/conversa · 111.573 impr.</div></div>
+        </div>
+        <p style="font-size:11px;color:var(--text-faint);margin:10px 0 30px">Campanha Display do Google ficou pausada a partir de 01/09 — o investimento de R$862,89 refere-se a 07/08–31/08. No Meta, a campanha seguiu ativa até 10/09.</p>
+
+        <div class="section-sub">Painel Comercial — Funil da Campanha Saldo</div>
+        <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 16px">Preencha os campos abaixo com o levantamento do time comercial para este período. Custo total, custo por lead, custo por proposta, custo por venda e ROAS são calculados automaticamente a partir do investimento em mídia acima.</p>
+
+        <div class="save-bar">
+          <div class="stat">Status: <b id="saldoSaveStatus">Carregando…</b> · Última atualização: <b id="saldoSaveTime">—</b></div>
+          <div class="btn-row">
+            <button class="btn primary" id="btnSaveSaldo">💾 Salvar</button>
+          </div>
+        </div>
+
+        <div class="card form-card">
+          <div class="f-grid f3">
+            <div class="field"><label>Leads totais</label><input type="number" id="saldo_leads" placeholder="0"></div>
+            <div class="field"><label>Negociações</label><input type="number" id="saldo_negociacoes" placeholder="0"></div>
+            <div class="field"><label>Propostas enviadas</label><input type="number" id="saldo_propostas" placeholder="0"></div>
+            <div class="field"><label>Vendas</label><input type="number" id="saldo_vendas" placeholder="0"></div>
+            <div class="field"><label>Faturamento (R$)</label><input type="number" id="saldo_faturamento" placeholder="0,00"></div>
+            <div class="field full"><label>Observações</label><textarea id="saldo_obs" placeholder="Notas do comercial sobre esse período..."></textarea></div>
+          </div>
+        </div>
+
+        <div class="grid g3" id="saldoResultGrid" style="margin-top:6px">
+          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Custo total (mídia)</div><div class="val" id="saldoCustoTotal">R$ 3.596,83</div><div class="sub">Fixo — investimento em anúncios do período</div></div>
+          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Custo por lead</div><div class="val" id="saldoCustoLead">—</div><div class="sub">Custo total ÷ leads totais</div></div>
+          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Custo por proposta</div><div class="val" id="saldoCustoProposta">—</div><div class="sub">Custo total ÷ propostas enviadas</div></div>
+          <div class="kpi" style="--bar:var(--pos)"><div class="lbl">Custo por venda</div><div class="val" id="saldoCustoVenda">—</div><div class="sub">Custo total ÷ vendas</div></div>
+          <div class="kpi" style="--bar:var(--pos)"><div class="lbl">Faturamento total</div><div class="val" id="saldoFaturamentoOut">—</div><div class="sub">Informado pelo comercial</div></div>
+          <div class="kpi" style="--bar:var(--pos)"><div class="lbl">ROAS</div><div class="val" id="saldoRoas">—</div><div class="sub">Faturamento ÷ Custo total</div></div>
+        </div>
+      </section>
+
       <!-- ================= FINAL ================= -->
       <section id="final">
-        <div class="eyebrow">Março – Agosto 2026</div>
+        <div class="eyebrow">Março – Setembro 2026</div>
         <h2 class="title">Relatório Final Consolidado</h2>
-        <p class="lede">Resultado completo do período de gestão — Google Ads + Meta Ads. Agosto ainda parcial (dados até 16–17/08).</p>
+        <p class="lede">Resultado completo do período de gestão — Google Ads + Meta Ads. Setembro ainda parcial (dados até 10/09).</p>
 
         <div class="final-hero">
           <div class="row">
             <div class="total">
               <div class="k" style="font-size:11.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Investimento total do período</div>
-              <div class="v">R$ 24.577,76</div>
+              <div class="v">R$ 30.693,27</div>
             </div>
           </div>
           <div class="split">
-            <div class="s"><div class="k">Google Ads</div><div class="v" style="color:var(--google)">R$ 16.327,43</div></div>
-            <div class="s"><div class="k">Meta Ads</div><div class="v" style="color:var(--meta)">R$ 8.250,33</div></div>
-            <div class="s"><div class="k">Resultados</div><div class="v">267 conv. + 1.498 leads</div></div>
+            <div class="s"><div class="k">Google Ads</div><div class="v" style="color:var(--google)">R$ 18.799,01</div></div>
+            <div class="s"><div class="k">Meta Ads</div><div class="v" style="color:var(--meta)">R$ 11.894,26</div></div>
+            <div class="s"><div class="k">Resultados</div><div class="v">305 conv. + 1.585 leads</div></div>
           </div>
         </div>
 
@@ -744,13 +800,15 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
               <div class="st"><div class="k">Junho — Gasto</div><div class="v">R$ 2.089,21</div></div>
               <div class="st"><div class="k">Julho — Leads / CPL</div><div class="v">338 · R$4,16</div></div>
               <div class="st"><div class="k">Julho — Gasto</div><div class="v">R$ 1.777,98</div></div>
-              <div class="st"><div class="k">Agosto* — Leads / CPL</div><div class="v">123 · R$4,88</div></div>
-              <div class="st"><div class="k">Agosto* — Gasto</div><div class="v">R$ 1.995,30</div></div>
+              <div class="st"><div class="k">Agosto — Leads / CPL</div><div class="v">175 · R$6,29</div></div>
+              <div class="st"><div class="k">Agosto — Gasto</div><div class="v">R$ 4.149,30</div></div>
+              <div class="st"><div class="k">Setembro* — Leads / CPL</div><div class="v">35 · R$10,88</div></div>
+              <div class="st"><div class="k">Setembro* — Gasto</div><div class="v">R$ 1.489,93</div></div>
             </div>
             <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
-              <div><div style="font-size:11px;color:var(--text-faint)">TOTAL META</div><div class="mono" style="font-weight:700;font-size:17px">1.498 leads</div></div>
-              <div><div style="font-size:11px;color:var(--text-faint)">CPL médio (leads)</div><div class="mono" style="font-weight:700;font-size:17px">R$ 4,16</div></div>
-              <div><div style="font-size:11px;color:var(--text-faint)">Alcance total</div><div class="mono" style="font-weight:700;font-size:17px">219.535</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">TOTAL META</div><div class="mono" style="font-weight:700;font-size:17px">1.585 leads</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">CPL médio (leads)</div><div class="mono" style="font-weight:700;font-size:17px">R$ 4,48</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">Alcance total</div><div class="mono" style="font-weight:700;font-size:17px">279.450</div></div>
             </div>
           </div>
 
@@ -762,17 +820,18 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
               <div class="st"><div class="k">Maio — Conv. / Custo</div><div class="v">46 · R$75,28</div></div>
               <div class="st"><div class="k">Junho — Conv. / Custo</div><div class="v">51 · R$59,40</div></div>
               <div class="st"><div class="k">Julho — Conv. / Custo</div><div class="v">35 · R$85,88</div></div>
-              <div class="st"><div class="k">Agosto* — Conv. / Custo</div><div class="v">46 · R$35,45</div></div>
+              <div class="st"><div class="k">Agosto — Conv. / Custo</div><div class="v">72 · R$43,18</div></div>
+              <div class="st"><div class="k">Setembro* — Conv. / Custo</div><div class="v">12 · R$82,75</div></div>
               <div class="st"><div class="k">CTR médio (Mar–Jul)</div><div class="v">6,74%</div></div>
             </div>
             <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
-              <div><div style="font-size:11px;color:var(--text-faint)">TOTAL GOOGLE</div><div class="mono" style="font-weight:700;font-size:17px">267 conv.</div></div>
-              <div><div style="font-size:11px;color:var(--text-faint)">Custo/conv. médio</div><div class="mono" style="font-weight:700;font-size:17px">R$ 61,15</div></div>
-              <div><div style="font-size:11px;color:var(--text-faint)">Impressões totais</div><div class="mono" style="font-weight:700;font-size:17px">230.023</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">TOTAL GOOGLE</div><div class="mono" style="font-weight:700;font-size:17px">305 conv.</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">Custo/conv. médio</div><div class="mono" style="font-weight:700;font-size:17px">R$ 61,64</div></div>
+              <div><div style="font-size:11px;color:var(--text-faint)">Impressões totais</div><div class="mono" style="font-weight:700;font-size:17px">258.807</div></div>
             </div>
           </div>
         </div>
-        <p style="font-size:11px;color:var(--text-faint);margin:10px 0 0">* Agosto: dados parciais (Google até 16/08, Meta até 17/08). Impressões totais do Google já incluem a campanha Display "Seminovos 2026".</p>
+        <p style="font-size:11px;color:var(--text-faint);margin:10px 0 0">* Setembro: dados parciais (até 10/09). Impressões totais do Google já incluem a campanha Display "Seminovos 2026" (pausada em setembro). Alcance total do Meta é a soma dos alcances mensais reportados por conta (não deduplicado entre meses).</p>
 
         <div class="section-sub">Resumo Executivo — Período Completo</div>
         <div class="tbl-wrap"><table id="tblResumo"></table></div>
@@ -837,12 +896,19 @@ const MONTHS = {
     ctx:[['Google','Custo/conv. sobe para R$85,88 — pior mês do período'],['Meta','CPL de leads recupera para R$4,16 (exclui R$370,27 de branding do cálculo)'],['Visita ao Perfil','Reativada — R$370,27, reforço de marca'],['[Copa]','Encolhendo — R$206,50 · 9 leads, sinal de encerramento'],['Seminovos (Google)','Ainda R$0 investido']]
   },
   ago:{
-    label:'Agosto 2026 (parcial)',
-    google:{impressoes:'6.686',cliques:'390',gasto:'R$ 1.217,69',cpc:'R$ 3,12',ctr:'5,83%',conv:'34',custoConv:'R$ 35,81',custoConvTrend:'down',is:'53,64%',periodo:'Rede de Pesquisa · até 16/08'},
-    googleExtra:{nome:'Campanha Seminovos 2026 (Display)',impressoes:'165.493',cliques:'3.692',gasto:'R$ 412,90',cpc:'R$ 0,11',ctr:'2,23%',conv:'12',custoConv:'R$ 34,41'},
-    meta:{gasto:'R$ 1.995,30',leads:'123',cpl:'R$ 4,88',impressoes:'108.186',alcance:'65.257',visitas:'não coletado nesta consulta',campanha:'01 - Captação + 00 - Visita ao Perfil + 02 - Seminovos 2026 (mensagens)',alerta:'Captação: CPL de leads em R$4,88. Seminovos: 207 conversas a R$3,78'},
-    metaExtra:{nome:'Campanha Seminovos 2026 (objetivo Mensagens)',gasto:'R$ 782,92',conversas:'207',custoConversa:'R$ 3,78',impressoes:'54.090',alcance:'17.239'},
-    ctx:[['Novo eixo','Seminovos 2026 lançado no Google (Display) e no Meta (Mensagens)'],['Google Seminovos','R$412,90 · 165k impr. · CPC R$0,11 — alcance alto, custo baixo'],['Meta Seminovos','Objetivo Mensagens (não formulário): 207 conversas iniciadas a R$3,78/conversa'],['Meta Captação','CPL de leads em R$4,88 — abaixo do pico de junho (R$6,90)'],['Corte','Dados até 16/08 (Google) e 17/08 (Meta) — mês em andamento']]
+    label:'Agosto 2026',
+    google:{impressoes:'14.505',cliques:'712',gasto:'R$ 2.246,32',cpc:'R$ 3,15',ctr:'4,91%',conv:'47',custoConv:'R$ 47,79',custoConvTrend:'down',is:'63,83%',periodo:'Rede de Pesquisa · mês completo'},
+    googleExtra:{nome:'Campanha Seminovos 2026 (Display)',impressoes:'180.799',cliques:'4.432',gasto:'R$ 862,89',cpc:'R$ 0,19',ctr:'2,45%',conv:'25',custoConv:'R$ 34,52'},
+    meta:{gasto:'R$ 4.149,30',leads:'175',cpl:'R$ 6,29',impressoes:'195.272',alcance:'88.750',visitas:'2.981 · R$0,37/visita',campanha:'01 - Captação + 00 - Visita ao Perfil + 02 - Seminovos 2026 (mensagens)',alerta:'Captação: CPL de leads em R$6,29. Seminovos: 360 conversas a R$5,42'},
+    metaExtra:{nome:'Campanha Seminovos 2026 (objetivo Mensagens)',gasto:'R$ 1.950,54',conversas:'360',custoConversa:'R$ 5,42',impressoes:'91.939',alcance:'28.781'},
+    ctx:[['Novo eixo','Seminovos 2026 rodou o mês inteiro no Google (Display) e no Meta (Mensagens)'],['Google Seminovos','R$862,89 · 181k impr. · CPC R$0,19 — alcance alto, custo baixo'],['Meta Seminovos','Objetivo Mensagens (não formulário): 360 conversas iniciadas a R$5,42/conversa no mês'],['Meta Captação','CPL de leads em R$6,29 no mês — acima do pico de junho (R$6,90), mas próximo'],['Fechamento','Mês completo — 01/08 a 31/08']]
+  },
+  set:{
+    label:'Setembro 2026 (parcial, até 10/09)',
+    google:{impressoes:'5.659',cliques:'304',gasto:'R$ 992,95',cpc:'R$ 3,27',ctr:'5,37%',conv:'12',custoConv:'R$ 82,75',custoConvTrend:'up',is:'71,46%',periodo:'Rede de Pesquisa · até 10/09'},
+    meta:{gasto:'R$ 1.489,93',leads:'35',cpl:'R$ 10,88',impressoes:'56.654',alcance:'36.422',visitas:'1.042 · R$0,31/visita',campanha:'01 - Captação + 00 - Visita ao Perfil + 02 - Seminovos 2026 (mensagens)',alerta:'Captação: CPL sobe para R$10,88 nos primeiros 10 dias. Seminovos: 67 conversas a R$11,69'},
+    metaExtra:{nome:'Campanha Seminovos 2026 (objetivo Mensagens)',gasto:'R$ 783,40',conversas:'67',custoConversa:'R$ 11,69',impressoes:'19.634',alcance:'9.831'},
+    ctx:[['Corte parcial','Dados de 01/09 a 10/09 — mês em andamento, apenas 10 dias'],['Google Seminovos','Campanha Display pausada — sem investimento em setembro'],['Meta Captação','CPL sobe para R$10,88 — pior marca do período, monitorar de perto'],['Meta Seminovos','Custo por conversa também sobe (R$11,69 vs R$5,42 em agosto)'],['Google Busca','Custo/conv. sobe para R$82,75 — segue tendência de alta desde junho']]
   }
 };
 
@@ -910,8 +976,8 @@ const ATTENTION = [
  {ic:'💸', sev:'warn', t:'Google Ads — Custo/conv. subiu em Maio (R$55 → R$75)', p:'Impacto provável da mudança para Maximizar Cliques em 12/05, que prioriza volume em vez de qualidade de conversão. Custo ficou 14% acima do CPA alvo de R$66. Avaliar retorno para Maximizar Conversões com dados acumulados de maio.'},
  {ic:'🎨', sev:'warn', t:'Pouco material criativo fornecido — ponto combinado não cumprido integralmente', p:'Na reunião de alinhamento (03/03) ficou definido que a equipe Zumex forneceria criativos (fotos, vídeos, materiais) para uso nas campanhas Meta. O volume entregue ficou abaixo do acordado, limitando a rotação de peças e testes A/B — criativos frescos são o principal alavancador de CTR no Meta Ads.'},
  {ic:'🔗', sev:'neg', t:'RD Station — Conflito de atribuição de leads', p:'Identificado em abril: dificuldade em separar leads por origem (Google vs Meta) e recebimento correto no CRM interno. Sem atribuição correta, não é possível saber qual plataforma gera leads de maior qualidade ou taxa de fechamento. Investigação da integração necessária.'},
- {ic:'📊', sev:'warn', t:'Google Ads — Impression Share de 1ª posição, com recuperação parcial', p:'IS 1ª posição: 61,87% (mar) → 56,89% (abr) → 54,24% (mai) → 59,13% (jun) → 57,37% (jul) → 53,64%* (ago, parcial). Depois da queda inicial, houve recuperação em junho — mas voltou a cair em julho/agosto. Ainda abaixo do patamar de março, monitorar se impacta taxa de conversão.'},
- {ic:'📈', sev:'warn', t:'Meta Ads — CPL de leads teve pico em junho, recuperando desde julho', p:'Trajetória do CPL da campanha de captação (formulário, excluindo gasto de branding e mensagens): R$1,63 (abr) → R$4,58 (mai) → R$6,90 (jun, pico) → R$4,16 (jul) → R$4,88 (ago, parcial). Depois do pico em junho — puxado principalmente pela campanha [Copa], a R$26,44/lead — o custo por lead voltou para a faixa de R$4–5. Vale entender o que causou o pico de junho antes de descartar como ruído.'},
+ {ic:'📊', sev:'warn', t:'Google Ads — Impression Share de 1ª posição, com recuperação em ago/set', p:'IS 1ª posição (conta): 61,87% (mar) → 56,89% (abr) → 54,24% (mai) → 59,13% (jun) → 57,37% (jul) → 63,83% (ago) → 71,46%* (set, parcial). Depois da queda inicial, houve recuperação forte a partir de agosto, coincidindo com a entrada da campanha Display de Seminovos 2026.'},
+ {ic:'📈', sev:'neg', t:'Meta Ads — CPL de leads sobe de novo em agosto/setembro', p:'Trajetória do CPL da campanha de captação (formulário, excluindo gasto de branding e mensagens): R$1,63 (abr) → R$4,58 (mai) → R$6,90 (jun, pico anterior) → R$4,16 (jul) → R$6,29 (ago) → R$10,88* (set, parcial, 10 dias). Depois de recuperar em julho, o custo por lead voltou a subir em agosto e piorou nos primeiros 10 dias de setembro — merece atenção prioritária.'},
  {ic:'🆕', sev:'warn', t:'Google Ads — Custo/conv. de julho foi o pior do período (R$85,88)', p:'Sem mudança estrutural registrada que explique o pico — CTR e impressões seguiram dentro do padrão. Vale revisar termos de pesquisa e qualidade de landing page nesse mês específico.'},
  {ic:'💬', sev:'pos', t:'Meta Ads — Seminovos 2026 (Mensagens) já é o melhor custo por resultado do mês', p:'Campanha nova, objetivo Mensagens/Conversas (WhatsApp ou Direct, não formulário): 207 conversas iniciadas a R$3,78 cada, com R$782,92 investidos até 17/08. Não aparece nas métricas de "leads" porque mede um resultado diferente — vale considerar esse número junto do CPL na leitura geral de agosto, e decidir se esse objetivo deve crescer de orçamento.'}
 ];
@@ -1064,9 +1130,9 @@ function trend(dir, txt){
 /* ============================================================
    MONTH FILTER — dados numéricos por mês (fonte única)
    ============================================================ */
-const MONTH_ORDER = ['mar','abr','mai','jun','jul','ago'];
-const MONTH_LABEL = {mar:'Março',abr:'Abril',mai:'Maio',jun:'Junho',jul:'Julho',ago:'Agosto*'};
-const MONTH_LABEL_SHORT = {mar:'Mar',abr:'Abr',mai:'Mai',jun:'Jun',jul:'Jul',ago:'Ago*'};
+const MONTH_ORDER = ['mar','abr','mai','jun','jul','ago','set'];
+const MONTH_LABEL = {mar:'Março',abr:'Abril',mai:'Maio',jun:'Junho',jul:'Julho',ago:'Agosto',set:'Setembro*'};
+const MONTH_LABEL_SHORT = {mar:'Mar',abr:'Abr',mai:'Mai',jun:'Jun',jul:'Jul',ago:'Ago',set:'Set*'};
 
 const MONTHLY_NUM = {
   mar:{google:{impr:4774,clicks:411,gasto:1550.75,cpc:3.77,ctr:8.61,conv:23,custoConv:67.42,is:61.87,parcImpr:75.43}, meta:null},
@@ -1074,7 +1140,8 @@ const MONTHLY_NUM = {
   mai:{google:{impr:13030,clicks:867,gasto:3462.68,cpc:3.99,ctr:6.65,conv:46,custoConv:75.28,is:54.24,parcImpr:67.58}, meta:{impr:62867,alcance:40017,gasto:1601.82,leads:313,cpl:4.58,campanhas:2}},
   jun:{google:{impr:10730,clicks:779,gasto:3029.26,cpc:3.89,ctr:7.26,conv:51,custoConv:59.40,is:59.13,parcImpr:74.45}, meta:{impr:45789,alcance:23828,gasto:2089.21,leads:303,cpl:6.90,campanhas:2}},
   jul:{google:{impr:14108,clicks:845,gasto:3005.90,cpc:3.56,ctr:5.99,conv:35,custoConv:85.88,is:57.37,parcImpr:79.80}, meta:{impr:85356,alcance:57822,gasto:1777.98,leads:338,cpl:4.16,campanhas:3}},
-  ago:{google:{impr:172179,clicks:4082,gasto:1630.59,cpc:0.40,ctr:2.37,conv:46,custoConv:35.45,is:53.64,parcImpr:80.01}, meta:{impr:108186,alcance:65257,gasto:1995.30,leads:123,cpl:4.88,campanhas:3}}
+  ago:{google:{impr:195304,clicks:5144,gasto:3109.22,cpc:0.60,ctr:2.63,conv:72,custoConv:43.18,is:63.83,parcImpr:80.01}, meta:{impr:195272,alcance:88750,gasto:4149.30,leads:175,cpl:6.29,campanhas:3}},
+  set:{google:{impr:5659,clicks:304,gasto:992.95,cpc:3.27,ctr:5.37,conv:12,custoConv:82.75,is:71.46,parcImpr:80.01}, meta:{impr:56654,alcance:36422,gasto:1489.93,leads:35,cpl:10.88,campanhas:3}}
 };
 
 function fmtInt(v){ return Math.round(v).toLocaleString('pt-BR'); }
@@ -1128,12 +1195,12 @@ function setKpiValue(id, value, isInt, prefix){
 
 function renderGoogleTable(selected){
   const months = MONTH_ORDER.filter(m=>selected.has(m));
-  document.getElementById('footnoteGoogle').style.display = months.includes('ago') ? 'block' : 'none';
+  document.getElementById('footnoteGoogle').style.display = months.includes('set') ? 'block' : 'none';
   if(!months.length){ document.getElementById('tblGoogle').innerHTML = '<tbody><tr><td style="padding:16px">Nenhum mês selecionado.</td></tr></tbody>'; return; }
   const headers = ['Métrica', ...months.map(m=>MONTH_LABEL[m]), months.length>1?`Tendência (${MONTH_LABEL_SHORT[months[0]]}→${MONTH_LABEL_SHORT[months[months.length-1]]})`:'—'];
   const rows = GOOGLE_METRICS.map(metric=>{
     const cells = [metric.label];
-    months.forEach(m=>cells.push(metric.fmt(MONTHLY_NUM[m].google[metric.key]) + (m==='ago'?'*':'')));
+    months.forEach(m=>cells.push(metric.fmt(MONTHLY_NUM[m].google[metric.key]) + (m==='set'?'*':'')));
     cells.push(months.length>1 ? computeTrendGeneric(MONTHLY_NUM[months[0]].google[metric.key], MONTHLY_NUM[months[months.length-1]].google[metric.key], metric.type) : trend('flat','—'));
     return {cells};
   });
@@ -1141,12 +1208,12 @@ function renderGoogleTable(selected){
 }
 function renderMetaTable(selected){
   const months = MONTH_ORDER.filter(m=>selected.has(m) && MONTHLY_NUM[m].meta);
-  document.getElementById('footnoteMeta').style.display = months.includes('ago') ? 'block' : 'none';
+  document.getElementById('footnoteMeta').style.display = months.includes('set') ? 'block' : 'none';
   if(!months.length){ document.getElementById('tblMeta').innerHTML = '<tbody><tr><td style="padding:16px">Nenhum mês com dados Meta selecionado (Meta só começa em abril).</td></tr></tbody>'; return; }
   const headers = ['Métrica', ...months.map(m=>MONTH_LABEL[m]), months.length>1?`Tendência (${MONTH_LABEL_SHORT[months[0]]}→${MONTH_LABEL_SHORT[months[months.length-1]]})`:'—'];
   const rows = META_METRICS.map(metric=>{
     const cells = [metric.label];
-    months.forEach(m=>cells.push(metric.fmt(MONTHLY_NUM[m].meta[metric.key]) + (m==='ago'?'*':'')));
+    months.forEach(m=>cells.push(metric.fmt(MONTHLY_NUM[m].meta[metric.key]) + (m==='set'?'*':'')));
     cells.push(months.length>1 ? computeTrendGeneric(MONTHLY_NUM[months[0]].meta[metric.key], MONTHLY_NUM[months[months.length-1]].meta[metric.key], metric.type) : trend('flat','—'));
     return {cells};
   });
@@ -1199,7 +1266,7 @@ function renderKPIs(selected){
   document.getElementById('cmpAfterValue').innerHTML = fmtMoney0(avgAfter) + ' <span style="font-size:13px;color:var(--text-faint);font-weight:500">/mês</span>';
   document.getElementById('cmpSaveVal').textContent = (diffPct>=0?'– ':'+ ')+Math.abs(diffPct).toFixed(1).replace('.',',')+'%';
   document.getElementById('cmpPeriodLabel').textContent = monthsRangeLabel(months);
-  document.getElementById('cmpAfterDesc').textContent = `Média mensal (${count} ${count===1?'mês':'meses'}${months.includes('ago')?', ago parcial':''}) · Google + Meta Ads`;
+  document.getElementById('cmpAfterDesc').textContent = `Média mensal (${count} ${count===1?'mês':'meses'}${months.includes('set')?', set parcial':''}) · Google + Meta Ads`;
   document.getElementById('cmpCaption').textContent = `Comparativo por média mensal. Total investido no período selecionado: ${fmtMoney2(totalGasto)} · ${gConv} conversões Google + ${mLeads} leads Meta.`;
 }
 
@@ -1236,30 +1303,47 @@ buildTable(document.getElementById('tblCampaignsJul'),
 buildTable(document.getElementById('tblCampaignsAgo'),
  ['Campanha','Status','Objetivo','Resultado','Custo/resultado','Gasto','Impressões','Alcance'],
  [
-  {cells:['01 - Captação Leads Qualificados','<span class="status-pill on">Ativa</span>','Leads (formulário)','123 leads','R$4,88','R$600,30','21.215','14.593']},
-  {cells:['00 - Visita ao Perfil [Reforço de marca]','<span class="status-pill on">Ativa</span>','Visitas ao perfil','— (branding)','—','R$612,76','32.922','23.035']},
-  {cells:['02 - Campanha Seminovos 2026','<span class="status-pill on">Nova</span>','Mensagens','207 conversas','R$3,78','R$782,92','54.090','17.239']}
+  {cells:['01 - Captação Leads Qualificados','<span class="status-pill on">Ativa</span>','Leads (formulário)','175 leads','R$6,29','R$1.100,55','37.612','22.199']},
+  {cells:['00 - Visita ao Perfil [Reforço de marca]','<span class="status-pill on">Ativa</span>','Visitas ao perfil','2.981 visitas','R$0,37','R$1.098,21','65.721','44.357']},
+  {cells:['02 - Campanha Seminovos 2026','<span class="status-pill on">Ativa</span>','Mensagens','360 conversas','R$5,42','R$1.950,54','91.939','28.781']},
+  {cells:['TOTAL AGOSTO','—','175 leads + 360 conversas','—','R$4.149,30','195.272','88.750'], total:true}
  ]);
 
 buildTable(document.getElementById('tblGoogleAgo'),
  ['Campanha','Tipo','Impressões','Cliques','CTR','CPC','Gasto','Conversões','Custo/conv.'],
  [
-  {cells:['Rede de Pesquisa (RDA)','Busca','6.686','390','5,83%','R$3,12','R$1.217,69','34','R$35,81']},
-  {cells:['Campanha Seminovos 2026','Display','165.493','3.692','2,23%','R$0,11','R$412,90','12','R$34,41']},
-  {cells:['TOTAL AGOSTO (parcial)','—','172.179','4.082','2,37%','R$0,40','R$1.630,59','46','R$35,45'], total:true}
+  {cells:['Rede de Pesquisa (RDA)','Busca','14.505','712','4,91%','R$3,15','R$2.246,32','47','R$47,79']},
+  {cells:['Campanha Seminovos 2026','Display','180.799','4.432','2,45%','R$0,19','R$862,89','25','R$34,52']},
+  {cells:['TOTAL AGOSTO','—','195.304','5.144','2,63%','R$0,60','R$3.109,22','72','R$43,18'], total:true}
+ ]);
+
+buildTable(document.getElementById('tblCampaignsSet'),
+ ['Campanha','Status','Objetivo','Resultado','Custo/resultado','Gasto','Impressões','Alcance'],
+ [
+  {cells:['01 - Captação Leads Qualificados','<span class="status-pill on">Ativa</span>','Leads (formulário)','35 leads','R$10,88','R$380,65','11.351','7.752']},
+  {cells:['00 - Visita ao Perfil [Reforço de marca]','<span class="status-pill on">Ativa</span>','Visitas ao perfil','1.042 visitas','R$0,31','R$325,88','25.669','20.758']},
+  {cells:['02 - Campanha Seminovos 2026','<span class="status-pill on">Ativa</span>','Mensagens','67 conversas','R$11,69','R$783,40','19.634','9.831']},
+  {cells:['TOTAL SETEMBRO (parcial, até 10/09)','—','35 leads + 67 conversas','—','R$1.489,93','56.654','36.422'], total:true}
+ ]);
+
+buildTable(document.getElementById('tblGoogleSet'),
+ ['Campanha','Tipo','Impressões','Cliques','CTR','CPC','Gasto','Conversões','Custo/conv.'],
+ [
+  {cells:['Rede de Pesquisa (RDA)','Busca','5.659','304','5,37%','R$3,27','R$992,95','12','R$82,75']},
+  {cells:['TOTAL SETEMBRO (parcial, até 10/09)','—','5.659','304','5,37%','R$3,27','R$992,95','12','R$82,75'], total:true}
  ]);
 
 buildTable(document.getElementById('tblResumo'),
  ['Métrica','Google Ads','Meta Ads','Total / Média','Obs.'],
  [
-  {cells:['Investimento','R$16.327,43','R$8.250,33','R$24.577,76','66% Google · 34% Meta']},
-  {cells:['Resultados','267 conversões','1.498 leads','1.765 total','Objetivos distintos por plataforma']},
-  {cells:['Custo/resultado','R$61,15/conv.','R$4,16/lead','—','Meta: pico em junho, estável em R$4–5 desde julho']},
-  {cells:['Impressões','230.023','353.426','583.449','Ago inclui Display (Seminovos)']},
+  {cells:['Investimento','R$18.799,01','R$11.894,26','R$30.693,27','61% Google · 39% Meta']},
+  {cells:['Resultados','305 conversões','1.585 leads','1.890 total','Objetivos distintos por plataforma']},
+  {cells:['Custo/resultado','R$61,64/conv.','R$4,48/lead','—','Meta: CPL voltou a subir em ago/set após recuperação em julho']},
+  {cells:['Impressões','258.807','497.166','755.973','Ago/Set incluem Display (Seminovos) até pausar']},
   {cells:['Melhor mês','Abr · R$55/conv','Abr · R$1,63/lead','Abril 2026','Pico de eficiência em ambas']},
-  {cells:['Pior mês (completo)','Jul · R$85,88/conv','Jun · R$6,90/lead','—','Ago (parcial) recuperou p/ R$4,88 — abaixo do pico de junho']},
-  {cells:['Alcance Meta','—','219.535 (abr–ago)','219.535','Pessoas únicas impactadas']},
-  {cells:['Visitas perfil','—','510 visitas (abr–mai)','R$0,51 médio','Não recoletado jun–ago nesta atualização']}
+  {cells:['Pior mês (completo)','Jul · R$85,88/conv','Ago · R$6,29/lead','—','Set (parcial, 10 dias) já pior que ago em ambas plataformas']},
+  {cells:['Alcance Meta','—','279.450 (abr–set)','279.450','Soma por mês — não deduplicado entre meses']},
+  {cells:['Visitas ao perfil','—','4.533 visitas (abr, mai, ago, set)','~R$0,37 médio','Não recoletado em jun/jul nesta atualização']}
  ]);
 
 /* ============================================================
@@ -1670,6 +1754,91 @@ async function doSave(btn){
 }
 document.getElementById('btnSave').addEventListener('click', ()=>doSave(document.getElementById('btnSave')));
 document.getElementById('btnSaveBottom').addEventListener('click', ()=>doSave(document.getElementById('btnSaveBottom')));
+
+/* ============================================================
+   CAMPANHA SALDO (Seminovos 2026) — painel comercial 07/08–10/09
+   ============================================================ */
+const SALDO_TABLE = 'zumex_saldo_campaign';
+const SALDO_ROW_ID = 'saldo_2026';
+const SALDO_CUSTO_MIDIA = 3596.83; // Google R$862,89 (07/08–31/08) + Meta R$2.733,94 (07/08–10/09)
+const SALDO_FIELDS = ['leads_totais','negociacoes','propostas_enviadas','vendas','faturamento'];
+
+function fmtSaldoMoney(v){ return 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+function recalcSaldo(){
+  const get = id => parseFloat(document.getElementById(id).value) || 0;
+  const leads = get('saldo_leads'), propostas = get('saldo_propostas'), vendas = get('saldo_vendas'), faturamento = get('saldo_faturamento');
+  document.getElementById('saldoCustoTotal').textContent = fmtSaldoMoney(SALDO_CUSTO_MIDIA);
+  document.getElementById('saldoCustoLead').textContent = leads>0 ? fmtSaldoMoney(SALDO_CUSTO_MIDIA/leads) : '—';
+  document.getElementById('saldoCustoProposta').textContent = propostas>0 ? fmtSaldoMoney(SALDO_CUSTO_MIDIA/propostas) : '—';
+  document.getElementById('saldoCustoVenda').textContent = vendas>0 ? fmtSaldoMoney(SALDO_CUSTO_MIDIA/vendas) : '—';
+  document.getElementById('saldoFaturamentoOut').textContent = faturamento>0 ? fmtSaldoMoney(faturamento) : '—';
+  document.getElementById('saldoRoas').textContent = faturamento>0 ? (faturamento/SALDO_CUSTO_MIDIA).toFixed(2)+'x' : '—';
+}
+SALDO_FIELDS.forEach(f=>{
+  const el = document.getElementById('saldo_'+({leads_totais:'leads',negociacoes:'negociacoes',propostas_enviadas:'propostas',vendas:'vendas',faturamento:'faturamento'}[f]));
+  if(el) el.addEventListener('input', recalcSaldo);
+});
+
+function collectSaldoRow(){
+  const row = { id: SALDO_ROW_ID };
+  row.leads_totais = document.getElementById('saldo_leads').value || null;
+  row.negociacoes = document.getElementById('saldo_negociacoes').value || null;
+  row.propostas_enviadas = document.getElementById('saldo_propostas').value || null;
+  row.vendas = document.getElementById('saldo_vendas').value || null;
+  row.faturamento = document.getElementById('saldo_faturamento').value || null;
+  row.obs = document.getElementById('saldo_obs').value || null;
+  row.updated_at = new Date().toISOString();
+  return row;
+}
+function applySaldoRow(row){
+  if(!row) return;
+  if(row.leads_totais!=null) document.getElementById('saldo_leads').value = row.leads_totais;
+  if(row.negociacoes!=null) document.getElementById('saldo_negociacoes').value = row.negociacoes;
+  if(row.propostas_enviadas!=null) document.getElementById('saldo_propostas').value = row.propostas_enviadas;
+  if(row.vendas!=null) document.getElementById('saldo_vendas').value = row.vendas;
+  if(row.faturamento!=null) document.getElementById('saldo_faturamento').value = row.faturamento;
+  if(row.obs) document.getElementById('saldo_obs').value = row.obs;
+  recalcSaldo();
+  updateSaldoSaveBar(row);
+}
+function updateSaldoSaveBar(info, statusOverride){
+  const statusEl = document.getElementById('saldoSaveStatus');
+  const timeEl = document.getElementById('saldoSaveTime');
+  if(statusOverride){ statusEl.textContent = statusOverride; return; }
+  if(info && info.updated_at){
+    statusEl.textContent = 'Dados salvos';
+    timeEl.textContent = new Date(info.updated_at).toLocaleString('pt-BR');
+  } else {
+    statusEl.textContent = 'Ainda sem dados salvos';
+    timeEl.textContent = '—';
+  }
+}
+async function loadSaldo(){
+  const { data, error } = await sb.from(SALDO_TABLE).select('*').eq('id', SALDO_ROW_ID).maybeSingle();
+  if(error){ console.error(error); updateSaldoSaveBar(null, 'Erro ao carregar (ver console)'); return; }
+  applySaldoRow(data);
+}
+async function saveSaldo(btn){
+  const old = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Salvando…';
+  const row = collectSaldoRow();
+  const { error } = await sb.from(SALDO_TABLE).upsert(row).select().maybeSingle();
+  btn.disabled = false;
+  if(error){
+    console.error(error);
+    btn.textContent = '✗ Erro ao salvar';
+    updateSaldoSaveBar(null, 'Erro ao salvar (ver console)');
+    setTimeout(()=>btn.textContent = old, 2200);
+    return;
+  }
+  updateSaldoSaveBar({ updated_at: new Date().toISOString() });
+  btn.textContent = '✓ Salvo com sucesso';
+  setTimeout(()=>btn.textContent = old, 1800);
+}
+document.getElementById('btnSaveSaldo').addEventListener('click', ()=>saveSaldo(document.getElementById('btnSaveSaldo')));
+recalcSaldo();
+loadSaldo();
 
 /* ---------- Painel de Resultados: gráficos ---------- */
 function ensureCanvas(wrapId, canvasId){
