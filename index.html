@@ -727,15 +727,15 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
       <!-- ================= SALDO ================= -->
       <section id="saldo">
         <div class="eyebrow">07/08 – 10/09/2026 · corte especial</div>
-        <h2 class="title">Campanha Saldo · Seminovos 2026</h2>
-        <p class="lede">Recorte isolado da campanha promocional "Seminovos 2026" (Google Display + Meta Mensagens) no período de 07/08 a 10/09/2026 — investimento em mídia vindo direto das plataformas, e um painel para o time comercial registrar o funil de vendas gerado por essa ação.</p>
+        <h2 class="title">Campanha Saldo</h2>
+        <p class="lede">Recorte especial no período de 07/08 a 10/09/2026 — investimento em mídia é o total das contas Google Ads e Meta Ads nesse corte (todas as campanhas ativas, não isolado por campanha), e um painel para o time comercial registrar o funil de vendas gerado nesse período.</p>
 
         <div class="grid g3">
-          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Invest. mídia (Google+Meta)</div><div class="val">R$ 3.596,84</div><div class="sub">Google R$862,90 + Meta R$2.733,94</div></div>
-          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Cliques / Conversões Google</div><div class="val">4.432 / 25</div><div class="sub">Display · 180.799 impr.</div></div>
-          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Conversas Meta</div><div class="val">427</div><div class="sub">R$6,40/conversa · 111.573 impr.</div></div>
+          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Invest. mídia (Google+Meta)</div><div class="val">R$ 8.630,61</div><div class="sub">Google R$3.475,56 + Meta R$5.155,05</div></div>
+          <div class="kpi" style="--bar:var(--google)"><div class="lbl">Cliques / Conversões Google</div><div class="val">5.262 / 57,5</div><div class="sub">Total da conta · 197.969 impr.</div></div>
+          <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Cliques Meta</div><div class="val">7.218</div><div class="sub">Total da conta · 228.662 impr. · alcance 103.549</div></div>
         </div>
-        <p style="font-size:11px;color:var(--text-faint);margin:10px 0 30px">Campanha Display do Google ficou pausada a partir de 01/09 — o investimento de R$862,90 refere-se a 07/08–10/09 (sem gasto em setembro, já que a campanha só rodou dentro de agosto). No Meta, a campanha seguiu ativa até 10/09.</p>
+        <p style="font-size:11px;color:var(--text-faint);margin:10px 0 30px">Valores de <b style="color:var(--text)">toda a conta de anúncios</b> (Google Ads e Meta Ads) no período 07/08–10/09 — não isolados por campanha. Inclui Rede de Pesquisa, Captação de Leads, Visita ao Perfil e Seminovos 2026 somados.</p>
 
         <div class="section-sub">Painel Comercial — Funil da Campanha Saldo</div>
         <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 16px">Preencha os campos abaixo com o levantamento do time comercial para este período. Custo total, custo por lead, custo por proposta, custo por venda e ROAS são calculados automaticamente a partir do investimento em mídia acima.</p>
@@ -1760,7 +1760,7 @@ document.getElementById('btnSaveBottom').addEventListener('click', ()=>doSave(do
    ============================================================ */
 const SALDO_TABLE = 'zumex_saldo_campaign';
 const SALDO_ROW_ID = 'saldo_2026';
-const SALDO_CUSTO_MIDIA = 3596.84; // Google R$862,90 (07/08–10/09, confirmado no Ads Manager) + Meta R$2.733,94 (07/08–10/09)
+const SALDO_CUSTO_MIDIA = 8630.61; // Total da conta (todas as campanhas): Google R$3.475,56 + Meta R$5.155,05, 07/08–10/09
 const SALDO_FIELDS = ['leads_totais','negociacoes','propostas_enviadas','vendas','faturamento'];
 
 function fmtSaldoMoney(v){ return 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
