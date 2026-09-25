@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zumex · Relatório de Gestão · Mar–Ago 2026</title>
+<title>Zumex · Relatório de Gestão · Mar–Set 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -472,11 +472,11 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
 
 <div class="mobile-bar" id="mobileBar">
   <a href="#overview" class="active">Visão Geral</a>
+  <a href="#client">Cliente</a>
   <a href="#timeline">Timeline</a>
   <a href="#performance">Performance</a>
   <a href="#decisions">Decisões</a>
   <a href="#attention">Atenção</a>
-  <a href="#client">Cliente</a>
   <a href="#saldo">Saldo</a>
   <a href="#final">Final</a>
 </div>
@@ -490,11 +490,11 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
     </div>
     <nav class="tabs" id="tabs">
       <a href="#overview" class="active"><span class="dot"></span>Visão Geral</a>
+      <a href="#client"><span class="dot"></span>Retorno do Cliente</a>
       <a href="#timeline"><span class="dot"></span>Linha do Tempo</a>
       <a href="#performance"><span class="dot"></span>Performance</a>
       <a href="#decisions"><span class="dot"></span>Decisões</a>
       <a href="#attention"><span class="dot"></span>Pontos de Atenção</a>
-      <a href="#client"><span class="dot"></span>Retorno do Cliente</a>
       <a href="#saldo"><span class="dot"></span>Campanha Saldo</a>
       <a href="#final"><span class="dot"></span>Relatório Final</a>
     </nav>
@@ -522,12 +522,12 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
             <div class="savelbl" id="cmpSaveLbl">no gasto médio mensal,<br>com um segundo canal ativo</div>
           </div>
           <div class="box after">
-            <div class="k">Gestão RDA · <span id="cmpPeriodLabel">Mar–Ago 2026</span></div>
+            <div class="k">Gestão RDA · <span id="cmpPeriodLabel">Mar–Set 2026</span></div>
             <div class="v mono" id="cmpAfterValue">R$ 4.096 <span style="font-size:13px;color:var(--text-faint);font-weight:500">/mês</span></div>
             <div class="d" id="cmpAfterDesc">Média mensal (7 meses, set parcial) · Google + Meta Ads</div>
           </div>
         </div>
-        <p style="font-size:11.5px;color:var(--text-faint);margin:-24px 0 26px" id="cmpCaption">Comparativo por média mensal, já que os períodos têm durações diferentes (2 meses antes × 6 meses de gestão RDA, agosto ainda parcial). Total investido Mar–Ago: R$ 24.577,76 · 267 conversões Google + 1.498 leads Meta.</p>
+        <p style="font-size:11.5px;color:var(--text-faint);margin:-24px 0 26px" id="cmpCaption">Comparativo por média mensal, já que os períodos têm durações diferentes (2 meses antes × 7 meses de gestão RDA, setembro ainda parcial). Total investido Mar–Set: R$ 33.348,81 · 320 conversões Google + 1.757 leads Meta.</p>
 
         <div class="filter-bar" id="monthFilter">
           <span class="filter-label">Filtrar meses analisados:</span>
@@ -575,6 +575,80 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
         </div>
 
         <div class="plat-grid" id="monthPanel"><!-- injected by JS --></div>
+      </section>
+
+      <!-- ================= CLIENT ================= -->
+      <section id="client">
+        <div class="eyebrow">Retorno do cliente</div>
+        <h2 class="title">Dados da Zumex</h2>
+        <p class="lede">Preencha diretamente nas células abaixo — uma tabela por canal, uma linha por mês. Tudo fica visível de uma vez, sem trocar de aba. Clique em <b style="color:var(--text)">"💾 Salvar tudo"</b> (topo ou final desta seção) para gravar no banco (Supabase).</p>
+
+        <div class="save-bar">
+          <div class="stat">Status: <b id="saveStatus">Carregando…</b> · Última atualização: <b id="saveTime">—</b></div>
+          <div class="btn-row">
+            <button class="btn primary" id="btnSave">💾 Salvar tudo</button>
+          </div>
+        </div>
+
+        <div class="section-sub">Google Ads · por mês</div>
+        <div class="tbl-wrap"><table class="editable-table" id="tblEditGoogle"></table></div>
+
+        <div class="section-sub">Meta Ads · por mês</div>
+        <div class="tbl-wrap"><table class="editable-table" id="tblEditMeta"></table></div>
+        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">% de qualificação/quentes calculada sobre "Leads". Custo por venda usa o gasto real daquele canal naquele mês. Clique no 📝 de uma linha para abrir um campo de observações. O 🗑 apaga o registro salvo daquela linha (não afeta as outras).</p>
+
+        <form id="clientForm">
+          <div class="card form-card" style="margin-top:26px">
+            <h3><span class="n">📈</span>Perspectiva de Longo Prazo <span style="font-size:11px;font-weight:600;color:var(--text-faint);text-transform:none;letter-spacing:0">· geral, não é por mês/canal</span></h3>
+            <div class="f-grid">
+              <div class="field full"><label>Oportunidades em negociação (próximos 30–60 dias)</label><textarea id="f_oportunidades"></textarea></div>
+              <div class="field full">
+                <label>Volume e qualidade vs. expectativa inicial</label>
+                <div class="radio-row">
+                  <label><input type="radio" name="expect" value="Acima do esperado"> Acima do esperado</label>
+                  <label><input type="radio" name="expect" value="Na média"> Na média</label>
+                  <label><input type="radio" name="expect" value="Abaixo do esperado"> Abaixo do esperado</label>
+                </div>
+              </div>
+              <div class="field"><label>Segmento com maior engajamento</label><input type="text" id="f_segmento"></div>
+              <div class="field"><label>Investimento Meta Ads (total período)</label><input type="text" id="f_investMeta" value="R$ 13.013,26" readonly></div>
+            </div>
+          </div>
+        </form>
+
+        <div class="save-bar" style="margin-top:22px">
+          <div class="stat">Terminou de preencher? · <b id="saveTimeBottom">—</b></div>
+          <div class="btn-row">
+            <button class="btn primary" id="btnSaveBottom">💾 Salvar tudo</button>
+          </div>
+        </div>
+
+        <div class="section-sub" style="margin-top:44px">Painel de Resultados do Cliente</div>
+        <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 20px">Os dois primeiros gráficos usam os números que as plataformas reportam (referência). Os três seguintes são alimentados pelas tabelas acima.</p>
+
+        <div class="grid g2">
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--google)">Conversões Google (por mês)</h3><div class="chart-box"><canvas id="chartRefGoogle"></canvas></div></div>
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--meta)">Leads Meta (por mês)</h3><div class="chart-box"><canvas id="chartRefMeta"></canvas></div></div>
+        </div>
+
+        <div class="grid g2" style="margin-top:14px">
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--warn)">🔥 Leads Quentes (dados do cliente)</h3><div class="chart-box" id="chartHotLeadsWrap"><canvas id="chartHotLeads"></canvas></div></div>
+          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">Vendas por Canal (dados do cliente)</h3><div class="chart-box" id="chartSalesChannelWrap"><canvas id="chartSalesChannel"></canvas></div></div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">💰 Retorno em Reais · ROAS (dados do cliente)</h3>
+          <p style="font-size:11.5px;color:var(--text-faint);margin:-4px 0 10px">Investimento (Google/Meta, só nos meses com receita informada) × Receita reportada pela Zumex. ROAS = receita ÷ investimento.</p>
+          <div id="roasMonthFilter" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px"></div>
+          <div class="chart-box" id="chartRoasWrap"><canvas id="chartRoas"></canvas></div>
+          <div id="roasStats" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"></div>
+        </div>
+
+        <div class="card" style="margin-top:14px">
+          <h3 style="font-size:14px;margin-bottom:10px">Volume de Leads Recebidos × Custo por Lead</h3>
+          <p style="font-size:11.5px;color:var(--text-faint);margin:-4px 0 10px">Barras: leads recebidos (Google + Meta, confirmados pelo cliente) por mês. Linha: gasto das plataformas nesse mês ÷ leads recebidos — só nos meses com dado preenchido.</p>
+          <div class="chart-box" id="chartVolumeCostWrap"><canvas id="chartVolumeCost"></canvas></div>
+        </div>
       </section>
 
       <!-- ================= TIMELINE ================= -->
@@ -650,80 +724,6 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
         <h2 class="title">Pontos de Atenção</h2>
         <p class="lede">Problemas identificados, limitações e alertas do período atual.</p>
         <div id="attentionWrap"></div>
-      </section>
-
-      <!-- ================= CLIENT ================= -->
-      <section id="client">
-        <div class="eyebrow">Retorno do cliente</div>
-        <h2 class="title">Dados da Zumex</h2>
-        <p class="lede">Preencha diretamente nas células abaixo — uma tabela por canal, uma linha por mês. Tudo fica visível de uma vez, sem trocar de aba. Clique em <b style="color:var(--text)">"💾 Salvar tudo"</b> (topo ou final desta seção) para gravar no banco (Supabase).</p>
-
-        <div class="save-bar">
-          <div class="stat">Status: <b id="saveStatus">Carregando…</b> · Última atualização: <b id="saveTime">—</b></div>
-          <div class="btn-row">
-            <button class="btn primary" id="btnSave">💾 Salvar tudo</button>
-          </div>
-        </div>
-
-        <div class="section-sub">Google Ads · por mês</div>
-        <div class="tbl-wrap"><table class="editable-table" id="tblEditGoogle"></table></div>
-
-        <div class="section-sub">Meta Ads · por mês</div>
-        <div class="tbl-wrap"><table class="editable-table" id="tblEditMeta"></table></div>
-        <p style="font-size:11px;color:var(--text-faint);margin:8px 0 0">% de qualificação/quentes calculada sobre "Leads". Custo por venda usa o gasto real daquele canal naquele mês. Clique no 📝 de uma linha para abrir um campo de observações. O 🗑 apaga o registro salvo daquela linha (não afeta as outras).</p>
-
-        <form id="clientForm">
-          <div class="card form-card" style="margin-top:26px">
-            <h3><span class="n">📈</span>Perspectiva de Longo Prazo <span style="font-size:11px;font-weight:600;color:var(--text-faint);text-transform:none;letter-spacing:0">· geral, não é por mês/canal</span></h3>
-            <div class="f-grid">
-              <div class="field full"><label>Oportunidades em negociação (próximos 30–60 dias)</label><textarea id="f_oportunidades"></textarea></div>
-              <div class="field full">
-                <label>Volume e qualidade vs. expectativa inicial</label>
-                <div class="radio-row">
-                  <label><input type="radio" name="expect" value="Acima do esperado"> Acima do esperado</label>
-                  <label><input type="radio" name="expect" value="Na média"> Na média</label>
-                  <label><input type="radio" name="expect" value="Abaixo do esperado"> Abaixo do esperado</label>
-                </div>
-              </div>
-              <div class="field"><label>Segmento com maior engajamento</label><input type="text" id="f_segmento"></div>
-              <div class="field"><label>Investimento Meta Ads (total período)</label><input type="text" id="f_investMeta" value="R$ 8.250,33" readonly></div>
-            </div>
-          </div>
-        </form>
-
-        <div class="save-bar" style="margin-top:22px">
-          <div class="stat">Terminou de preencher? · <b id="saveTimeBottom">—</b></div>
-          <div class="btn-row">
-            <button class="btn primary" id="btnSaveBottom">💾 Salvar tudo</button>
-          </div>
-        </div>
-
-        <div class="section-sub" style="margin-top:44px">Painel de Resultados do Cliente</div>
-        <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 20px">Os dois primeiros gráficos usam os números que as plataformas reportam (referência). Os três seguintes são alimentados pelas tabelas acima.</p>
-
-        <div class="grid g2">
-          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--google)">Conversões Google (por mês)</h3><div class="chart-box"><canvas id="chartRefGoogle"></canvas></div></div>
-          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--meta)">Leads Meta (por mês)</h3><div class="chart-box"><canvas id="chartRefMeta"></canvas></div></div>
-        </div>
-
-        <div class="grid g2" style="margin-top:14px">
-          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--warn)">🔥 Leads Quentes (dados do cliente)</h3><div class="chart-box" id="chartHotLeadsWrap"><canvas id="chartHotLeads"></canvas></div></div>
-          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">Vendas por Canal (dados do cliente)</h3><div class="chart-box" id="chartSalesChannelWrap"><canvas id="chartSalesChannel"></canvas></div></div>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">💰 Retorno em Reais · ROAS (dados do cliente)</h3>
-          <p style="font-size:11.5px;color:var(--text-faint);margin:-4px 0 10px">Investimento (Google/Meta, só nos meses com receita informada) × Receita reportada pela Zumex. ROAS = receita ÷ investimento.</p>
-          <div id="roasMonthFilter" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px"></div>
-          <div class="chart-box" id="chartRoasWrap"><canvas id="chartRoas"></canvas></div>
-          <div id="roasStats" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"></div>
-        </div>
-
-        <div class="card" style="margin-top:14px">
-          <h3 style="font-size:14px;margin-bottom:10px">Volume de Leads Recebidos × Custo por Lead</h3>
-          <p style="font-size:11.5px;color:var(--text-faint);margin:-4px 0 10px">Barras: leads recebidos (Google + Meta, confirmados pelo cliente) por mês. Linha: gasto das plataformas nesse mês ÷ leads recebidos — só nos meses com dado preenchido.</p>
-          <div class="chart-box" id="chartVolumeCostWrap"><canvas id="chartVolumeCost"></canvas></div>
-        </div>
       </section>
 
       <!-- ================= SALDO ================= -->
