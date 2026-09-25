@@ -267,25 +267,25 @@ table.editable-table{width:100%;border-collapse:collapse;font-size:12.5px;min-wi
 .ctx-card .ctx-item .v{color:var(--text);text-align:right;font-weight:500;max-width:56%}
 
 /* ---------- timeline ---------- */
-.tl-month{margin-bottom:6px}
-.tl-month-head{font-family:'Manrope';font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin:34px 0 14px;padding-left:64px}
+.tl-month{margin-bottom:4px}
+.tl-month-head{font-family:'Manrope';font-weight:800;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin:20px 0 8px;padding-left:56px}
 .tl{position:relative}
-.tl::before{content:'';position:absolute;left:31px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--border),var(--border-strong),var(--border))}
-.tl-item{position:relative;display:flex;gap:20px;padding:0 0 22px 0}
+.tl::before{content:'';position:absolute;left:27px;top:4px;bottom:4px;width:1px;background:linear-gradient(var(--border),var(--border-strong),var(--border))}
+.tl-item{position:relative;display:flex;gap:16px;padding:0 0 8px 0}
 .tl-item .date{
-  flex:0 0 62px;text-align:right;font-family:'JetBrains Mono';font-size:11px;color:var(--text-faint);
-  padding-top:3px;
+  flex:0 0 54px;text-align:right;font-family:'JetBrains Mono';font-size:10px;color:var(--text-faint);
+  padding-top:6px;
 }
 .tl-item .node{position:relative;flex:0 0 2px}
 .tl-item .node::before{
-  content:'';position:absolute;left:-5px;top:6px;width:11px;height:11px;border-radius:50%;
+  content:'';position:absolute;left:-5px;top:9px;width:9px;height:9px;border-radius:50%;
   background:var(--bg);border:2px solid var(--dotc,var(--violet));z-index:2;
 }
-.tl-item .body{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 18px}
-.tl-item .tag-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
-.badge{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;letter-spacing:.02em;padding:3px 9px;border-radius:999px}
-.tl-item h4{font-size:14px;font-weight:700;margin-bottom:4px}
-.tl-item p{font-size:13px;color:var(--text-dim)}
+.tl-item .body{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 12px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.tl-item .tag-row{display:flex;align-items:center;flex:0 0 auto}
+.badge{display:inline-flex;align-items:center;font-size:9.5px;font-weight:700;letter-spacing:.02em;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tl-item h4{font-size:12.5px;font-weight:700;flex:0 0 auto}
+.tl-item p{font-size:11.5px;color:var(--text-dim);flex:1 1 260px;line-height:1.4}
 
 /* category colors */
 .b-milestone{background:rgba(140,109,255,.15);color:#b6a4ff}
@@ -498,7 +498,7 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
       <a href="#saldo"><span class="dot"></span>Campanha Saldo</a>
       <a href="#final"><span class="dot"></span>Relatório Final</a>
     </nav>
-    <div class="side-foot">Março – Agosto 2026<br>Gestão de Tráfego · Google Ads + Meta Ads</div>
+    <div class="side-foot">Março – Setembro 2026<br>Gestão de Tráfego · Google Ads + Meta Ads</div>
   </aside>
 
   <main class="main">
@@ -624,21 +624,16 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
         </div>
 
         <div class="section-sub" style="margin-top:44px">Painel de Resultados do Cliente</div>
-        <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 20px">Os dois primeiros gráficos usam os números que as plataformas reportam (referência). Os três seguintes são alimentados pelas tabelas acima.</p>
+        <p style="font-size:12px;color:var(--text-faint);margin:-4px 0 20px">Gráficos alimentados pelas tabelas acima (as métricas de investimento/conversão já aparecem na Visão Geral, não repetidas aqui).</p>
 
         <div class="grid g2">
-          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--google)">Conversões Google (por mês)</h3><div class="chart-box"><canvas id="chartRefGoogle"></canvas></div></div>
-          <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--meta)">Leads Meta (por mês)</h3><div class="chart-box"><canvas id="chartRefMeta"></canvas></div></div>
-        </div>
-
-        <div class="grid g2" style="margin-top:14px">
           <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--warn)">🔥 Leads Quentes (dados do cliente)</h3><div class="chart-box" id="chartHotLeadsWrap"><canvas id="chartHotLeads"></canvas></div></div>
           <div class="card"><h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">Vendas por Canal (dados do cliente)</h3><div class="chart-box" id="chartSalesChannelWrap"><canvas id="chartSalesChannel"></canvas></div></div>
         </div>
 
         <div class="card" style="margin-top:14px">
-          <h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">💰 Retorno em Reais · ROAS (dados do cliente)</h3>
-          <p style="font-size:11.5px;color:var(--text-faint);margin:-4px 0 10px">Investimento (Google/Meta, só nos meses com receita informada) × Receita reportada pela Zumex. ROAS = receita ÷ investimento.</p>
+          <h3 style="font-size:14px;margin-bottom:10px;color:var(--pos)">💰 Retorno em Reais · ROAS Real (dados do cliente)</h3>
+          <p style="font-size:11.5px;color:var(--text-faint);margin:-4px 0 10px">Investimento real (Google + Meta com imposto de 12,15% embutido, só nos meses com receita informada) × Receita reportada pela Zumex. ROAS = receita ÷ investimento real.</p>
           <div id="roasMonthFilter" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px"></div>
           <div class="chart-box" id="chartRoasWrap"><canvas id="chartRoas"></canvas></div>
           <div id="roasStats" style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px"></div>
@@ -733,7 +728,7 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
         <p class="lede">Recorte especial no período de 07/08 a 10/09/2026 — investimento em mídia é o total das contas Google Ads e Meta Ads nesse corte (todas as campanhas ativas, não isolado por campanha), e um painel para o time comercial registrar o funil de vendas gerado nesse período.</p>
 
         <div class="grid g4">
-          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Invest. mídia (Google+Meta)</div><div class="val">R$ 8.630,61</div><div class="sub">Google R$3.475,56 + Meta R$5.155,05</div></div>
+          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Invest. real mídia (Google+Meta)</div><div class="val">R$ 9.256,95</div><div class="sub">Google R$3.475,56 + Meta real R$5.781,39 (bruto R$5.155,05 +12,15% imposto)</div></div>
           <div class="kpi" style="--bar:var(--google)"><div class="lbl">Cliques / Conversões Google</div><div class="val">5.262 / 57,5</div><div class="sub">Total da conta · 197.969 impr.</div></div>
           <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Leads Meta (formulário nativo)</div><div class="val">156</div><div class="sub">Total da conta · 228.662 impr. · alcance 103.549</div></div>
           <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Mensagens Meta</div><div class="val">435</div><div class="sub">Conversas iniciadas · total da conta</div></div>
@@ -762,7 +757,7 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
         </div>
 
         <div class="grid g3" id="saldoResultGrid" style="margin-top:6px">
-          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Custo total (mídia)</div><div class="val" id="saldoCustoTotal">R$ 3.596,84</div><div class="sub">Fixo — investimento em anúncios do período</div></div>
+          <div class="kpi" style="--bar:var(--violet)"><div class="lbl">Custo real total (mídia)</div><div class="val" id="saldoCustoTotal">R$ 9.256,95</div><div class="sub">Fixo — Google + Meta com imposto de 12,15%</div></div>
           <div class="kpi" style="--bar:var(--meta)"><div class="lbl">Custo por lead</div><div class="val" id="saldoCustoLead">—</div><div class="sub">Custo total ÷ leads totais</div></div>
           <div class="kpi" style="--bar:var(--google)"><div class="lbl">Custo por proposta</div><div class="val" id="saldoCustoProposta">—</div><div class="sub">Custo total ÷ propostas enviadas</div></div>
           <div class="kpi" style="--bar:var(--pos)"><div class="lbl">Custo por venda</div><div class="val" id="saldoCustoVenda">—</div><div class="sub">Custo total ÷ vendas</div></div>
@@ -780,84 +775,36 @@ tbody tr.total td{background:rgba(255,255,255,.03);font-weight:700}
         <div class="final-hero">
           <div class="row">
             <div class="total">
-              <div class="k" style="font-size:11.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Investimento total do período</div>
-              <div class="v">R$ 33.348,81</div>
+              <div class="k" style="font-size:11.5px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Investimento real total do período <span style="opacity:.6;font-weight:500">(com imposto do Meta)</span></div>
+              <div class="v" id="finalInvestRealTotal">R$ 34.929,92</div>
             </div>
           </div>
           <div class="split">
             <div class="s"><div class="k">Google Ads</div><div class="v" style="color:var(--google)">R$ 20.335,55</div></div>
-            <div class="s"><div class="k">Meta Ads</div><div class="v" style="color:var(--meta)">R$ 13.013,26</div></div>
-            <div class="s"><div class="k">Resultados</div><div class="v">320 conv. + 1.757 leads</div></div>
+            <div class="s"><div class="k">Meta Ads <span style="opacity:.6;font-size:11px">(bruto)</span></div><div class="v" style="color:var(--meta)">R$ 13.013,26</div></div>
+            <div class="s"><div class="k">Meta Ads <span style="opacity:.6;font-size:11px">(real, +12,15% imposto)</span></div><div class="v" style="color:var(--meta)">R$ 14.594,37</div></div>
+            <div class="s"><div class="k">Resultados de mídia</div><div class="v">320 conv. Google + 1.757 leads Meta</div></div>
           </div>
         </div>
+        <p style="font-size:11px;color:var(--text-faint);margin:10px 0 0">Detalhe mês a mês de investimento, CPL e custo/conversão já está na aba <b style="color:var(--text)">Performance</b> — não repetido aqui.</p>
 
-        <div class="grid g2">
-          <div class="card">
-            <h3 style="font-size:14.5px;color:var(--meta);margin-bottom:14px">Meta Ads · Leads</h3>
-            <div class="stat-list">
-              <div class="st"><div class="k">Abril — Leads / CPL</div><div class="v">421 · R$1,63</div></div>
-              <div class="st"><div class="k">Abril — Gasto</div><div class="v">R$ 786,02</div></div>
-              <div class="st"><div class="k">Maio — Leads / CPL</div><div class="v">313 · R$4,58</div></div>
-              <div class="st"><div class="k">Maio — Gasto</div><div class="v">R$ 1.601,82</div></div>
-              <div class="st"><div class="k">Junho — Leads / CPL</div><div class="v">303 · R$6,90</div></div>
-              <div class="st"><div class="k">Junho — Gasto</div><div class="v">R$ 2.089,21</div></div>
-              <div class="st"><div class="k">Julho — Leads / CPL</div><div class="v">338 · R$4,16</div></div>
-              <div class="st"><div class="k">Julho — Gasto</div><div class="v">R$ 1.777,98</div></div>
-              <div class="st"><div class="k">Agosto — Leads / CPL</div><div class="v">175 · R$6,29</div></div>
-              <div class="st"><div class="k">Agosto — Gasto</div><div class="v">R$ 4.149,30</div></div>
-              <div class="st"><div class="k">Setembro* — Leads / CPL</div><div class="v">207 · R$4,14</div></div>
-              <div class="st"><div class="k">Setembro* — Gasto</div><div class="v">R$ 2.608,93</div></div>
-            </div>
-            <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
-              <div><div style="font-size:11px;color:var(--text-faint)">TOTAL META</div><div class="mono" style="font-weight:700;font-size:17px">1.757 leads</div></div>
-              <div><div style="font-size:11px;color:var(--text-faint)">CPL médio (leads)</div><div class="mono" style="font-weight:700;font-size:17px">R$ 4,31</div></div>
-              <div><div style="font-size:11px;color:var(--text-faint)">Alcance total</div><div class="mono" style="font-weight:700;font-size:17px">357.913</div></div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3 style="font-size:14.5px;color:var(--google);margin-bottom:14px">Google Ads · Conversões</h3>
-            <div class="stat-list">
-              <div class="st"><div class="k">Março — Conv. / Custo</div><div class="v">23 · R$67,42</div></div>
-              <div class="st"><div class="k">Abril — Conv. / Custo</div><div class="v">66 · R$55,28</div></div>
-              <div class="st"><div class="k">Maio — Conv. / Custo</div><div class="v">46 · R$75,28</div></div>
-              <div class="st"><div class="k">Junho — Conv. / Custo</div><div class="v">51 · R$59,40</div></div>
-              <div class="st"><div class="k">Julho — Conv. / Custo</div><div class="v">35 · R$85,88</div></div>
-              <div class="st"><div class="k">Agosto — Conv. / Custo</div><div class="v">72 · R$43,18</div></div>
-              <div class="st"><div class="k">Setembro* — Conv. / Custo</div><div class="v">27 · R$93,68</div></div>
-              <div class="st"><div class="k">CTR médio (Mar–Jul)</div><div class="v">6,74%</div></div>
-            </div>
-            <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
-              <div><div style="font-size:11px;color:var(--text-faint)">TOTAL GOOGLE</div><div class="mono" style="font-weight:700;font-size:17px">320 conv.</div></div>
-              <div><div style="font-size:11px;color:var(--text-faint)">Custo/conv. médio</div><div class="mono" style="font-weight:700;font-size:17px">R$ 63,55</div></div>
-              <div><div style="font-size:11px;color:var(--text-faint)">Impressões totais</div><div class="mono" style="font-weight:700;font-size:17px">265.250</div></div>
-            </div>
-          </div>
-        </div>
-        <p style="font-size:11px;color:var(--text-faint);margin:10px 0 0">* Setembro: dados parciais (até 25/09). Impressões totais do Google já incluem a campanha Display "Seminovos 2026" (pausada desde 10/09). Alcance total do Meta é a soma dos alcances mensais reportados por conta (não deduplicado entre meses).</p>
-
-        <div class="section-sub">Resumo Executivo — Período Completo</div>
-        <div class="tbl-wrap"><table id="tblResumo"></table></div>
-
-        <div class="callout info">
+        <div class="callout info" style="margin-top:20px">
           <b>Nota sobre atribuição.</b> Os dados de conversão do Google Ads e leads do Meta Ads são contabilizados de forma independente por cada plataforma. O conflito de atribuição identificado no RD Station em abril pode gerar sobreposição de contabilização entre plataformas — o número real de leads únicos pode ser ligeiramente menor que a soma. Recomenda-se revisão da integração CRM para garantir atribuição precisa nos próximos períodos.
         </div>
 
+        <div class="section-sub">Resultado Comercial (dados informados pela Zumex)</div>
         <div class="callout pending" id="execSummaryCallout">
           <b id="execSummaryTitle">Aguardando retorno do cliente</b> <span id="execSummarySub">— campos a preencher com a Zumex para completar o relatório.</span>
           <div class="pending-grid">
-            <div class="pf"><div class="k">Leads <span style="opacity:.6">· soma de todos os meses/canais</span></div><div class="v empty" id="sumLeads">—</div></div>
-            <div class="pf"><div class="k">Leads qualificados</div><div class="v empty" id="sumQualificados">—</div></div>
-            <div class="pf"><div class="k">Leads quentes 🔥</div><div class="v empty" id="sumQuentes">—</div></div>
-            <div class="pf"><div class="k">Propostas enviadas</div><div class="v empty" id="sumPropostas">—</div></div>
+            <div class="pf"><div class="k">Leads <span style="opacity:.6">· volume total, todos os meses/canais</span></div><div class="v empty" id="sumLeads">—</div></div>
             <div class="pf"><div class="k">Vendas <span style="opacity:.6">· quantidade</span></div><div class="v empty" id="sumVendas">—</div></div>
             <div class="pf"><div class="k">Faturamento <span style="opacity:.6">· em reais</span></div><div class="v empty" id="sumFaturamento">—</div></div>
+            <div class="pf"><div class="k">ROAS Real <span style="opacity:.6">· faturamento ÷ invest. real</span></div><div class="v empty" id="sumRoasReal">—</div></div>
           </div>
         </div>
       </section>
 
-      <div class="foot">Zumex · Relatório de Gestão de Tráfego · Março – Agosto 2026</div>
-      <div style="text-align:center;padding-bottom:30px;color:var(--text-faint);font-size:10px;opacity:.5">build 2026-08-19-v5 · filtro de mês no ROAS</div>
+      <div class="foot">Zumex · Relatório de Gestão de Tráfego · Março – Setembro 2026</div>
     </div>
   </main>
 </div>
@@ -1336,19 +1283,6 @@ buildTable(document.getElementById('tblGoogleSet'),
   {cells:['TOTAL SETEMBRO (parcial, até 25/09)','—','12.102','680','5,62%','R$3,72','R$2.529,49','27','R$93,68'], total:true}
  ]);
 
-buildTable(document.getElementById('tblResumo'),
- ['Métrica','Google Ads','Meta Ads','Total / Média','Obs.'],
- [
-  {cells:['Investimento','R$20.335,55','R$13.013,26','R$33.348,81','61% Google · 39% Meta']},
-  {cells:['Resultados','320 conversões','1.757 leads','2.077 total','Objetivos distintos por plataforma']},
-  {cells:['Custo/resultado','R$63,55/conv.','R$4,31/lead','—','Meta: CPL recuperou em setembro após pico em agosto']},
-  {cells:['Impressões','265.250','595.018','860.268','Ago/Set incluem Display (Seminovos) até pausar']},
-  {cells:['Melhor mês','Abr · R$55/conv','Abr · R$1,63/lead','Abril 2026','Pico de eficiência em ambas']},
-  {cells:['Pior mês (completo)','Jul · R$85,88/conv','Ago · R$6,29/lead','—','Set (parcial) já pior que jul em Google — R$93,68/conv']},
-  {cells:['Alcance Meta','—','357.913 (abr–set)','357.913','Soma por mês — não deduplicado entre meses']},
-  {cells:['Visitas ao perfil','—','~4.533 visitas (abr, mai, ago) + branding em set','~R$0,37 médio','Não recoletado em jun/jul; set sem contagem de visita isolada']}
- ]);
-
 /* ============================================================
    CHARTS (com suporte a filtro por mês)
    ============================================================ */
@@ -1557,12 +1491,13 @@ const CHANNEL_LABEL = {google:'Google Ads', meta:'Meta Ads'};
 const EDIT_FIELDS = ['leads_recebidos','qualificados','lead_quente','proposta','vendas','receita'];
 const FIELD_MAP_GENERAL = { f_oportunidades:'oportunidades', f_segmento:'segmento' };
 
+const META_TAX_RATE = 0.1215; // imposto sobre o gasto em anúncios do Meta (ISS etc.), informado pelo cliente
 function scopedId(mes,canal){ return mes+'__'+canal; }
 function getChannelSpend(mes,canal){
   const m = MONTHLY_NUM[mes];
   if(!m) return 0;
   if(canal==='google') return m.google.gasto;
-  if(canal==='meta') return m.meta ? m.meta.gasto : 0;
+  if(canal==='meta') return m.meta ? m.meta.gasto*(1+META_TAX_RATE) : 0;
   return 0;
 }
 function money(v){ return 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
@@ -1763,7 +1698,7 @@ document.getElementById('btnSaveBottom').addEventListener('click', ()=>doSave(do
    ============================================================ */
 const SALDO_TABLE = 'zumex_saldo_campaign';
 const SALDO_ROW_ID = 'saldo_2026';
-const SALDO_CUSTO_MIDIA = 8630.61; // Total da conta (todas as campanhas): Google R$3.475,56 + Meta R$5.155,05, 07/08–10/09
+const SALDO_CUSTO_MIDIA = 9256.95; // Custo real (com imposto Meta 12,15%): Google R$3.475,56 + Meta real R$5.781,39 (bruto R$5.155,05), 07/08–10/09
 const SALDO_FIELDS = ['leads_totais','negociacoes','propostas_enviadas','vendas','faturamento'];
 
 function fmtSaldoMoney(v){ return 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
@@ -1852,24 +1787,6 @@ function ensureCanvas(wrapId, canvasId){
 function showEmpty(wrapId, msg){
   document.getElementById(wrapId).innerHTML = `<div class="chart-empty"><div class="big">📭</div><div>${msg}</div></div>`;
 }
-function renderRefCharts(){
-  const labels = MONTH_ORDER.map(m=>MONTH_LABEL[m]);
-  const convData = MONTH_ORDER.map(m=>MONTHLY_NUM[m].google.conv);
-  new Chart(document.getElementById('chartRefGoogle'), {
-    type:'bar',
-    data:{labels, datasets:[{label:'Conversões', data:convData, backgroundColor:'rgba(79,140,255,.55)', borderRadius:6}]},
-    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
-      scales:{x:{grid:{display:false},border:{display:false}}, y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false}}}}
-  });
-  const metaMonths = MONTH_ORDER.filter(m=>MONTHLY_NUM[m].meta);
-  new Chart(document.getElementById('chartRefMeta'), {
-    type:'bar',
-    data:{labels:metaMonths.map(m=>MONTH_LABEL[m]), datasets:[{label:'Leads', data:metaMonths.map(m=>MONTHLY_NUM[m].meta.leads), backgroundColor:'rgba(255,92,155,.55)', borderRadius:6}]},
-    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
-      scales:{x:{grid:{display:false},border:{display:false}}, y:{grid:{color:'rgba(255,255,255,.05)'},border:{display:false}}}}
-  });
-}
-
 let chartHotLeadsInst=null, chartSalesChannelInst=null, chartVolumeCostInst=null, chartRoasInst=null;
 let roasAllRows = [];
 let roasSelectedMonths = new Set(MONTH_ORDER);
@@ -2024,6 +1941,12 @@ function renderClientCharts(rows){
 }
 
 /* ---------- Resumo Executivo: totais reais a partir dos dados do cliente ---------- */
+function totalInvestReal(){
+  return MONTH_ORDER.reduce((s,m)=>{
+    const md = MONTHLY_NUM[m];
+    return s + md.google.gasto + (md.meta ? md.meta.gasto*(1+META_TAX_RATE) : 0);
+  }, 0);
+}
 function renderExecutiveSummary(rows){
   const sum = f => rows.reduce((s,r)=>s+(parseFloat(r[f])||0), 0);
   const totalLeads = sum('leads_recebidos');
@@ -2041,11 +1964,11 @@ function renderExecutiveSummary(rows){
   };
 
   setVal('sumLeads', totalLeads>0 ? totalLeads.toLocaleString('pt-BR') : '—');
-  setVal('sumQualificados', totalQualif>0 ? totalQualif.toLocaleString('pt-BR') : '—');
-  setVal('sumQuentes', totalQuentes>0 ? totalQuentes.toLocaleString('pt-BR') : '—');
-  setVal('sumPropostas', totalPropostas>0 ? totalPropostas.toLocaleString('pt-BR') : '—');
   setVal('sumVendas', totalVendas>0 ? totalVendas.toLocaleString('pt-BR') : '—');
   setVal('sumFaturamento', totalReceita>0 ? money(totalReceita) : '—');
+  const investReal = totalInvestReal();
+  setVal('sumRoasReal', totalReceita>0 ? (totalReceita/investReal).toFixed(2)+'x' : '—');
+  document.getElementById('finalInvestRealTotal').textContent = money(investReal);
 
   const callout = document.getElementById('execSummaryCallout');
   const title = document.getElementById('execSummaryTitle');
@@ -2076,7 +1999,6 @@ function renderExecutiveSummary(rows){
   } else {
     updateSaveBar(null);
   }
-  renderRefCharts();
   renderClientCharts(rows);
   renderExecutiveSummary(rows);
 })();
